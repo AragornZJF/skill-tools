@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人中心</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="./shared/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <div class="profile-header">
+      <img class="avatar-lg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&q=80" alt="头像">
+      <h2 class="text-lg font-bold mt-3" style="color:#1d1d1f;">用户昵称</h2>
+      <p class="text-xs" style="color:#86868b;">ID: 100086</p>
+    </div>
+
+    <div class="glass-card profile-stats">
+      <div class="stat-col"><p class="stat-num">128</p><p class="stat-label">关注</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><p class="stat-num">2.3k</p><p class="stat-label">粉丝</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><p class="stat-num">56</p><p class="stat-label">收藏</p></div>
+    </div>
+
+    <div class="glass-card mt-4 overflow-hidden">
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-gear setting-icon" style="background:#007aff;"></i>
+        <span class="flex-1">账户设置</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-bell setting-icon" style="background:#ff9500;"></i>
+        <span class="flex-1">消息通知</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-shield-halved setting-icon" style="background:#34c759;"></i>
+        <span class="flex-1">隐私与安全</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-circle-question setting-icon" style="background:#5856d6;"></i>
+        <span class="flex-1">帮助中心</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn ripple-btn">退出登录</button>
+  </main>
+
+  <script src="./shared/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogout();
+  </script>
+</body>
+</html>

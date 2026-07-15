@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>原型容器 · App Prototype</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="./shared/styles.css">
+</head>
+<body class="shell-body">
+  <div class="phone-shell">
+    <div class="dynamic-island"></div>
+
+    <iframe id="appFrame" class="app-frame" src="./login.html" title="App Page"></iframe>
+
+    <nav class="tab-bar" id="tabBar">
+      <button class="tab-item active" data-page="home.html">
+        <i class="fa-solid fa-house"></i>
+        <span>首页</span>
+      </button>
+      <button class="tab-item" data-page="login.html">
+        <i class="fa-solid fa-compass"></i>
+        <span>发现</span>
+      </button>
+      <button class="tab-item" data-page="profile.html">
+        <i class="fa-solid fa-user"></i>
+        <span>我的</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="./shared/app.js"></script>
+  <script>
+    initTabNavigation();
+  </script>
+</body>
+</html>

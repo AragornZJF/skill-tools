@@ -1,0 +1,496 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 1600" font-family="'Ma Shan Zheng','Noto Serif SC',Georgia,serif">
+  <rect width="1800" height="1600" fill="#f5f0e8"/>
+
+  <g transform="translate(0, 0)">
+    <defs>
+      <g id="prop-letter-g1" fill="none" stroke="#141414">
+        <rect x="0" y="0" width="36" height="24" rx="1" stroke-width="1.4"/>
+        <polyline points="0,0 18,12 36,0" stroke-width="1"/>
+        <path d="M0,0 L-4,4" stroke-width="1.2"/>
+        <path d="M36,0 L40,4" stroke-width="1.2"/>
+        <circle cx="18" cy="12" r="3" fill="#C0392B" stroke="none"/>
+      </g>
+      <g id="atmo-mist-g1" opacity=".06">
+        <rect x="40" y="560" width="520" height="60" fill="#f5f0e8"/>
+        <path d="M40,580 Q160,565 280,580 Q400,595 560,575" stroke="#ddd" stroke-width="16" opacity=".04" fill="none"/>
+      </g>
+    </defs>
+    <rect width="600" height="800" fill="#fbfaf6"/>
+    <g fill="#141414" stroke="#141414">
+      <circle cx="60" cy="80" r="2"/>
+      <circle cx="150" cy="55" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="280" cy="95" r="2"/>
+      <circle cx="420" cy="60" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="540" cy="120" r="2"/>
+      <circle cx="90" cy="220" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="220" cy="180" r="2"/>
+      <circle cx="480" cy="230" r="2"/>
+      <circle cx="130" cy="340" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="450" cy="360" r="2"/>
+      <g stroke-width="1" opacity=".7"><line x1="330" y1="140" x2="330" y2="154"/><line x1="323" y1="147" x2="337" y2="147"/></g>
+      <g stroke-width="1" opacity=".7"><line x1="180" y1="270" x2="180" y2="284"/><line x1="173" y1="277" x2="187" y2="277"/></g>
+    </g>
+    <circle cx="490" cy="150" r="12" fill="none" stroke="#141414" stroke-width="1.4" opacity=".5"/>
+    <use href="#atmo-mist-g1"/>
+    <use href="#prop-letter-g1" x="460" y="180"/>
+    <g fill="none" stroke="#141414">
+      <path d="M40 640 Q300 565 560 640" stroke-width="2.6"/>
+      <path d="M40 640 Q300 700 560 640" stroke-width="1.4" opacity=".4"/>
+      <path d="M120 605 Q140 600 165 604" stroke-width="1" opacity=".5"/>
+      <path d="M380 600 Q405 595 430 600" stroke-width="1" opacity=".5"/>
+      <circle cx="250" cy="630" r="3" stroke-width="1" opacity=".5"/>
+    </g>
+    <g fill="none" stroke="#141414">
+      <circle cx="235" cy="470" r="15" stroke-width="2.2"/>
+      <path d="M220 461 Q234 445 250 461 M220 461 Q215 478 221 495 M250 461 Q255 478 249 495" stroke-width="1.4"/>
+      <circle cx="230" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <circle cx="240" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <path d="M233 476 q1.5 2 3 0" stroke-width=".8"/>
+      <path d="M230 479 q5 2.5 9 0" stroke-width=".8"/>
+      <path d="M222 486 q13 6 26 0" stroke-width="1.6"/>
+      <path d="M247 486 q6 3 9 9" stroke-width="1.4"/>
+      <path d="M235 489 Q210 506 206 588" stroke-width="2"/>
+      <path d="M235 489 Q260 506 264 588" stroke-width="2"/>
+      <path d="M206 588 q29 6 58 0" stroke-width="1.6"/>
+      <line x1="235" y1="491" x2="235" y2="585" stroke-width="1" opacity=".5"/>
+      <circle cx="235" cy="518" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="536" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="554" r="1" fill="#141414" stroke="none"/>
+      <path d="M212 504 q-5 16 -3 30" stroke-width="1.8"/>
+      <path d="M258 504 q7 13 11 23" stroke-width="1.8"/>
+      <path d="M223 588 q-1 14 0 22" stroke-width="1.8"/>
+      <path d="M247 588 q1 14 0 22" stroke-width="1.8"/>
+      <path d="M215 608 q8 4 14 0" stroke-width="1.4"/>
+      <path d="M240 608 q8 4 14 0" stroke-width="1.4"/>
+    </g>
+    <g fill="none" stroke="#141414">
+      <ellipse cx="370" cy="598" rx="40" ry="9" stroke-width="2"/>
+      <ellipse cx="372" cy="588" rx="32" ry="8" stroke-width="1.8"/>
+      <ellipse cx="374" cy="579" rx="24" ry="7" stroke-width="1.6"/>
+      <path d="M390 575 q14 -14 6 -28 q-8 -10 -20 -4" stroke-width="2"/>
+      <path d="M376 543 q-10 -2 -12 -10 q4 -6 12 -2 q4 6 0 12 Z" stroke-width="1.8"/>
+      <circle cx="370" cy="534" r="1.5" fill="#141414" stroke="none"/>
+      <path d="M364 537 q-8 -2 -12 -6" stroke-width="1.2"/>
+      <path d="M352 531 l-3 -2 M352 531 l-2 3" stroke-width="1"/>
+      <path d="M384 562 q4 -3 8 0" stroke-width="1" opacity=".5"/>
+      <path d="M374 540 q-4 -6 -8 -8 M366 532 l-2 -3 M366 532 l2 -4" stroke="#C0392B" stroke-width="1.2" fill="none"/>
+    </g>
+    <text x="300" y="695" text-anchor="middle" font-size="40" fill="#141414" letter-spacing="6">旧 巷 的 雨</text>
+    <line x1="245" y1="715" x2="355" y2="715" stroke="#141414" stroke-width="1.4"/>
+    <text x="300" y="745" text-anchor="middle" font-size="16" fill="#141414" letter-spacing="3">雨落青瓦 · 旧味如昨</text>
+    <text x="300" y="767" text-anchor="middle" font-size="12" fill="#666666" letter-spacing="2">离别与重逢</text>
+    <rect x="16" y="16" width="568" height="768" fill="none" stroke="#141414" stroke-width="1.2" opacity=".2"/>
+  </g>
+
+  <g transform="translate(600, 0)">
+    <defs>
+      <g id="prop-rope-g2" fill="none" stroke="#141414">
+        <path d="M10,30 Q20,10 40,20 Q50,30 40,40 Q20,50 10,30" stroke-width="2.2" opacity=".8"/>
+        <path d="M8,28 Q30,30 42,38" stroke-width="2" opacity=".6"/>
+        <path d="M12,32 Q30,26 38,22" stroke-width="2" opacity=".6"/>
+        <path d="M15,38 Q12,50 14,58" stroke-width="1.8"/>
+        <path d="M35,42 Q38,52 36,60" stroke-width="1.8"/>
+        <line x1="12" y1="58" x2="10" y2="62" stroke-width="1"/>
+        <line x1="14" y1="58" x2="16" y2="62" stroke-width="1"/>
+        <line x1="34" y1="60" x2="32" y2="64" stroke-width="1"/>
+        <line x1="36" y1="60" x2="38" y2="64" stroke-width="1"/>
+        <circle cx="26" cy="28" r="1.5" fill="#C0392B" stroke="none"/>
+      </g>
+      <g id="atmo-shadow-g2" fill="none" stroke="#141414" opacity=".1">
+        <ellipse cx="235" cy="618" rx="18" ry="4" stroke-width="1"/>
+        <ellipse cx="400" cy="618" rx="14" ry="3" stroke-width="1"/>
+      </g>
+    </defs>
+    <rect width="600" height="800" fill="#fbfaf6"/>
+    <g fill="#141414" stroke="#141414">
+      <circle cx="100" cy="100" r="2"/>
+      <circle cx="250" cy="70" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="380" cy="130" r="2"/>
+      <circle cx="520" cy="80" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="70" cy="260" r="2"/>
+      <circle cx="310" cy="230" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="500" cy="300" r="2"/>
+      <circle cx="160" cy="380" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="440" cy="410" r="2"/>
+      <g stroke-width="1" opacity=".7"><line x1="420" y1="180" x2="420" y2="194"/><line x1="413" y1="187" x2="427" y2="187"/></g>
+      <g stroke-width="1" opacity=".7"><line x1="140" y1="300" x2="140" y2="314"/><line x1="133" y1="307" x2="147" y2="307"/></g>
+    </g>
+    <circle cx="80" cy="430" r="9" fill="none" stroke="#141414" stroke-width="1.2" opacity=".4"/>
+    <use href="#atmo-shadow-g2"/>
+    <use href="#prop-rope-g2" x="490" y="595"/>
+    <g fill="none" stroke="#141414">
+      <path d="M40 640 Q300 565 560 640" stroke-width="2.6"/>
+      <path d="M40 640 Q300 700 560 640" stroke-width="1.4" opacity=".4"/>
+      <path d="M120 605 Q140 600 165 604" stroke-width="1" opacity=".5"/>
+      <path d="M380 600 Q405 595 430 600" stroke-width="1" opacity=".5"/>
+      <circle cx="250" cy="630" r="3" stroke-width="1" opacity=".5"/>
+    </g>
+    <g fill="none" stroke="#141414">
+      <circle cx="235" cy="470" r="15" stroke-width="2.2"/>
+      <path d="M220 461 Q234 445 250 461 M220 461 Q215 478 221 495 M250 461 Q255 478 249 495" stroke-width="1.4"/>
+      <circle cx="230" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <circle cx="240" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <path d="M233 476 q1.5 2 3 0" stroke-width=".8"/>
+      <path d="M230 479 q5 2.5 9 0" stroke-width=".8"/>
+      <path d="M222 486 q13 6 26 0" stroke-width="1.6"/>
+      <path d="M247 486 q6 3 9 9" stroke-width="1.4"/>
+      <path d="M235 489 Q210 506 206 588" stroke-width="2"/>
+      <path d="M235 489 Q260 506 264 588" stroke-width="2"/>
+      <path d="M206 588 q29 6 58 0" stroke-width="1.6"/>
+      <line x1="235" y1="491" x2="235" y2="585" stroke-width="1" opacity=".5"/>
+      <circle cx="235" cy="518" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="536" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="554" r="1" fill="#141414" stroke="none"/>
+      <path d="M212 504 q-5 16 -3 30" stroke-width="1.8"/>
+      <path d="M258 504 q7 13 11 23" stroke-width="1.8"/>
+      <path d="M223 588 q-1 14 0 22" stroke-width="1.8"/>
+      <path d="M247 588 q1 14 0 22" stroke-width="1.8"/>
+      <path d="M215 608 q8 4 14 0" stroke-width="1.4"/>
+      <path d="M240 608 q8 4 14 0" stroke-width="1.4"/>
+    </g>
+    <g fill="none" stroke="#141414">
+      <path d="M430 600 q40 -8 36 -56 q-2 -30 -24 -28 q-18 2 -14 30 q4 22 -2 40 Z" stroke-width="1.8"/>
+      <path d="M344 604 q-12 -34 16 -44 q40 -8 56 14 q8 20 -6 30 q-32 8 -66 0 Z" stroke-width="1.8"/>
+      <path d="M360 585 q14 8 30 0" stroke-width="1" opacity=".4"/>
+      <path d="M336 565 q-22 2 -26 -14 q-2 -16 14 -20 q20 -2 28 12 q6 16 -8 22 Z" stroke-width="1.8"/>
+      <path d="M330 540 l-6 -16 l14 8 Z" stroke-width="1.6"/>
+      <path d="M344 536 l2 -18 l12 10 Z" stroke-width="1.6"/>
+      <circle cx="320" cy="554" r="1.8" fill="#C0392B" stroke="none"/>
+      <path d="M312 562 q-4 1 -4 -2" stroke-width="1.2"/>
+      <path d="M340 558 q4 4 8 1" stroke-width="1" opacity=".5"/>
+      <path d="M362 604 q-2 8 1 12" stroke-width="1.6"/>
+      <path d="M386 604 q-2 8 1 12" stroke-width="1.6"/>
+      <path d="M358 616 q5 3 9 0" stroke-width="1"/>
+      <path d="M382 616 q5 3 9 0" stroke-width="1"/>
+    </g>
+    <text x="300" y="695" text-anchor="middle" font-size="40" fill="#141414" letter-spacing="6">龙 舟 的 影 子</text>
+    <line x1="245" y1="715" x2="355" y2="715" stroke="#141414" stroke-width="1.4"/>
+    <text x="300" y="745" text-anchor="middle" font-size="16" fill="#141414" letter-spacing="3">顺着它的性子来</text>
+    <text x="300" y="767" text-anchor="middle" font-size="12" fill="#666666" letter-spacing="2">心静手才巧</text>
+    <rect x="16" y="16" width="568" height="768" fill="none" stroke="#141414" stroke-width="1.2" opacity=".2"/>
+  </g>
+
+  <g transform="translate(1200, 0)">
+    <defs>
+      <radialGradient id="halo-grad-g3" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#C0392B" stop-opacity=".12"/>
+        <stop offset="100%" stop-color="#C0392B" stop-opacity="0"/>
+      </radialGradient>
+      <g id="prop-bell-g3" fill="none" stroke="#141414">
+        <path d="M15,4 Q15,0 30,0 Q45,0 45,4 L48,30 Q48,36 30,36 Q12,36 12,30 Z" stroke-width="1.8"/>
+        <circle cx="30" cy="24" r="3" stroke-width="1.2"/>
+        <line x1="30" y1="30" x2="30" y2="36" stroke-width="1"/>
+        <circle cx="30" cy="0" r="5" stroke-width="1.4"/>
+        <circle cx="30" cy="8" r="2" fill="#C0392B" stroke="none"/>
+      </g>
+    </defs>
+    <rect width="600" height="800" fill="#fbfaf6"/>
+    <g fill="#141414" stroke="#141414">
+      <circle cx="60" cy="120" r="2"/>
+      <circle cx="200" cy="90" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="340" cy="60" r="2"/>
+      <circle cx="500" cy="110" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="120" cy="280" r="2"/>
+      <circle cx="400" cy="250" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="530" cy="340" r="2"/>
+      <circle cx="80" cy="400" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="460" cy="440" r="2"/>
+      <g stroke-width="1" opacity=".7"><line x1="280" y1="160" x2="280" y2="174"/><line x1="273" y1="167" x2="287" y2="167"/></g>
+      <g stroke-width="1" opacity=".7"><line x1="160" y1="340" x2="160" y2="354"/><line x1="153" y1="347" x2="167" y2="347"/></g>
+    </g>
+    <circle cx="510" cy="380" r="10" fill="none" stroke="#141414" stroke-width="1.3" opacity=".4"/>
+    <circle cx="380" cy="548" r="36" fill="url(#halo-grad-g3)"/>
+    <use href="#prop-bell-g3" x="100" y="590"/>
+    <g fill="none" stroke="#141414">
+      <path d="M40 640 Q300 565 560 640" stroke-width="2.6"/>
+      <path d="M40 640 Q300 700 560 640" stroke-width="1.4" opacity=".4"/>
+      <path d="M120 605 Q140 600 165 604" stroke-width="1" opacity=".5"/>
+      <path d="M380 600 Q405 595 430 600" stroke-width="1" opacity=".5"/>
+      <circle cx="250" cy="630" r="3" stroke-width="1" opacity=".5"/>
+    </g>
+    <g fill="none" stroke="#141414">
+      <circle cx="235" cy="470" r="15" stroke-width="2.2"/>
+      <path d="M220 461 Q234 445 250 461 M220 461 Q215 478 221 495 M250 461 Q255 478 249 495" stroke-width="1.4"/>
+      <circle cx="230" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <circle cx="240" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <path d="M233 476 q1.5 2 3 0" stroke-width=".8"/>
+      <path d="M230 479 q5 2.5 9 0" stroke-width=".8"/>
+      <path d="M222 486 q13 6 26 0" stroke-width="1.6"/>
+      <path d="M247 486 q6 3 9 9" stroke-width="1.4"/>
+      <path d="M235 489 Q210 506 206 588" stroke-width="2"/>
+      <path d="M235 489 Q260 506 264 588" stroke-width="2"/>
+      <path d="M206 588 q29 6 58 0" stroke-width="1.6"/>
+      <line x1="235" y1="491" x2="235" y2="585" stroke-width="1" opacity=".5"/>
+      <circle cx="235" cy="518" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="536" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="554" r="1" fill="#141414" stroke="none"/>
+      <path d="M212 504 q-5 16 -3 30" stroke-width="1.8"/>
+      <path d="M258 504 q7 13 11 23" stroke-width="1.8"/>
+      <path d="M223 588 q-1 14 0 22" stroke-width="1.8"/>
+      <path d="M247 588 q1 14 0 22" stroke-width="1.8"/>
+      <path d="M215 608 q8 4 14 0" stroke-width="1.4"/>
+      <path d="M240 608 q8 4 14 0" stroke-width="1.4"/>
+    </g>
+    <g fill="none" stroke="rgb(192,57,43)">
+      <path d="M330 600 Q330 520 380 512 Q430 520 430 600" stroke-width="2.2"/>
+      <path d="M336 600 Q338 526 380 519 Q422 526 424 600" stroke-width="1.2" opacity=".3"/>
+      <line x1="326" y1="600" x2="434" y2="600" stroke-width="2"/>
+      <line x1="380" y1="600" x2="380" y2="560" stroke-width="1.6"/>
+      <path d="M380 580 q-16 -4 -20 -14 q12 0 20 6" stroke-width="1.4"/>
+      <path d="M380 572 q16 -2 22 -12 q-12 -2 -22 6" stroke-width="1.4"/>
+      <path d="M380 588 l-5 -3" stroke-width="1.4"/>
+      <path d="M380 568 l5 -3" stroke-width="1.4"/>
+      <circle cx="380" cy="548" r="12" stroke-width="1.8"/>
+      <circle cx="380" cy="548" r="8" stroke-width="1.5"/>
+      <circle cx="380" cy="548" r="4" stroke-width="1.3"/>
+    </g>
+    <text x="300" y="695" text-anchor="middle" font-size="40" fill="#141414" letter-spacing="6">艾草与五色线</text>
+    <line x1="245" y1="715" x2="355" y2="715" stroke="#141414" stroke-width="1.4"/>
+    <text x="300" y="745" text-anchor="middle" font-size="16" fill="#141414" letter-spacing="3">系在腕上的祝福</text>
+    <text x="300" y="767" text-anchor="middle" font-size="12" fill="#666666" letter-spacing="2">爱在无声处</text>
+    <rect x="16" y="16" width="568" height="768" fill="none" stroke="#141414" stroke-width="1.2" opacity=".2"/>
+  </g>
+
+  <g transform="translate(0, 800)">
+    <defs>
+      <g id="prop-boat-g4" fill="none" stroke="#141414">
+        <polyline points="0,22 60,22 50,36 10,36 Z" stroke-width="1.6"/>
+        <polyline points="30,22 30,4 8,22" stroke-width="1.4"/>
+        <polyline points="30,22 30,8 52,22" stroke-width="1.4"/>
+        <path d="M5,38 Q15,34 25,38 Q35,42 45,38 Q55,34 65,38" stroke-width="1" opacity=".4"/>
+        <circle cx="30" cy="14" r="1.5" fill="#C0392B" stroke="none"/>
+      </g>
+      <g id="atmo-ring-g4" fill="none" stroke="#141414" opacity=".12" stroke-width="1">
+        <ellipse cx="300" cy="640" rx="240" ry="22"/>
+      </g>
+    </defs>
+    <rect width="600" height="800" fill="#fbfaf6"/>
+    <g fill="#141414" stroke="#141414">
+      <circle cx="100" cy="60" r="2"/>
+      <circle cx="250" cy="100" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="400" cy="50" r="2"/>
+      <circle cx="520" cy="140" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="70" cy="200" r="2"/>
+      <circle cx="340" cy="180" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="480" cy="260" r="2"/>
+      <circle cx="140" cy="320" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="450" cy="370" r="2"/>
+      <g stroke-width="1" opacity=".7"><line x1="180" y1="150" x2="180" y2="164"/><line x1="173" y1="157" x2="187" y2="157"/></g>
+      <g stroke-width="1" opacity=".7"><line x1="380" y1="290" x2="380" y2="304"/><line x1="373" y1="297" x2="387" y2="297"/></g>
+    </g>
+    <circle cx="70" cy="380" r="14" fill="none" stroke="#141414" stroke-width="1.4" opacity=".4"/>
+    <circle cx="530" cy="200" r="9" fill="none" stroke="#141414" stroke-width="1.2" opacity=".4"/>
+    <use href="#atmo-ring-g4"/>
+    <use href="#prop-boat-g4" x="120" y="590"/>
+    <g fill="none" stroke="#141414">
+      <path d="M40 640 Q300 565 560 640" stroke-width="2.6"/>
+      <path d="M40 640 Q300 700 560 640" stroke-width="1.4" opacity=".4"/>
+      <path d="M120 605 Q140 600 165 604" stroke-width="1" opacity=".5"/>
+      <path d="M380 600 Q405 595 430 600" stroke-width="1" opacity=".5"/>
+      <circle cx="250" cy="630" r="3" stroke-width="1" opacity=".5"/>
+    </g>
+    <g fill="none" stroke="#141414">
+      <circle cx="235" cy="470" r="15" stroke-width="2.2"/>
+      <path d="M220 461 Q234 445 250 461 M220 461 Q215 478 221 495 M250 461 Q255 478 249 495" stroke-width="1.4"/>
+      <circle cx="230" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <circle cx="240" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <path d="M233 476 q1.5 2 3 0" stroke-width=".8"/>
+      <path d="M230 479 q5 2.5 9 0" stroke-width=".8"/>
+      <path d="M222 486 q13 6 26 0" stroke-width="1.6"/>
+      <path d="M247 486 q6 3 9 9" stroke-width="1.4"/>
+      <path d="M235 489 Q210 506 206 588" stroke-width="2"/>
+      <path d="M235 489 Q260 506 264 588" stroke-width="2"/>
+      <path d="M206 588 q29 6 58 0" stroke-width="1.6"/>
+      <line x1="235" y1="491" x2="235" y2="585" stroke-width="1" opacity=".5"/>
+      <circle cx="235" cy="518" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="536" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="554" r="1" fill="#141414" stroke="none"/>
+      <path d="M212 504 q-5 16 -3 30" stroke-width="1.8"/>
+      <path d="M258 504 q7 13 11 23" stroke-width="1.8"/>
+      <path d="M223 588 q-1 14 0 22" stroke-width="1.8"/>
+      <path d="M247 588 q1 14 0 22" stroke-width="1.8"/>
+      <path d="M215 608 q8 4 14 0" stroke-width="1.4"/>
+      <path d="M240 608 q8 4 14 0" stroke-width="1.4"/>
+    </g>
+    <g fill="none" stroke="#141414">
+      <path d="M400 580 q30 -10 40 -30 l8 4 q-6 16 -30 26" stroke-width="1.6"/>
+      <line x1="430" y1="555" x2="452" y2="548" stroke="#C0392B" stroke-width="1.4"/>
+      <path d="M420 575 l-10 14" stroke-width="1.4"/>
+      <circle cx="345" cy="528" r="13" stroke-width="2.2"/>
+      <path d="M333 524 q12 -8 24 0" stroke-width="1.4"/>
+      <line x1="333" y1="522" x2="357" y2="522" stroke-width="1.6"/>
+      <circle cx="340" cy="530" r="1.6" fill="#141414" stroke="none"/>
+      <circle cx="350" cy="530" r="1.6" fill="#141414" stroke="none"/>
+      <path d="M343 536 q3 2 6 0" stroke-width=".8"/>
+      <path d="M345 542 Q326 556 322 600" stroke-width="2"/>
+      <path d="M345 542 Q364 556 368 600" stroke-width="2"/>
+      <path d="M322 600 q23 5 46 0" stroke-width="1.6"/>
+      <line x1="345" y1="544" x2="345" y2="596" stroke-width="1" opacity=".5"/>
+      <path d="M328 552 q-4 14 -2 26" stroke-width="1.8"/>
+      <path d="M362 552 q6 12 10 20" stroke-width="1.8"/>
+      <path d="M334 600 q-1 12 0 14" stroke-width="1.8"/>
+      <path d="M356 600 q1 12 0 14" stroke-width="1.8"/>
+      <path d="M328 612 q7 4 12 0" stroke-width="1.4"/>
+      <path d="M350 612 q7 4 12 0" stroke-width="1.4"/>
+    </g>
+    <text x="300" y="695" text-anchor="middle" font-size="40" fill="#141414" letter-spacing="6">河 水 记 得</text>
+    <line x1="245" y1="715" x2="355" y2="715" stroke="#141414" stroke-width="1.4"/>
+    <text x="300" y="745" text-anchor="middle" font-size="16" fill="#141414" letter-spacing="3">鼓声是河的喘息</text>
+    <text x="300" y="767" text-anchor="middle" font-size="12" fill="#666666" letter-spacing="2">魂归流水</text>
+    <rect x="16" y="16" width="568" height="768" fill="none" stroke="#141414" stroke-width="1.2" opacity=".2"/>
+  </g>
+
+  <g transform="translate(600, 800)">
+    <defs>
+      <g id="prop-candle-g5" fill="none" stroke="#141414">
+        <rect x="15" y="36" width="12" height="10" rx="2" stroke-width="1.8"/>
+        <path d="M21,36 q4 -3 4 -8" stroke-width="1"/>
+        <path d="M25,28 Q28,22 25,16 Q22,22 25,28 Z" fill="#C0392B" stroke="none"/>
+        <path d="M15,38 Q13,40 14,42" stroke-width="1" opacity=".4"/>
+        <path d="M27,38 Q29,40 28,42" stroke-width="1" opacity=".4"/>
+      </g>
+    </defs>
+    <rect width="600" height="800" fill="#fbfaf6"/>
+    <g fill="#141414" stroke="#141414">
+      <circle cx="80" cy="90" r="2"/>
+      <circle cx="220" cy="60" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="360" cy="100" r="2"/>
+      <circle cx="510" cy="70" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="110" cy="240" r="2"/>
+      <circle cx="380" cy="210" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="500" cy="310" r="2"/>
+      <circle cx="160" cy="370" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="440" cy="420" r="2"/>
+      <g stroke-width="1" opacity=".7"><line x1="300" y1="140" x2="300" y2="154"/><line x1="293" y1="147" x2="307" y2="147"/></g>
+      <g stroke-width="1" opacity=".7"><line x1="200" y1="310" x2="200" y2="324"/><line x1="193" y1="317" x2="207" y2="317"/></g>
+    </g>
+    <circle cx="520" cy="360" r="11" fill="none" stroke="#141414" stroke-width="1.3" opacity=".4"/>
+    <path d="M510,120 Q530,100 545,120 Q560,140 540,160 Q520,180 510,160 Z" fill="#C0392B" stroke="none" opacity=".8"/>
+    <use href="#prop-candle-g5" x="470" y="590"/>
+    <g fill="none" stroke="#141414">
+      <path d="M40 640 Q300 565 560 640" stroke-width="2.6"/>
+      <path d="M40 640 Q300 700 560 640" stroke-width="1.4" opacity=".4"/>
+      <path d="M120 605 Q140 600 165 604" stroke-width="1" opacity=".5"/>
+      <path d="M380 600 Q405 595 430 600" stroke-width="1" opacity=".5"/>
+      <circle cx="250" cy="630" r="3" stroke-width="1" opacity=".5"/>
+    </g>
+    <g fill="none" stroke="#141414">
+      <circle cx="235" cy="470" r="15" stroke-width="2.2"/>
+      <path d="M220 461 Q234 445 250 461 M220 461 Q215 478 221 495 M250 461 Q255 478 249 495" stroke-width="1.4"/>
+      <circle cx="230" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <circle cx="240" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <path d="M233 476 q1.5 2 3 0" stroke-width=".8"/>
+      <path d="M230 479 q5 2.5 9 0" stroke-width=".8"/>
+      <path d="M222 486 q13 6 26 0" stroke-width="1.6"/>
+      <path d="M247 486 q6 3 9 9" stroke-width="1.4"/>
+      <path d="M235 489 Q210 506 206 588" stroke-width="2"/>
+      <path d="M235 489 Q260 506 264 588" stroke-width="2"/>
+      <path d="M206 588 q29 6 58 0" stroke-width="1.6"/>
+      <line x1="235" y1="491" x2="235" y2="585" stroke-width="1" opacity=".5"/>
+      <circle cx="235" cy="518" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="536" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="554" r="1" fill="#141414" stroke="none"/>
+      <path d="M212 504 q-5 16 -3 30" stroke-width="1.8"/>
+      <path d="M258 504 q7 13 11 23" stroke-width="1.8"/>
+      <path d="M223 588 q-1 14 0 22" stroke-width="1.8"/>
+      <path d="M247 588 q1 14 0 22" stroke-width="1.8"/>
+      <path d="M215 608 q8 4 14 0" stroke-width="1.4"/>
+      <path d="M240 608 q8 4 14 0" stroke-width="1.4"/>
+    </g>
+    <text x="300" y="695" text-anchor="middle" font-size="40" fill="#141414" letter-spacing="6">留 下 的 味 道</text>
+    <line x1="245" y1="715" x2="355" y2="715" stroke="#141414" stroke-width="1.4"/>
+    <text x="300" y="745" text-anchor="middle" font-size="16" fill="#141414" letter-spacing="3">味道里有了自己的时间</text>
+    <text x="300" y="767" text-anchor="middle" font-size="12" fill="#666666" letter-spacing="2">手艺即记忆</text>
+    <rect x="16" y="16" width="568" height="768" fill="none" stroke="#141414" stroke-width="1.2" opacity=".2"/>
+  </g>
+
+  <g transform="translate(1200, 800)">
+    <defs>
+      <g id="prop-kite-g6" fill="none" stroke="#141414">
+        <path d="M30,0 L60,30 L30,60 L0,30 Z" stroke-width="1.6"/>
+        <line x1="30" y1="0" x2="30" y2="60" stroke-width=".8"/>
+        <line x1="0" y1="30" x2="60" y2="30" stroke-width=".8"/>
+        <path d="M30,60 Q24,68 18,64 Q12,60 6,66" stroke-width="1"/>
+        <path d="M30,0 Q40,-20 60,-30" stroke-width=".8" opacity=".6"/>
+        <circle cx="30" cy="30" r="2" fill="#C0392B" stroke="none"/>
+      </g>
+    </defs>
+    <rect width="600" height="800" fill="#fbfaf6"/>
+    <g fill="#141414" stroke="#141414">
+      <circle cx="50" cy="70" r="2"/>
+      <circle cx="180" cy="110" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="320" cy="60" r="2"/>
+      <circle cx="470" cy="130" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="560" cy="90" r="2"/>
+      <circle cx="90" cy="220" r="1.4" fill="none" stroke-width="1"/>
+      <circle cx="290" cy="200" r="2"/>
+      <circle cx="520" cy="260" r="2"/>
+      <circle cx="140" cy="350" r="1.6" fill="none" stroke-width="1"/>
+      <circle cx="460" cy="390" r="2"/>
+      <g stroke-width="1" opacity=".7"><line x1="230" y1="160" x2="230" y2="174"/><line x1="223" y1="167" x2="237" y2="167"/></g>
+      <g stroke-width="1" opacity=".7"><line x1="400" y1="310" x2="400" y2="324"/><line x1="393" y1="317" x2="407" y2="317"/></g>
+    </g>
+    <use href="#prop-kite-g6" x="120" y="220"/>
+    <path d="M120,430 Q300,340 480,430" fill="none" stroke="#141414" stroke-width="1" opacity=".12"/>
+    <g fill="none" stroke="#141414">
+      <path d="M40 640 Q300 565 560 640" stroke-width="2.6"/>
+      <path d="M40 640 Q300 700 560 640" stroke-width="1.4" opacity=".4"/>
+      <path d="M120 605 Q140 600 165 604" stroke-width="1" opacity=".5"/>
+      <path d="M380 600 Q405 595 430 600" stroke-width="1" opacity=".5"/>
+      <circle cx="250" cy="630" r="3" stroke-width="1" opacity=".5"/>
+    </g>
+    <g fill="none" stroke="#141414">
+      <circle cx="235" cy="470" r="15" stroke-width="2.2"/>
+      <path d="M220 461 Q234 445 250 461 M220 461 Q215 478 221 495 M250 461 Q255 478 249 495" stroke-width="1.4"/>
+      <circle cx="230" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <circle cx="240" cy="471" r="1.7" fill="#141414" stroke="none"/>
+      <path d="M233 476 q1.5 2 3 0" stroke-width=".8"/>
+      <path d="M230 479 q5 2.5 9 0" stroke-width=".8"/>
+      <path d="M222 486 q13 6 26 0" stroke-width="1.6"/>
+      <path d="M247 486 q6 3 9 9" stroke-width="1.4"/>
+      <path d="M235 489 Q210 506 206 588" stroke-width="2"/>
+      <path d="M235 489 Q260 506 264 588" stroke-width="2"/>
+      <path d="M206 588 q29 6 58 0" stroke-width="1.6"/>
+      <line x1="235" y1="491" x2="235" y2="585" stroke-width="1" opacity=".5"/>
+      <circle cx="235" cy="518" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="536" r="1" fill="#141414" stroke="none"/>
+      <circle cx="235" cy="554" r="1" fill="#141414" stroke="none"/>
+      <path d="M212 504 q-5 16 -3 30" stroke-width="1.8"/>
+      <path d="M258 504 q7 13 11 23" stroke-width="1.8"/>
+      <path d="M223 588 q-1 14 0 22" stroke-width="1.8"/>
+      <path d="M247 588 q1 14 0 22" stroke-width="1.8"/>
+      <path d="M215 608 q8 4 14 0" stroke-width="1.4"/>
+      <path d="M240 608 q8 4 14 0" stroke-width="1.4"/>
+    </g>
+    <g fill="none" stroke="#141414">
+      <line x1="400" y1="600" x2="400" y2="520" stroke-width="2"/>
+      <rect x="390" y="503" width="20" height="20" stroke-width="1.8"/>
+      <line x1="386" y1="523" x2="414" y2="523" stroke-width="1.4"/>
+      <path d="M400 500 q3 -5 0 -9 q-3 4 0 9 Z" stroke="#C0392B" stroke-width="1.4"/>
+      <line x1="400" y1="488" x2="400" y2="483" stroke-width="1"/>
+      <line x1="391" y1="495" x2="387" y2="493" stroke-width="1"/>
+      <line x1="409" y1="495" x2="413" y2="493" stroke-width="1"/>
+      <circle cx="448" cy="548" r="11" stroke-width="2"/>
+      <circle cx="444" cy="548" r="1.5" fill="#141414" stroke="none"/>
+      <circle cx="452" cy="548" r="1.5" fill="#141414" stroke="none"/>
+      <path d="M443 554 q5 2 10 0" stroke-width=".8"/>
+      <path d="M448 560 Q435 572 433 600" stroke-width="1.8"/>
+      <path d="M448 560 Q461 572 463 600" stroke-width="1.8"/>
+      <path d="M433 600 q15 4 30 0" stroke-width="1.5"/>
+      <path d="M436 566 q-12 -10 -23 -22" stroke-width="1.8"/>
+      <circle cx="413" cy="544" r="2.2" fill="#141414"/>
+      <path d="M460 566 q6 8 6 18" stroke-width="1.6"/>
+      <path d="M439 600 q-1 10 0 12" stroke-width="1.6"/>
+      <path d="M457 600 q1 10 0 12" stroke-width="1.6"/>
+    </g>
+    <text x="300" y="695" text-anchor="middle" font-size="40" fill="#141414" letter-spacing="6">河 灯 与 归 途</text>
+    <line x1="245" y1="715" x2="355" y2="715" stroke="#141414" stroke-width="1.4"/>
+    <text x="300" y="745" text-anchor="middle" font-size="16" fill="#141414" letter-spacing="3">每盏灯都有自己的路</text>
+    <text x="300" y="767" text-anchor="middle" font-size="12" fill="#666666" letter-spacing="2">周而复始</text>
+    <rect x="16" y="16" width="568" height="768" fill="none" stroke="#141414" stroke-width="1.2" opacity=".2"/>
+  </g>
+
+  <line x1="600" y1="0" x2="600" y2="1600" stroke="#141414" stroke-width=".8" opacity=".1"/>
+  <line x1="1200" y1="0" x2="1200" y2="1600" stroke="#141414" stroke-width=".8" opacity=".1"/>
+  <line x1="0" y1="800" x2="1800" y2="800" stroke="#141414" stroke-width=".8" opacity=".1"/>
+</svg>

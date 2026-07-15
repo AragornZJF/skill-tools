@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 02 /goal（line + 朱砂点睛）：整幅黑墨，仅终点星朱砂红 #C0392B（达标即停的目标）。 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" font-family="'Noto Serif SC', Georgia, serif">
+  <rect width="600" height="800" fill="#fbfaf6"/>
+
+  <g fill="#141414" stroke="#141414">
+    <circle cx="80" cy="90" r="2"/><circle cx="170" cy="60" r="1.4" fill="none" stroke-width="1"/>
+    <circle cx="430" cy="70" r="1.6" fill="none" stroke-width="1"/>
+    <circle cx="520" cy="140" r="2"/><circle cx="60" cy="230" r="1.4" fill="none" stroke-width="1"/>
+    <circle cx="500" cy="260" r="2"/><circle cx="120" cy="350" r="1.6" fill="none" stroke-width="1"/>
+    <g stroke-width="1" opacity=".7"><line x1="200" y1="300" x2="200" y2="314"/><line x1="193" y1="307" x2="207" y2="307"/></g>
+  </g>
+  <!-- 终点星：朱砂点睛（实心星 + 十字光） -->
+  <g fill="#C0392B" stroke="#C0392B">
+    <circle cx="395" cy="175" r="4.5"/>
+    <g stroke-width="1.4"><line x1="395" y1="160" x2="395" y2="148"/><line x1="395" y1="190" x2="395" y2="202"/><line x1="380" y1="175" x2="368" y2="175"/><line x1="410" y1="175" x2="422" y2="175"/></g>
+  </g>
+  <path d="M395 202 Q380 300 320 420" fill="none" stroke="#141414" stroke-width="1" stroke-dasharray="2,6" opacity=".18"/>
+  <circle cx="510" cy="410" r="16" fill="none" stroke="#141414" stroke-width="1.4" opacity=".5"/>
+
+  <g id="ground" fill="none" stroke="#141414">
+    <path d="M40 640 Q300 565 560 640" stroke-width="2.6"/>
+    <path d="M40 640 Q300 700 560 640" stroke-width="1.4" opacity=".4"/>
+    <path d="M120 605 Q140 600 165 604" stroke-width="1" opacity=".5"/>
+    <path d="M380 600 Q405 595 430 600" stroke-width="1" opacity=".5"/>
+    <circle cx="250" cy="630" r="3" stroke-width="1" opacity=".5"/>
+  </g>
+
+  <g id="prince" fill="none" stroke="#141414">
+    <circle cx="235" cy="470" r="15" stroke-width="2.2"/>
+    <path d="M220 461 Q234 445 250 461 M220 461 Q215 478 221 495 M250 461 Q255 478 249 495" stroke-width="1.4"/>
+    <circle cx="230" cy="471" r="1.7" fill="#141414" stroke="none"/><circle cx="240" cy="471" r="1.7" fill="#141414" stroke="none"/>
+    <path d="M233 476 q1.5 2 3 0" stroke-width=".8"/><path d="M230 479 q5 2.5 9 0" stroke-width=".8"/>
+    <path d="M222 486 q13 6 26 0" stroke-width="1.6"/><path d="M247 486 q6 3 9 9" stroke-width="1.4"/>
+    <path d="M235 489 Q210 506 206 588" stroke-width="2"/><path d="M235 489 Q260 506 264 588" stroke-width="2"/>
+    <path d="M206 588 q29 6 58 0" stroke-width="1.6"/>
+    <line x1="235" y1="491" x2="235" y2="585" stroke-width="1" opacity=".5"/>
+    <circle cx="235" cy="518" r="1" fill="#141414" stroke="none"/><circle cx="235" cy="536" r="1" fill="#141414" stroke="none"/><circle cx="235" cy="554" r="1" fill="#141414" stroke="none"/>
+    <path d="M212 504 q-5 16 -3 30" stroke-width="1.8"/><path d="M258 504 q7 13 11 23" stroke-width="1.8"/>
+    <path d="M223 588 q-1 14 0 22" stroke-width="1.8"/><path d="M247 588 q1 14 0 22" stroke-width="1.8"/>
+    <path d="M215 608 q8 4 14 0" stroke-width="1.4"/><path d="M240 608 q8 4 14 0" stroke-width="1.4"/>
+  </g>
+
+  <text x="300" y="695" text-anchor="middle" font-size="40" fill="#141414" letter-spacing="6">/ goal</text>
+  <line x1="260" y1="715" x2="340" y2="715" stroke="#141414" stroke-width="1.4"/>
+  <text x="300" y="745" text-anchor="middle" font-size="16" fill="#141414" letter-spacing="3">达标即停，不用盯</text>
+
+  <rect x="16" y="16" width="568" height="768" fill="none" stroke="#141414" stroke-width="1.2" opacity=".2"/>
+</svg>

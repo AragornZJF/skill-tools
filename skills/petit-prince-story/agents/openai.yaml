@@ -1,0 +1,6 @@
+interface:
+  display_name: "小王子故事分镜"
+  short_description: "把 markdown 文档转成《小王子》手绘风格的故事分镜 SVG"
+  default_prompt: "Use $petit-prince-story to 把这份 markdown 画成几张小王子手绘风格的故事分镜。"
+policy:
+  allow_implicit_invocation: true

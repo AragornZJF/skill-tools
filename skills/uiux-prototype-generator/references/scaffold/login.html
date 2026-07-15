@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="./shared/styles.css">
+</head>
+<body class="page-body">
+  <!-- iOS 状态栏 -->
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content flex flex-col justify-center px-8">
+    <div class="text-center mb-10">
+      <div class="app-logo">
+        <i class="fa-solid fa-bolt"></i>
+      </div>
+      <h1 class="text-2xl font-bold mt-4" style="color:#1d1d1f;">欢迎回来</h1>
+      <p class="text-sm mt-1" style="color:#86868b;">登录你的账户</p>
+    </div>
+
+    <div class="glass-card p-6 space-y-4">
+      <div class="input-group">
+        <i class="fa-solid fa-user input-icon"></i>
+        <input type="text" id="username" placeholder="手机号 / 邮箱" class="glass-input">
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-lock input-icon"></i>
+        <input type="password" id="password" placeholder="密码" class="glass-input">
+      </div>
+      <button id="loginBtn" class="primary-btn ripple-btn w-full">登录</button>
+      <p class="text-center text-xs" style="color:#86868b;">还没有账户？<span style="color:#007aff;">立即注册</span></p>
+    </div>
+  </main>
+
+  <script src="./shared/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogin();
+  </script>
+</body>
+</html>

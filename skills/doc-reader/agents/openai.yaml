@@ -1,0 +1,6 @@
+interface:
+  display_name: "AI 文档阅读助手·超级马里奥掘金者"
+  short_description: "深度阅读任意文章：四阶段淘金（核心观点 / 行动步骤 / 隐藏洞见 / 延伸疑惑）+ GPS 知识图谱全景导航 + 测验模式布鲁姆六层次测评"
+  default_prompt: "Use $doc-reader-mario to 淘金这篇文章——提炼核心观点、三大行动步骤、隐藏洞见与延伸疑惑。"
+policy:
+  allow_implicit_invocation: true

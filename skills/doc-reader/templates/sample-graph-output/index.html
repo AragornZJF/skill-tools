@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>超级马里奥掘金者 · 知识图谱 - 知识图谱</title>
+  <script src="vendor/echarts.min.js"></script>
+  <link rel="stylesheet" href="vendor/fontawesome.min.css">
+  <link rel="stylesheet" href="css/page.css">
+<link rel="stylesheet" href="css/theme-picker.css">
+</head>
+<body>
+  <div class="toolbar fade-in" id="toolbar">
+    <h1 id="pageTitle"><i class="fas fa-project-diagram" style="margin-right:8px;"></i>超级马里奥掘金者 · 知识图谱</h1>
+    <div class="toolbar-controls">
+      <button class="btn" id="btnForce" onclick="switchLayout('force')"><i class="fas fa-project-diagram"></i> 力导向</button>
+      <button class="btn" id="btnRadial" onclick="switchLayout('radial')"><i class="fas fa-bullseye"></i> 辐射状</button>
+      <select class="ctrl-select" id="themeSelect" onchange="switchTheme(this.value)">
+        <option value="dark-tech">暗色科技</option>
+        <option value="nature-fresh">自然清新</option>
+        <option value="warm-sunset">暖阳落日</option>
+        <option value="ocean-deep">深海幽蓝</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="chart-container fade-in" id="chart"></div>
+
+  <div class="footer-tips fade-in" id="footer">
+    <i class="fas fa-info-circle"></i> 操作提示：悬停查看详情 &nbsp;|&nbsp; 点击高亮关联节点 &nbsp;|&nbsp; 拖拽调整布局 &nbsp;|&nbsp; 滚轮缩放
+  </div>
+
+  <script src="js/graph.js"></script>
+<script src="js/theme-picker.js"></script>
+</body>
+</html>

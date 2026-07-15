@@ -1,0 +1,18 @@
+.kg-picker{position:relative;display:inline-block;font-size:13px;font-family:inherit;}
+.kg-picker__btn{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid #1e2250;border-radius:9px;cursor:pointer;font-weight:500;letter-spacing:.2px;outline:none;background:#1a1f4e;color:#e0e0ff;transition:transform .18s ease,box-shadow .18s ease;font-family:inherit;}
+.kg-picker__btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.22);}
+.kg-picker__btn.is-open,.kg-picker__btn:focus{box-shadow:0 0 0 2px rgba(120,160,255,.6);}
+.kg-picker__sw{width:13px;height:13px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(255,255,255,.3);flex:none;}
+.kg-picker__lbl{white-space:nowrap;}
+.kg-picker__caret{flex:none;opacity:.85;transition:transform .2s ease;}
+.kg-picker__btn.is-open .kg-picker__caret{transform:rotate(180deg);}
+.kg-picker__panel{position:absolute;top:calc(100% + 6px);right:0;min-width:172px;margin:0;padding:6px;list-style:none;border:1px solid #1e2250;border-radius:11px;box-shadow:0 14px 34px rgba(0,0,0,.32);background:#111638;color:#e0e0ff;display:none;z-index:50;font-family:inherit;}
+.kg-picker__panel.is-open{display:block;animation:kgFade .16s ease;}
+@keyframes kgFade{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
+.kg-picker__item{display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:7px;cursor:pointer;font-weight:500;white-space:nowrap;}
+.kg-picker__item:hover{background:color-mix(in srgb,currentColor 16%,transparent);}
+.kg-picker__item.is-active{font-weight:700;}
+.kg-picker__item.is-active::after{content:'✓';margin-left:auto;opacity:.85;}
+.kg-picker__dot{width:11px;height:11px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);}
+.toolbar,.footer-tips,.btn,.kg-picker__btn,.kg-picker__panel{transition:background-color .45s ease,color .45s ease,border-color .45s ease,transform .18s ease,box-shadow .18s ease;}
+.kg-picker__item{transition:background-color .18s ease,color .45s ease;}

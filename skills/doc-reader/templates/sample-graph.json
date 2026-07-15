@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "title": "构建AI阅读助手·超级马里奥掘金者",
+    "layout": "force",
+    "theme": "dark-tech"
+  },
+  "nodes": [
+    { "id": "construct", "name": "构建AI阅读助手",        "category": "核心方法论", "weight": 100 },
+    { "id": "metaphor",  "name": "超级马里奥隐喻",        "category": "核心方法论", "weight": 85 },
+    { "id": "loop",      "name": "五阶段闭环",            "category": "核心方法论", "weight": 90 },
+    { "id": "garbage",   "name": "垃圾进垃圾出",          "category": "核心方法论", "weight": 62 },
+    { "id": "selftest",  "name": "自测理解",              "category": "核心方法论", "weight": 70 },
+    { "id": "ide",       "name": "智能编辑器≠代码编辑器", "category": "核心方法论", "weight": 78 },
+
+    { "id": "s1", "name": "通读全文",     "category": "淘金四阶段", "weight": 75 },
+    { "id": "s2", "name": "提炼金块",     "category": "淘金四阶段", "weight": 78 },
+    { "id": "s3", "name": "意料之外",     "category": "淘金四阶段", "weight": 72 },
+    { "id": "s4", "name": "延伸与疑惑",   "category": "淘金四阶段", "weight": 68 },
+
+    { "id": "coin",     "name": "金币(核心观点)",  "category": "隐喻元素", "weight": 50 },
+    { "id": "mushroom", "name": "蘑菇(行动步骤)",  "category": "隐喻元素", "weight": 50 },
+    { "id": "star",     "name": "星星(意外洞见)",  "category": "隐喻元素", "weight": 48 },
+    { "id": "qmark",    "name": "问号(延伸疑惑)",  "category": "隐喻元素", "weight": 48 },
+
+    { "id": "gps",       "name": "知识图谱全景导航GPS",  "category": "知识图谱GPS", "weight": 88 },
+    { "id": "node",      "name": "节点(概念)",       "category": "知识图谱GPS", "weight": 55 },
+    { "id": "link",      "name": "关系(连线)",       "category": "知识图谱GPS", "weight": 50 },
+    { "id": "category",  "name": "分类(颜色分组)",   "category": "知识图谱GPS", "weight": 50 },
+    { "id": "echarts",   "name": "ECharts",          "category": "知识图谱GPS", "weight": 58 },
+    { "id": "layout",    "name": "力导向/环形布局",  "category": "知识图谱GPS", "weight": 50 },
+    { "id": "interact",  "name": "交互式网页",       "category": "知识图谱GPS", "weight": 55 },
+
+    { "id": "kiro",   "name": "Kiro智能编辑器",   "category": "工具与落地", "weight": 75 },
+    { "id": "vibe",   "name": "Vibe模式",         "category": "工具与落地", "weight": 65 },
+    { "id": "spec",   "name": "Spec模式",         "category": "工具与落地", "weight": 52 },
+    { "id": "ref",    "name": "#引用文件名",       "category": "工具与落地", "weight": 58 },
+    { "id": "gemini", "name": "Gemini Deep Research", "category": "工具与落地", "weight": 55 },
+
+    { "id": "prompt1", "name": "淘金者Prompt",   "category": "提示词工程", "weight": 80 },
+    { "id": "prompt2", "name": "GPS Prompt",     "category": "提示词工程", "weight": 75 }
+  ],
+  "links": [
+    { "source": "construct", "target": "metaphor",  "relation": "基础" },
+    { "source": "construct", "target": "loop",      "relation": "核心" },
+    { "source": "construct", "target": "ide",       "relation": "认知转变" },
+    { "source": "construct", "target": "garbage",   "relation": "前提" },
+    { "source": "construct", "target": "kiro",      "relation": "落地工具" },
+    { "source": "construct", "target": "prompt1",   "relation": "提示词一" },
+    { "source": "construct", "target": "prompt2",   "relation": "提示词二" },
+
+    { "source": "metaphor", "target": "coin",     "relation": "象征" },
+    { "source": "metaphor", "target": "mushroom", "relation": "象征" },
+    { "source": "metaphor", "target": "star",     "relation": "象征" },
+    { "source": "metaphor", "target": "qmark",    "relation": "象征" },
+
+    { "source": "loop", "target": "s1",  "relation": "第一阶段" },
+    { "source": "loop", "target": "s2",  "relation": "第二阶段" },
+    { "source": "loop", "target": "s3",  "relation": "第三阶段" },
+    { "source": "loop", "target": "s4",  "relation": "第四阶段" },
+    { "source": "loop", "target": "gps", "relation": "第五阶段" },
+
+    { "source": "prompt1", "target": "loop", "relation": "驱动" },
+    { "source": "prompt2", "target": "gps",  "relation": "驱动" },
+
+    { "source": "s1", "target": "coin",     "relation": "产出" },
+    { "source": "s2", "target": "mushroom", "relation": "产出" },
+    { "source": "s3", "target": "star",     "relation": "产出" },
+    { "source": "s4", "target": "qmark",    "relation": "产出" },
+
+    { "source": "gps", "target": "node",     "relation": "节点" },
+    { "source": "gps", "target": "link",     "relation": "关系" },
+    { "source": "gps", "target": "category", "relation": "分类" },
+    { "source": "gps", "target": "echarts",  "relation": "基于" },
+    { "source": "gps", "target": "layout",   "relation": "布局" },
+    { "source": "gps", "target": "interact", "relation": "输出" },
+    { "source": "gps", "target": "selftest", "relation": "用途" },
+
+    { "source": "garbage", "target": "gemini", "relation": "备料" },
+
+    { "source": "kiro", "target": "vibe", "relation": "提供" },
+    { "source": "kiro", "target": "spec", "relation": "提供" },
+    { "source": "vibe", "target": "ref",  "relation": "使用" },
+    { "source": "ide",  "target": "kiro", "relation": "体现" }
+  ],
+  "categories": ["核心方法论", "淘金四阶段", "隐喻元素", "知识图谱GPS", "工具与落地", "提示词工程"]
+}

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  petit-prince-story · 默认竖卡骨架（600×800，line 画风）
+  ───────────────────────────────────────────────────────
+  这是「狐狸章」的完整示例。改章节时只动三处：
+    1. <g id="guest">  ← 换成 characters.md 里的 rose / pilot / snake / 狐狸
+    2. <text id="title"> ← 换成章节标题
+    3. <text id="quote"> ← 换成 ≤12 字金句
+  其余（王子 / 星空 / 沙地 / 文字带 / 内框）每幕保持一致。
+  style=watercolor 时：几何不变，按 characters.md 调色板加 fill、换描边色。
+  size 改变时：改 viewBox 两个数字即可，构图等比自适应。
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" font-family="'Ma Shan Zheng','Noto Serif SC',Georgia,serif">
+
+  <rect width="600" height="800" fill="#fbfaf6"/>
+
+  <!-- ===== 星空带（上 ~55%，星点 ≤12，稀疏） ===== -->
+  <g fill="#141414" stroke="#141414">
+    <circle cx="80"  cy="90"  r="2"/>
+    <circle cx="170" cy="60"  r="1.4" fill="none" stroke-width="1"/>
+    <circle cx="300" cy="110" r="2"/>
+    <circle cx="430" cy="70"  r="1.6" fill="none" stroke-width="1"/>
+    <circle cx="520" cy="140" r="2"/>
+    <circle cx="60"  cy="230" r="1.4" fill="none" stroke-width="1"/>
+    <circle cx="250" cy="200" r="2"/>
+    <circle cx="500" cy="260" r="2"/>
+    <circle cx="120" cy="350" r="1.6" fill="none" stroke-width="1"/>
+    <circle cx="470" cy="370" r="2"/>
+    <g stroke-width="1" opacity=".7"><line x1="350" y1="160" x2="350" y2="174"/><line x1="343" y1="167" x2="357" y2="167"/></g>
+    <g stroke-width="1" opacity=".7"><line x1="200" y1="300" x2="200" y2="314"/><line x1="193" y1="307" x2="207" y2="307"/></g>
+  </g>
+  <!-- 小行星点缀（≤2） -->
+  <circle cx="510" cy="410" r="16" fill="none" stroke="#141414" stroke-width="1.4" opacity=".5"/>
+  <circle cx="90"  cy="470" r="9"  fill="none" stroke="#141414" stroke-width="1.2" opacity=".4"/>
+
+  <!-- ===== 沙地弧（星球表面，下 ~25%） ===== -->
+  <g id="ground" fill="none" stroke="#141414">
+    <path d="M40 640 Q300 565 560 640" stroke-width="2.6"/>
+    <path d="M40 640 Q300 700 560 640" stroke-width="1.4" opacity=".4"/>
+    <path d="M120 605 Q140 600 165 604" stroke-width="1" opacity=".5"/>
+    <path d="M380 600 Q405 595 430 600" stroke-width="1" opacity=".5"/>
+    <circle cx="250" cy="630" r="3" stroke-width="1" opacity=".5"/>
+  </g>
+
+  <!-- ===== 小王子（贯穿主角，统一定义，每幕复用） ===== -->
+  <g id="prince" fill="none" stroke="#141414">
+    <circle cx="235" cy="470" r="15" stroke-width="2.2"/>
+    <path d="M220 461 Q234 445 250 461 M220 461 Q215 478 221 495 M250 461 Q255 478 249 495" stroke-width="1.4"/>
+    <circle cx="230" cy="471" r="1.7" fill="#141414" stroke="none"/>
+    <circle cx="240" cy="471" r="1.7" fill="#141414" stroke="none"/>
+    <path d="M233 476 q1.5 2 3 0" stroke-width=".8"/>
+    <path d="M230 479 q5 2.5 9 0" stroke-width=".8"/>
+    <path d="M222 486 q13 6 26 0" stroke-width="1.6"/>
+    <path d="M247 486 q6 3 9 9" stroke-width="1.4"/>
+    <path d="M235 489 Q210 506 206 588" stroke-width="2"/>
+    <path d="M235 489 Q260 506 264 588" stroke-width="2"/>
+    <path d="M206 588 q29 6 58 0" stroke-width="1.6"/>
+    <line x1="235" y1="491" x2="235" y2="585" stroke-width="1" opacity=".5"/>
+    <circle cx="235" cy="518" r="1" fill="#141414" stroke="none"/>
+    <circle cx="235" cy="536" r="1" fill="#141414" stroke="none"/>
+    <circle cx="235" cy="554" r="1" fill="#141414" stroke="none"/>
+    <path d="M212 504 q-5 16 -3 30" stroke-width="1.8"/>
+    <path d="M258 504 q7 13 11 23" stroke-width="1.8"/>
+    <path d="M223 588 q-1 14 0 22" stroke-width="1.8"/>
+    <path d="M247 588 q1 14 0 22" stroke-width="1.8"/>
+    <path d="M215 608 q8 4 14 0" stroke-width="1.4"/>
+    <path d="M240 608 q8 4 14 0" stroke-width="1.4"/>
+  </g>
+
+  <!-- ===== 客人槽：示例为「狐狸」。换章节时整组替换为 characters.md 的 rose / pilot / snake ===== -->
+  <g id="guest" fill="none" stroke="#141414">
+    <path d="M430 600 q40 -8 36 -56 q-2 -30 -24 -28 q-18 2 -14 30 q4 22 -2 40 Z" stroke-width="1.8"/>
+    <path d="M344 604 q-12 -34 16 -44 q40 -8 56 14 q8 20 -6 30 q-32 8 -66 0 Z" stroke-width="1.8"/>
+    <path d="M360 585 q14 8 30 0" stroke-width="1" opacity=".4"/>
+    <path d="M336 565 q-22 2 -26 -14 q-2 -16 14 -20 q20 -2 28 12 q6 16 -8 22 Z" stroke-width="1.8"/>
+    <path d="M330 540 l-6 -16 l14 8 Z" stroke-width="1.6"/>
+    <path d="M344 536 l2 -18 l12 10 Z" stroke-width="1.6"/>
+    <circle cx="320" cy="554" r="1.8" fill="#141414" stroke="none"/>
+    <path d="M312 562 q-4 1 -4 -2" stroke-width="1.2"/>
+    <path d="M340 558 q4 4 8 1" stroke-width="1" opacity=".5"/>
+    <path d="M362 604 q-2 8 1 12" stroke-width="1.6"/>
+    <path d="M386 604 q-2 8 1 12" stroke-width="1.6"/>
+    <path d="M358 616 q5 3 9 0" stroke-width="1"/>
+    <path d="M382 616 q5 3 9 0" stroke-width="1"/>
+  </g>
+
+  <!-- ===== 文字带（下 ~15%）：标题 + 分隔线 + ≤12字金句 ===== -->
+  <text id="title" x="300" y="695" text-anchor="middle" font-size="40" fill="#141414" letter-spacing="6">狐 狸</text>
+  <line x1="260" y1="715" x2="340" y2="715" stroke="#141414" stroke-width="1.4"/>
+  <text id="quote" x="300" y="745" text-anchor="middle" font-size="16" fill="#141414" letter-spacing="3">用心去看 · 才看得清楚</text>
+
+  <!-- 内框 -->
+  <rect x="16" y="16" width="568" height="768" fill="none" stroke="#141414" stroke-width="1.2" opacity=".2"/>
+</svg>
