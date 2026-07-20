@@ -76,9 +76,11 @@ function bindLogin() {
       shakeElement(loginBtn);
       return;
     }
-    // 原型模拟：通知父窗口切换到首页
+    // 原型模拟：在 iframe 内通知父窗口切换；独立打开时直接跳转
     if (window.parent && window.parent !== window) {
       window.parent.postMessage({ action: 'login-success' }, '*');
+    } else {
+      window.location.href = 'home.html';
     }
   });
 }
@@ -90,6 +92,8 @@ function bindLogout() {
   logoutBtn.addEventListener('click', function () {
     if (window.parent && window.parent !== window) {
       window.parent.postMessage({ action: 'logout' }, '*');
+    } else {
+      window.location.href = 'login.html';
     }
   });
 }

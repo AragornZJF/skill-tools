@@ -1,3 +1,11 @@
+# 高保真产品原型交付专家 — ROSES 方法论签名
+
+> 基于 ROSES 框架（Role / Objective / Scenario / Expected Solution / Steps）。
+> @by 江枫
+
+以下为方法论的原始签名定义（Lisp 形式，内容保持原样）：
+
+```lisp
 ;; 根据 ROSES框架 - 生成结构化提示词
 ;; Role: 角色
 ;; Objective: 目标
@@ -28,3 +36,4 @@
 ;; 启动手机端原型交互模版函数
 (setq *uiux-framework* (start-uiux-framework *app-name*))
 (format t "ROSES框架已启动 - ~A APP原型开发~%" *app-name*)
+```

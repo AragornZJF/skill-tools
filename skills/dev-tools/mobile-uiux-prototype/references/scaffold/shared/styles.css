@@ -1,0 +1,391 @@
+/* =========================================================
+   共享样式：玻璃拟态 + 多层阴影 + iOS 状态栏 + 涟漪动画
+   原型脚手架，按目标 APP 主题调整配色变量
+   ========================================================= */
+
+:root {
+  --primary: #007aff;
+  --primary-grad: linear-gradient(135deg, #007aff 0%, #4eb5ff 100%);
+  --text-main: #1d1d1f;
+  --text-sub: #86868b;
+  --bg-grad: linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 手机外壳（index.html 容器） ---------- */
+.shell-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #e5e5ea;
+}
+.phone-shell {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  background: #000;
+  border-radius: 55px;
+  padding: 12px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.dynamic-island {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 34px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 50;
+}
+.app-frame {
+  width: 100%;
+  height: calc(100% - 83px);
+  border: none;
+  border-radius: 44px 44px 0 0;
+  background: #fff;
+  transition: opacity 0.3s ease;
+}
+
+/* ---------- 底部 Tab 导航（玻璃拟态） ---------- */
+.tab-bar {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  height: 83px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding-top: 10px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 0 0 44px 44px;
+  border-top: 1px solid var(--glass-border);
+}
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  font-size: 10px;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+.tab-item i {
+  font-size: 20px;
+}
+.tab-item.active {
+  color: var(--primary);
+}
+.tab-item.active i {
+  transform: scale(1.1);
+}
+
+/* ---------- 页面通用（login/home/profile） ---------- */
+.page-body {
+  width: 100%;
+  max-width: 375px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--bg-grad);
+}
+.page-content {
+  padding-top: 54px;
+  min-height: 100vh;
+}
+
+/* ---------- iOS 状态栏 ---------- */
+.status-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  z-index: 100;
+}
+.status-icons i {
+  margin-left: 6px;
+  font-size: 13px;
+}
+
+/* ---------- 玻璃拟态卡片 ---------- */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- 登录页 ---------- */
+.app-logo {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  border-radius: 20px;
+  background: var(--primary-grad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 32px;
+  box-shadow: 0 8px 16px rgba(0, 122, 255, 0.3);
+}
+.input-group {
+  position: relative;
+}
+.input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-sub);
+  font-size: 14px;
+}
+.glass-input {
+  width: 100%;
+  padding: 13px 14px 13px 40px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.glass-input:focus {
+  border-color: var(--primary);
+}
+.primary-btn {
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary-grad);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(0, 122, 255, 0.3);
+}
+
+/* ---------- 首页 ---------- */
+.avatar-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.banner-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  height: 160px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+.banner-card img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.banner-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+}
+.stat-card {
+  padding: 16px;
+  text-align: center;
+}
+.stat-icon {
+  font-size: 22px;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+.stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--text-sub);
+}
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 20px 0 12px;
+}
+.list-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.list-thumb {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+/* ---------- 个人中心 ---------- */
+.profile-header {
+  text-align: center;
+  padding: 16px 0;
+}
+.avatar-lg {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.profile-stats {
+  display: flex;
+  align-items: center;
+  padding: 18px 0;
+}
+.stat-col {
+  flex: 1;
+  text-align: center;
+}
+.stat-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.08);
+}
+.setting-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  color: var(--text-main);
+  font-size: 14px;
+}
+.setting-item:last-child {
+  border-bottom: none;
+}
+.setting-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+}
+.logout-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: #fff;
+  color: #ff3b30;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ---------- 作者署名（login / profile 底部） ---------- */
+.author-signature {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.04);
+  font-size: 11px;
+  color: var(--text-sub);
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+.author-signature i {
+  font-size: 10px;
+}
+.author-signature:hover {
+  color: var(--primary);
+  background: rgba(0, 122, 255, 0.08);
+}
+
+/* ---------- 涟漪动画 ---------- */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+.ripple-btn:active {
+  transform: scale(0.97);
+}
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(0);
+  -webkit-animation: rippleEffect 0.6s ease-out;
+  animation: rippleEffect 0.6s ease-out;
+  pointer-events: none;
+}
+@-webkit-keyframes rippleEffect {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+@keyframes rippleEffect {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
