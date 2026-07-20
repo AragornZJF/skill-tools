@@ -4,10 +4,12 @@
 
 ## 目录
 
-skills 目录下共收录 25 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），按功能归入 8 个分类文件夹：
+skills 目录下共收录 25 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 2 个通用技能置于顶层，其余按功能归入 8 个分类文件夹：
 
 ```
 skills/
+├── auto-skill-forge/           # 元技能工厂（通用，顶层）
+├── prompt-framework/           # 提示词框架（通用，顶层）
 ├── thinking-learning/          # 思维与学习方法
 │   ├── bloom-test/             # 布鲁姆认知测验
 │   ├── feynman-tech/           # 费曼学习法
@@ -21,8 +23,6 @@ skills/
 │   ├── md2html/                # Markdown 转 HTML
 │   └── petit-prince-story/     # 小王子风格分镜
 ├── content-creation/           # 内容创作
-│   ├── auto-skill-forge/       # 元技能工厂
-│   ├── prompt-framework/       # 提示词框架
 │   └── title-designer/         # 标题设计
 ├── visualization/              # 可视化
 │   ├── mermaid-generator/      # Mermaid 图表生成
@@ -37,14 +37,21 @@ skills/
 ├── dev-tools/                  # 开发工具
 │   ├── git-commit/             # Git 提交工作流
 │   ├── goal-loop/              # 目标构建循环
-│   ├── ui2code-copilot/        # 设计稿转代码 Copilot
-│   └── uiux-prototype-generator/ # UI/UX 原型生成
+│   ├── mobile-uiux-prototype/  # 高保真移动端原型
+│   └── ui2code-copilot/        # 设计稿转代码 Copilot
 └── life-planning/              # 人生规划
     ├── gaokao-planner/         # 高考志愿规划
     └── human3-evaluation/      # 人生发展评估
 ```
 
 ## 技能总览
+
+### 通用工具
+
+| 技能 | 简介 | 触发词示例 |
+| --- | --- | --- |
+| `auto-skill-forge` | 元技能工厂，用于创建带自进化能力的新技能，或为现有技能注入自我反思与改进机制 | 造个skill、创建skill、auto-skill、自进化skill |
+| `prompt-framework` | 内置 14 个提示词工程框架（RTF、CO-STAR、ICIO、RISE 等），自动选定最合适框架生成可用提示词 | 帮我写提示词、优化prompt、prompt framework |
 
 ### 思维与学习方法
 
@@ -71,8 +78,6 @@ skills/
 | 技能 | 简介 | 触发词示例 |
 | --- | --- | --- |
 | `title-designer` | 根据内容描述创作 3-5 个不同风格（悬念/数字/问题/情感/热点）的高转化标题选项 | 标题、起标题、标题设计、title-designer |
-| `prompt-framework` | 内置 14 个提示词工程框架（RTF、CO-STAR、ICIO、RISE 等），自动选定最合适框架生成可用提示词 | 帮我写提示词、优化prompt、prompt framework |
-| `auto-skill-forge` | 元技能工厂，用于创建带自进化能力的新技能，或为现有技能注入自我反思与改进机制 | 造个skill、创建skill、auto-skill、自进化skill |
 
 ### 可视化
 
@@ -103,7 +108,7 @@ skills/
 | `git-commit` | 交互式 Git 提交工作流，遵循 Conventional Commits 规范，7 步逐步确认生成提交信息，绝不静默提交 | git commit、提交代码、commit message、写提交信息 |
 | `goal-loop` | 三阶段工作流：需求探索->实现计划->无头构建-测试-提交循环（Ralph Loop） | 探索需求、写实现计划、goal loop、自主构建 |
 | `ui2code-copilot` | 设计稿转代码 Copilot。分两阶段扫描前端项目生成上下文规范，再基于规范将 UI 设计稿转化为符合项目约定的生产级代码 | init context、扫描代码、设计稿还原、design to code、实现 UI |
-| `uiux-prototype-generator` | 全栈产品原型专家（PM+设计师+前端），基于 ROSES 框架生成 iPhone 15 Pro 尺寸高保真移动端 HTML 原型 | 原型设计、高保真原型、APP原型、uiux |
+| `mobile-uiux-prototype` | 高保真产品原型交付专家（PM+UI/UX设计师+前端），基于 ROSES 框架生成 iPhone 15 Pro 尺寸高保真移动端 HTML 原型 | 原型设计、高保真原型、APP原型、uiux、ROSES原型 |
 
 ### 人生规划
 
