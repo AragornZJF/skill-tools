@@ -27,6 +27,10 @@ Phase 2: ui-implement（设计稿 + rules -> 符合项目约定的代码）
 - rules 文件过期或与实际代码不一致时 -> 重新执行 Phase 1
 - 需要将 UI 设计稿/截图转为前端代码时 -> 执行 Phase 2（前提：Phase 1 已完成）
 
+> 也支持 `/init-context` 和 `/ui-implement` 斜杠命令，详见 `README.md` 命令使用章节。
+
+---
+
 **初始化状态判断（见 `references/core-rules.md`）：**
 
 | 状态           | 判断条件                           | 行动                      |
