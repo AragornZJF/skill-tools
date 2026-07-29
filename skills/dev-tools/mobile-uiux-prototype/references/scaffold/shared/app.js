@@ -98,6 +98,41 @@ function bindLogout() {
   });
 }
 
+/* ---------- 通用模态框 ---------- */
+function createModal(options) {
+  var overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.innerHTML =
+    '<div class="modal-card">' +
+      '<button class="modal-close"><i class="fa-solid fa-xmark"></i></button>' +
+      (options.title ? '<div class="modal-title">' + options.title + '</div>' : '') +
+      '<div class="modal-body">' + (options.bodyHTML || '') + '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
+
+  var card = overlay.querySelector('.modal-card');
+  var closeBtn = overlay.querySelector('.modal-close');
+
+  function open() {
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (options.onOpen) options.onOpen(overlay);
+  }
+  function close() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    if (options.onClose) options.onClose(overlay);
+    setTimeout(function () { overlay.remove(); }, 300);
+  }
+
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) close();
+  });
+
+  return { open: open, close: close, el: overlay };
+}
+
 /* 简单的错误抖动反馈 */
 function shakeElement(el) {
   el.animate([

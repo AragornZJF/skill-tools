@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>个人中心</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="./shared/tailwindcss.js"></script>
+  <script src="./shared/font-awesome.min.js"></script>
   <link rel="stylesheet" href="./shared/styles.css">
 </head>
 <body class="page-body">
@@ -49,7 +49,7 @@
         <span class="flex-1">隐私与安全</span>
         <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
       </div>
-      <div class="setting-item ripple-btn">
+      <div class="setting-item ripple-btn" id="helpCenterBtn">
         <i class="fa-solid fa-circle-question setting-icon" style="background:#5856d6;"></i>
         <span class="flex-1">帮助中心</span>
         <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
@@ -59,17 +59,27 @@
     <button id="logoutBtn" class="logout-btn ripple-btn">退出登录</button>
 
     <div class="text-center mt-4">
-      <a href="https://mp.weixin.qq.com/s/BC3xEsGP3aZPe1offFg1aQ" target="_blank" rel="noopener noreferrer" class="author-signature">
-        <i class="fa-solid fa-pen-nib"></i>
-        <span>作者：江枫</span>
-      </a>
+      <span id="authLink" class="text-xs" style="color:#86868b;cursor:pointer;">帮助？@Auth 江枫</span>
     </div>
   </main>
 
+  <script src="./shared/qrcode-data.js"></script>
   <script src="./shared/app.js"></script>
   <script>
     enableRipple();
     bindLogout();
+
+    function openQrcodeModal() {
+      createModal({
+        title: '扫码联系作者',
+        bodyHTML:
+          '<img class="modal-qrcode" src="data:image/jpeg;base64,' + QRCODE_DATA + '" alt="二维码">' +
+          '<div class="modal-author">作者：江枫，前端、AI应用工程师</div>'
+      }).open();
+    }
+
+    document.getElementById('helpCenterBtn').addEventListener('click', openQrcodeModal);
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
   </script>
 </body>
 </html>
