@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发现</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索目的地、搭子、主题">
+      </div>
+    </div>
+
+    <div class="waterfall">
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&q=80" alt="318自驾">
+        <div class="wf-info">
+          <p class="wf-title">318 自驾 · 招 2 名搭子</p>
+          <p class="wf-desc">@老周 · 9/10 出发 · 18 天</p>
+          <span class="wf-status chip-blue">招募中</span>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=400&q=80" alt="涠洲岛">
+        <div class="wf-info">
+          <p class="wf-title">涠洲岛拼房 · 4 天</p>
+          <p class="wf-desc">@小满 · 8/22 出发 · 拼住</p>
+          <span class="wf-status chip-blue">招募中</span>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1511497584788-876760111969?w=400&q=80" alt="川西秋色">
+        <div class="wf-info">
+          <p class="wf-title">川西秋色 · 摄影团</p>
+          <p class="wf-desc">@Lens · 10/05 出发 · 7 天</p>
+          <span class="wf-status chip-blue chip-accent">已成行</span>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&q=80" alt="雨崩徒步">
+        <div class="wf-info">
+          <p class="wf-title">云南雨崩徒步 · 6 日</p>
+          <p class="wf-desc">@山风 · 9/15 出发 · 重装</p>
+          <span class="wf-status chip-blue">招募中</span>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=400&q=80" alt="伊犁薰衣草">
+        <div class="wf-info">
+          <p class="wf-title">新疆伊犁 · 薰衣草季</p>
+          <p class="wf-desc">@牧云 · 6/10 出发 · 8 天</p>
+          <span class="wf-status chip-blue">招募中</span>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1540202404-1b927e27fa8b?w=400&q=80" alt="三亚亲子">
+        <div class="wf-info">
+          <p class="wf-title">海南三亚 · 亲子拼团</p>
+          <p class="wf-desc">@柚子妈妈 · 8/08 出发 · 5 天</p>
+          <span class="wf-status chip-blue chip-accent">已成行</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+  </script>
+</body>
+</html>

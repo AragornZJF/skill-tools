@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetPals · 原型容器</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="shell-body">
+  <div class="phone-shell">
+    <div class="dynamic-island"></div>
+
+    <iframe id="appFrame" class="app-frame" src="./home.html" title="PetPals"></iframe>
+
+    <nav class="tab-bar" id="tabBar">
+      <button class="tab-item active" data-page="home.html">
+        <i class="fa-solid fa-house"></i>
+        <span>首页</span>
+      </button>
+      <button class="tab-item" data-page="discover.html">
+        <i class="fa-solid fa-compass"></i>
+        <span>发现</span>
+      </button>
+      <button class="tab-item" data-page="profile.html">
+        <i class="fa-solid fa-paw"></i>
+        <span>我的</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    initTabNavigation();
+
+    window.addEventListener('message', function (e) {
+      var appFrame = document.getElementById('appFrame');
+      var tabItems = document.querySelectorAll('.tab-item');
+      if (e.data.action === 'login-success') {
+        switchPage(appFrame, 'home.html');
+        setActiveTab(tabItems, document.querySelector('.tab-item[data-page="home.html"]'));
+      } else if (e.data.action === 'logout') {
+        switchPage(appFrame, 'login.html');
+        setActiveTab(tabItems, document.querySelector('.tab-item[data-page="home.html"]'));
+      } else if (e.data.action === 'navigate') {
+        switchPage(appFrame, e.data.page);
+      } else if (e.data.action === 'back') {
+        switchPage(appFrame, 'home.html');
+        setActiveTab(tabItems, document.querySelector('.tab-item[data-page="home.html"]'));
+      }
+    });
+  </script>
+</body>
+</html>

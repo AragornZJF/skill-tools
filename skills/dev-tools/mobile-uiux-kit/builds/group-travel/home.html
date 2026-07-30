@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 定位顶栏 -->
+    <div class="venue-bar">
+      <div class="venue-loc">
+        <i class="fa-solid fa-location-dot"></i>
+        <div>
+          <div class="venue-name">北京 · 朝阳</div>
+          <div class="venue-sub">325 位搭子正在找队伍</div>
+        </div>
+      </div>
+      <button class="venue-action ripple-btn"><i class="fa-solid fa-plus"></i></button>
+    </div>
+
+    <!-- 旗舰 banner -->
+    <div class="banner-card ripple-btn">
+      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=80" alt="结伴旅行">
+      <div class="banner-overlay">
+        <span class="banner-tag">FIND YOUR BUDDY</span>
+        <p class="banner-title">找到对的搭子，路上才有趣</p>
+        <p class="banner-meta">兴趣 · 预算 · 节奏 三步智能匹配</p>
+        <span class="cta-chip">3 步匹配出发 <i class="fa-solid fa-arrow-right"></i></span>
+      </div>
+    </div>
+
+    <!-- 分类 -->
+    <div class="section-title">探索玩法</div>
+    <div class="cat-grid">
+      <div class="category-tile ripple-btn">
+        <div class="category-icon"><i class="fa-solid fa-mountain-sun"></i></div>
+        <span class="category-label">山野徒步</span>
+      </div>
+      <div class="category-tile ripple-btn">
+        <div class="category-icon"><i class="fa-solid fa-city"></i></div>
+        <span class="category-label">城市漫游</span>
+      </div>
+      <div class="category-tile ripple-btn">
+        <div class="category-icon"><i class="fa-solid fa-umbrella-beach"></i></div>
+        <span class="category-label">海岛度假</span>
+      </div>
+      <div class="category-tile ripple-btn">
+        <div class="category-icon"><i class="fa-solid fa-compass"></i></div>
+        <span class="category-label">小众秘境</span>
+      </div>
+    </div>
+
+    <!-- 进行中的招募 -->
+    <div class="section-title">
+      进行中的招募
+      <span class="section-more">查看全部</span>
+    </div>
+
+    <div class="space-y-3">
+      <!-- 招募 1 · 川西 -->
+      <div class="recruit-card">
+        <img class="rc-thumb" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=200&q=80" alt="川西">
+        <div class="rc-body">
+          <p class="rc-title">川西 7 日大环线 · 找 3 个搭子</p>
+          <p class="rc-meta">@野径 · 8/12 出发 · 7 天 · <span class="accent">¥2.4k/人</span></p>
+          <div class="rc-people">
+            <div class="avatar-stack">
+              <span class="av" style="background:#1fb57a;">野</span>
+              <span class="av" style="background:#2ec8e6;">林</span>
+              <span class="av" style="background:#7b5bff;">舟</span>
+            </div>
+            <span class="rc-count"><b>4</b>/6 人</span>
+            <span class="rc-progress"><span style="width:66%;"></span></span>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-tags">
+              <span class="tag">#穷游</span>
+              <span class="tag">#摄影</span>
+              <span class="tag">#90后</span>
+            </div>
+            <button class="join-btn">加入</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 招募 2 · 海南冲浪 -->
+      <div class="recruit-card">
+        <img class="rc-thumb" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200&q=80" alt="海南">
+        <div class="rc-body">
+          <p class="rc-title">海南万宁冲浪 · 找 2 个搭子</p>
+          <p class="rc-meta">@阿浪 · 8/18 出发 · 5 天 · <span class="accent">¥3.1k/人</span></p>
+          <div class="rc-people">
+            <div class="avatar-stack">
+              <span class="av" style="background:#2ec8e6;">浪</span>
+              <span class="av" style="background:#1fb57a;">夏</span>
+              <span class="av" style="background:#ff9e4f;">沫</span>
+            </div>
+            <span class="rc-count"><b>3</b>/5 人</span>
+            <span class="rc-progress"><span style="width:60%;"></span></span>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-tags">
+              <span class="tag">#冲浪</span>
+              <span class="tag">#海岛</span>
+              <span class="tag">#00后</span>
+            </div>
+            <button class="join-btn">加入</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 招募 3 · 西北大环线 -->
+      <div class="recruit-card">
+        <img class="rc-thumb" src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=200&q=80" alt="西北">
+        <div class="rc-body">
+          <p class="rc-title">西北大环线 · 招 4 名搭子</p>
+          <p class="rc-meta">@老马 · 9/02 出发 · 10 天 · <span class="accent">¥4.6k/人</span></p>
+          <div class="rc-people">
+            <div class="avatar-stack">
+              <span class="av" style="background:#7b5bff;">马</span>
+              <span class="av" style="background:#1fb57a;">川</span>
+            </div>
+            <span class="rc-count"><b>2</b>/6 人</span>
+            <span class="rc-progress"><span style="width:33%;"></span></span>
+          </div>
+          <div class="rc-bottom">
+            <div class="rc-tags">
+              <span class="tag">#自驾</span>
+              <span class="tag">#星空</span>
+              <span class="tag">#70后</span>
+            </div>
+            <button class="join-btn">加入</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+
+    // 展示级交互：点「加入」切换为「已加入·待出发」
+    document.querySelectorAll('.join-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.classList.contains('joined')) return;
+        btn.classList.add('joined');
+        btn.textContent = '✓ 已加入 · 待出发';
+      });
+    });
+  </script>
+</body>
+</html>

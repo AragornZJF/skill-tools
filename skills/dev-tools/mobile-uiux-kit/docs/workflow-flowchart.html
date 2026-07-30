@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="claude">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ROSES 工作流 · 高保真原型交付流程图</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ============================================================
+       全局变量 —— 由 [data-theme] 切换四套风格
+       ============================================================ */
+    :root {
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Helvetica Neue", sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", "SF Mono", "Consolas", "Monaco", monospace;
+      --font-serif: "Charter", "Georgia", "Iowan Old Style", "Times New Roman", serif;
+
+      --r-radius: 14px;
+      --node-radius: 12px;
+      --transition: .35s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    /* ---------- 主题 1：暗黑极客风 ---------- */
+    [data-theme="geek"] {
+      --bg: #07070d;
+      --bg-2: #0d0d18;
+      --surface: rgba(20, 20, 34, .72);
+      --surface-2: rgba(28, 28, 48, .85);
+      --hairline: rgba(0, 255, 170, .22);
+      --spine: #00ff9d;
+      --text: #d7ffe9;
+      --text-sub: #6f8c80;
+      --head: #ffffff;
+      --glow: 0 0 14px rgba(0,255,157,.55);
+      --c-plan: #00d4ff;     /* 青 */
+      --c-design: #ff3df0;   /* 品红 */
+      --c-dev: #00ff9d;      /* 霓虹绿 */
+      --c-ship: #ffee00;     /* 电黄 */
+      --c-accent: #ff2e6e;
+      --font-active: var(--font-mono);
+      --grid: none;
+      --glow-filter: drop-shadow(0 0 5px rgba(0,255,157,.55));
+    }
+
+    /* ---------- 主题 2：扁平图标风 ---------- */
+    [data-theme="flat"] {
+      --bg: #ffffff;
+      --bg-2: #f5f6f8;
+      --surface: #ffffff;
+      --surface-2: #f0f2f5;
+      --hairline: #e4e7ec;
+      --spine: #94a3b8;
+      --text: #1a1f2e;
+      --text-sub: #6b7280;
+      --head: #0f172a;
+      --glow: none;
+      --c-plan: #3b82f6;     /* 蓝 */
+      --c-design: #8b5cf6;   /* 紫 */
+      --c-dev: #10b981;      /* 绿 */
+      --c-ship: #f59e0b;     /* 琥珀 */
+      --c-accent: #ef4444;
+      --font-active: var(--font-sans);
+      --grid: none;
+    }
+
+    /* ---------- 主题 3：工程蓝图风 ---------- */
+    [data-theme="blueprint"] {
+      --bg: #082338;
+      --bg-2: #0a2e4d;
+      --surface: rgba(13, 59, 102, .55);
+      --surface-2: rgba(10, 46, 77, .85);
+      --hairline: rgba(72, 202, 228, .35);
+      --spine: #48cae4;
+      --text: #caf0f8;
+      --text-sub: #6fa8c4;
+      --head: #eafcff;
+      --glow: 0 0 10px rgba(72,202,228,.4);
+      --c-plan: #48cae4;     /* 青 */
+      --c-design: #90e0ef;   /* 浅青 */
+      --c-dev: #00b4d8;      /* 深青 */
+      --c-ship: #ffd166;     /* 标注黄 */
+      --c-accent: #ef476f;
+      --font-active: var(--font-mono);
+      --glow-filter: drop-shadow(0 0 4px rgba(72,202,228,.4));
+      --grid:
+        linear-gradient(rgba(72,202,228,.15) 1px, transparent 1px) 0 0 / 28px 28px,
+        linear-gradient(90deg, rgba(72,202,228,.15) 1px, transparent 1px) 0 0 / 28px 28px;
+    }
+
+    /* ---------- 主题 4：Claude 官方风格 ---------- */
+    [data-theme="claude"] {
+      --bg: #f8f6f3;
+      --bg-2: #f1ede7;
+      --surface: #ffffff;
+      --surface-2: #faf8f5;
+      --hairline: #e6dfd4;
+      --spine: #cc785c;
+      --text: #2b2620;
+      --text-sub: #6f665b;
+      --head: #1f1b16;
+      --glow: none;
+      --c-plan: #b07a52;     /* 陶土棕 */
+      --c-design: #a8745a;   /* 暖棕 */
+      --c-dev: #6b8e6b;      /* 橄榄绿 */
+      --c-ship: #cc785c;     /* Anthropic 黏土 */
+      --c-accent: #9a3412;
+      --font-active: var(--font-serif);
+      --grid: none;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      background-image: var(--grid);
+      color: var(--text);
+      font-family: var(--font-active);
+      transition: background var(--transition), color var(--transition);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body { padding: 0 16px 64px; }
+
+    /* ---------- 顶栏 ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 4px;
+      background: linear-gradient(var(--bg) 70%, transparent);
+      backdrop-filter: blur(6px);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand .mark {
+      width: 34px; height: 34px;
+      display: grid; place-items: center;
+      border-radius: 9px;
+      background: var(--surface-2);
+      border: 1px solid var(--hairline);
+      color: var(--c-ship);
+      box-shadow: var(--glow);
+    }
+    .brand h1 {
+      font-size: 16px;
+      margin: 0;
+      color: var(--head);
+      letter-spacing: .2px;
+    }
+    .brand p { margin: 2px 0 0; font-size: 11px; color: var(--text-sub); }
+
+    /* 主题切换 */
+    .switcher { display: flex; flex-wrap: wrap; gap: 8px; }
+    .theme-btn {
+      font-family: var(--font-active);
+      font-size: 12px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      border: 1px solid var(--hairline);
+      background: var(--surface);
+      color: var(--text-sub);
+      transition: all var(--transition);
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .theme-btn .dot { width: 9px; height: 9px; border-radius: 50%; }
+    .theme-btn:hover { transform: translateY(-1px); color: var(--text); }
+    .theme-btn[aria-pressed="true"] {
+      color: var(--head);
+      border-color: var(--spine);
+      box-shadow: var(--glow);
+    }
+    .theme-btn[data-target="geek"] .dot      { background: #00ff9d; }
+    .theme-btn[data-target="flat"] .dot      { background: #3b82f6; }
+    .theme-btn[data-target="blueprint"] .dot { background: #48cae4; }
+    .theme-btn[data-target="claude"] .dot    { background: #cc785c; }
+
+    /* ---------- 画布 ---------- */
+    .canvas {
+      max-width: 880px;
+      margin: 14px auto 0;
+    }
+
+    .section-label {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-sub);
+      margin: 28px 0 14px;
+    }
+    .section-label::after {
+      content: ""; flex: 1; height: 1px; background: var(--hairline);
+    }
+
+    /* ---------- ROSES 头部双卡 ---------- */
+    .roses-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 620px) { .roses-grid { grid-template-columns: 1fr; } }
+
+    .roses-card {
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-radius);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .roses-card .tag {
+      font-size: 11px; letter-spacing: 1.5px;
+      color: var(--c-plan); font-weight: 700;
+    }
+    .roses-card .tag.t-o { color: var(--c-ship); }
+    .roses-card h3 {
+      margin: 6px 0 8px; font-size: 15px; color: var(--head); line-height: 1.45;
+    }
+    .roses-card .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .chip {
+      font-size: 11px; padding: 4px 9px; border-radius: 999px;
+      background: var(--surface-2); border: 1px solid var(--hairline);
+      color: var(--text-sub); white-space: nowrap;
+    }
+
+    /* Scenario 技术规范条 */
+    .scenario {
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-left: 3px solid var(--c-design);
+      border-radius: var(--r-radius);
+      padding: 14px 18px;
+      margin-top: 14px;
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .scenario b { color: var(--head); }
+
+    /* ---------- 连接箭头 ---------- */
+    .arrow {
+      width: 2px; height: 30px;
+      background: var(--spine);
+      margin: 0 auto;
+      position: relative;
+      box-shadow: var(--glow);
+      border-radius: 2px;
+    }
+    .arrow::after {
+      content: "";
+      position: absolute; bottom: -1px; left: 50%;
+      transform: translateX(-50%);
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 9px solid var(--spine);
+      filter: var(--glow-filter, none);
+    }
+
+    /* ---------- 阶段分组（分层） ---------- */
+    .phase {
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: 18px;
+      padding: 16px 14px 18px;
+      margin-top: 10px;
+      position: relative;
+    }
+    .phase-head {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 6px 12px;
+    }
+    .phase-head .pidx {
+      width: 26px; height: 26px; border-radius: 8px;
+      display: grid; place-items: center;
+      font-size: 12px; font-weight: 700; color: #fff;
+    }
+    .phase-head .ptitle { font-size: 13px; color: var(--head); font-weight: 600; }
+    .phase-head .pdesc { font-size: 11px; color: var(--text-sub); margin-left: auto; }
+
+    .phase[data-phase="plan"]   { --pc: var(--c-plan); }
+    .phase[data-phase="design"] { --pc: var(--c-design); }
+    .phase[data-phase="dev"]    { --pc: var(--c-dev); }
+    .phase[data-phase="ship"]   { --pc: var(--c-ship); }
+    .phase[data-phase="plan"]   .pidx { background: var(--c-plan); }
+    .phase[data-phase="design"] .pidx { background: var(--c-design); }
+    .phase[data-phase="dev"]    .pidx { background: var(--c-dev); }
+    .phase[data-phase="ship"]   .pidx { background: var(--c-ship); }
+    .phase { border-top: 3px solid var(--pc); }
+
+    /* ---------- 步骤节点 ---------- */
+    .steps { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
+    .step {
+      display: flex; align-items: stretch; gap: 14px;
+      padding: 10px 8px;
+      border-radius: 12px;
+      transition: background var(--transition);
+    }
+    .step:hover { background: var(--surface-2); }
+    .step .num {
+      flex: 0 0 42px;
+      display: grid; place-items: center;
+      font-family: var(--font-mono);
+      font-size: 15px; font-weight: 700;
+      color: var(--pc, var(--spine));
+      border: 1.5px solid var(--pc, var(--spine));
+      border-radius: 11px;
+      background: var(--surface-2);
+      min-height: 42px;
+      box-shadow: var(--glow);
+    }
+    .step .body { flex: 1; min-width: 0; }
+    .step .body .st-title {
+      font-size: 14px; color: var(--head); font-weight: 600;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    }
+    .step .body .st-title i { color: var(--pc, var(--spine)); width: 16px; text-align: center; }
+    .step .body .st-desc {
+      font-size: 12px; color: var(--text-sub); margin-top: 3px; line-height: 1.55;
+    }
+    .step .body .st-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
+    .micro {
+      font-size: 10.5px; padding: 2px 7px; border-radius: 6px;
+      background: var(--surface-2); color: var(--text-sub);
+      border: 1px solid var(--hairline);
+    }
+
+    .step-sep {
+      width: 2px; height: 16px; background: var(--hairline);
+      margin: 0 0 0 27px; border-radius: 2px;
+    }
+
+    /* ---------- 分支（第 8 步两项自检） ---------- */
+    .branch {
+      margin-top: 8px;
+      padding: 16px 10px 10px;
+      background: var(--surface-2);
+      border: 1px dashed var(--pc, var(--spine));
+      border-radius: 14px;
+    }
+    .branch-title {
+      font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--pc, var(--spine)); font-weight: 700; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .branch-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 620px) { .branch-cols { grid-template-columns: 1fr; } }
+    .check {
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: 12px;
+      padding: 14px;
+      position: relative;
+    }
+    .check .ck-head {
+      display: flex; align-items: center; gap: 9px; margin-bottom: 6px;
+    }
+    .check .ck-badge {
+      width: 30px; height: 30px; border-radius: 9px;
+      display: grid; place-items: center;
+      background: var(--pc, var(--spine)); color: #fff; font-size: 13px;
+      box-shadow: var(--glow);
+    }
+    .check .ck-title { font-size: 13px; color: var(--head); font-weight: 600; }
+    .check .ck-desc { font-size: 11.5px; color: var(--text-sub); line-height: 1.55; }
+    .check .ck-desc code, code {
+      font-family: var(--font-mono);
+      font-size: .92em;
+      background: var(--surface-2);
+      border: 1px solid var(--hairline);
+      border-radius: 5px;
+      padding: 1px 6px;
+      color: var(--c-accent);
+    }
+    .check .ck-pass {
+      margin-top: 9px; font-size: 10.5px; color: var(--c-dev);
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--font-mono);
+    }
+    [data-theme="claude"] .check .ck-pass,
+    [data-theme="flat"]   .check .ck-pass { font-family: var(--font-sans); }
+
+    /* ---------- 输出卡 ---------- */
+    .output {
+      margin-top: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-radius);
+      padding: 18px;
+      display: flex; flex-wrap: wrap; align-items: center; gap: 16px;
+    }
+    .output .ot-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      display: grid; place-items: center;
+      background: var(--c-ship); color: #fff; font-size: 19px;
+      box-shadow: var(--glow);
+    }
+    .output .ot-body { flex: 1; min-width: 160px; }
+    .output .ot-body h4 { margin: 0 0 4px; font-size: 14px; color: var(--head); }
+    .output .ot-body p { margin: 0; font-size: 12px; color: var(--text-sub); }
+    .tree {
+      font-family: var(--font-mono);
+      font-size: 11px; line-height: 1.7; color: var(--text-sub);
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: 10px;
+      padding: 12px 14px;
+      white-space: pre;
+      overflow-x: auto;
+      flex: 1 1 260px;
+    }
+    [data-theme="claude"] .tree { font-family: var(--font-mono); }
+    .tree .d { color: var(--c-dev); }
+    .tree .f { color: var(--c-plan); }
+    .tree .c { color: var(--text-sub); opacity: .7; }
+
+    /* ---------- 图例 ---------- */
+    .legend {
+      margin-top: 30px;
+      display: flex; flex-wrap: wrap; gap: 14px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: 14px;
+      font-size: 11.5px; color: var(--text-sub);
+    }
+    .legend .lg { display: inline-flex; align-items: center; gap: 7px; }
+    .legend .sw { width: 12px; height: 12px; border-radius: 4px; }
+
+    footer.foot {
+      text-align: center; margin-top: 28px;
+      font-size: 11px; color: var(--text-sub); line-height: 1.8;
+    }
+    footer.foot a { color: var(--c-plan); text-decoration: none; }
+
+    /* 暗黑/蓝图 标题霓虹增强 */
+    [data-theme="geek"] .brand h1,
+    [data-theme="blueprint"] .brand h1 { text-shadow: var(--glow); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== 顶栏 ===== -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="mark"><i class="fa-solid fa-diagram-project"></i></div>
+      <div>
+        <h1>ROSES 工作流 · 高保真原型交付</h1>
+        <p>mobile-uiux-kit · @by 江枫</p>
+      </div>
+    </div>
+
+    <nav class="switcher" aria-label="切换视觉风格">
+      <button class="theme-btn" data-target="geek"      aria-pressed="false"><span class="dot"></span>暗黑极客</button>
+      <button class="theme-btn" data-target="flat"      aria-pressed="false"><span class="dot"></span>扁平图标</button>
+      <button class="theme-btn" data-target="blueprint" aria-pressed="false"><span class="dot"></span>工程蓝图</button>
+      <button class="theme-btn" data-target="claude"    aria-pressed="true"><span class="dot"></span>Claude 官方</button>
+    </nav>
+  </header>
+
+  <main class="canvas">
+
+    <!-- ===== ROSES 头部 ===== -->
+    <div class="section-label">R / O · 角色与目标</div>
+    <div class="roses-grid">
+      <div class="roses-card">
+        <div class="tag">R · ROLE 角色</div>
+        <h3>移动端UI/UX交付专家 </h3>
+        <div class="chips">
+          <span class="chip"><i class="fa-solid fa-briefcase"></i> 产品经理</span>
+          <span class="chip"><i class="fa-solid fa-pen-ruler"></i> UI/UX 设计师</span>
+          <span class="chip"><i class="fa-solid fa-code"></i> 前端工程师</span>
+        </div>
+      </div>
+      <div class="roses-card">
+        <div class="tag t-o">O · OBJECTIVE 目标</div>
+        <h3>高保真交互原型 · 四核心界面</h3>
+        <div class="chips">
+          <span class="chip">登录</span>
+          <span class="chip">主页</span>
+          <span class="chip">发现</span>
+          <span class="chip">个人中心</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scenario">
+      <b>E · Expected Solution 期望方案：</b>
+      iPhone 15 Pro 375×812 · 玻璃拟态 + 多层阴影 · iOS 状态栏 + 底部 Tab ·
+      iframe 架构 + 涟漪动画 · Tailwind CSS + FontAwesome · 真实图片（非占位符）。
+    </div>
+
+    <div class="arrow"></div>
+
+    <!-- ===== 阶段 1：规划 ===== -->
+    <div class="section-label">S · STEPS 八步工作流</div>
+
+    <section class="phase" data-phase="plan">
+      <div class="phase-head">
+        <div class="pidx">01</div>
+        <div class="ptitle">规划层 Planning</div>
+        <div class="pdesc">梳理流程 · 架构信息</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">1</div>
+          <div class="body">
+            <div class="st-title"><i class="fa-solid fa-diagram-project"></i> 用户体验分析</div>
+            <div class="st-desc">梳理目标 APP 的核心流程和交互逻辑。</div>
+          </div>
+        </div>
+        <div class="step-sep"></div>
+        <div class="step">
+          <div class="num">2</div>
+          <div class="body">
+            <div class="st-title"><i class="fa-solid fa-sitemap"></i> 产品界面规划</div>
+            <div class="st-desc">设计信息架构和页面层级关系。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="arrow"></div>
+
+    <!-- ===== 阶段 2：设计 ===== -->
+    <section class="phase" data-phase="design">
+      <div class="phase-head">
+        <div class="pidx">02</div>
+        <div class="ptitle">设计层 Design</div>
+        <div class="pdesc">iOS 规范 · 真实素材</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">3</div>
+          <div class="body">
+            <div class="st-title"><i class="fa-solid fa-palette"></i> 高保真 UI 设计</div>
+            <div class="st-desc">符合 iOS 规范的现代化界面，使用真实 UI 图片（Unsplash / Pexels / Apple），严禁灰色占位符。</div>
+            <div class="st-tags">
+              <span class="micro">玻璃拟态</span>
+              <span class="micro">多层阴影</span>
+              <span class="micro">真实图片</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="arrow"></div>
+
+    <!-- ===== 阶段 3：开发 ===== -->
+    <section class="phase" data-phase="dev">
+      <div class="phase-head">
+        <div class="pidx">03</div>
+        <div class="ptitle">开发层 Development</div>
+        <div class="pdesc">架构 · 实现 · 拆分 · 交互</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">4</div>
+          <div class="body">
+            <div class="st-title"><i class="fa-solid fa-cubes"></i> 代码架构设计</div>
+            <div class="st-desc">规划可复用 CSS/JS 组件；驼峰命名、职责单一、addEventListener 动态绑定，行为与结构分离。</div>
+          </div>
+        </div>
+        <div class="step-sep"></div>
+        <div class="step">
+          <div class="num">5</div>
+          <div class="body">
+            <div class="st-title"><i class="fa-solid fa-code"></i> HTML 原型实现</div>
+            <div class="st-desc">HTML + Tailwind CSS + FontAwesome 生成所有界面，接近真实 App。</div>
+          </div>
+        </div>
+        <div class="step-sep"></div>
+        <div class="step">
+          <div class="num">6</div>
+          <div class="body">
+            <div class="st-title"><i class="fa-solid fa-file-code"></i> 代码拆分</div>
+            <div class="st-desc">每个 HTML 独立存放：login / home / discover / profile 四核心页 + index 容器。</div>
+            <div class="st-tags">
+              <span class="micro">login.html</span>
+              <span class="micro">home.html</span>
+              <span class="micro">discover.html</span>
+              <span class="micro">profile.html</span>
+              <span class="micro">index.html</span>
+            </div>
+          </div>
+        </div>
+        <div class="step-sep"></div>
+        <div class="step">
+          <div class="num">7</div>
+          <div class="body">
+            <div class="st-title"><i class="fa-solid fa-wand-magic-sparkles"></i> 交互效果集成</div>
+            <div class="st-desc">涟漪动画、悬停效果、页面切换动画、微交互（按下 scale、Tab 弹性）。</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="arrow"></div>
+
+    <!-- ===== 阶段 4：交付 ===== -->
+    <section class="phase" data-phase="ship">
+      <div class="phase-head">
+        <div class="pidx">04</div>
+        <div class="ptitle">交付层 Delivery</div>
+        <div class="pdesc">测试 · 强制自检 · 零失败</div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">8</div>
+          <div class="body">
+            <div class="st-title"><i class="fa-solid fa-vial-circle-check"></i> 测试与优化</div>
+            <div class="st-desc">跨浏览器兼容与交互流畅性。最后一步强制双自检（缺一不可）：</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分支：两项自检 -->
+      <div class="branch">
+        <div class="branch-title"><i class="fa-solid fa-code-branch"></i> 强制自检 · 硬性约束</div>
+        <div class="branch-cols">
+          <div class="check">
+            <div class="ck-head">
+              <div class="ck-badge">a</div>
+              <div class="ck-title">图片可达性</div>
+            </div>
+            <div class="ck-desc">每个 <code>&lt;img&gt;</code> 真实可访问（HTTP 200），任一 404/400 立即换图重验，交付时零失败。</div>
+            <div class="ck-pass"><i class="fa-solid fa-circle-check"></i> analyze_image 逐一探测通过</div>
+          </div>
+          <div class="check">
+            <div class="ck-head">
+              <div class="ck-badge">b</div>
+              <div class="ck-title">作者署名</div>
+            </div>
+            <div class="ck-desc">grep <code>openQrcodeModal</code> 在 login.html 与 profile.html 各命中一次（点击署名弹二维码）。</div>
+            <div class="ck-pass"><i class="fa-solid fa-circle-check"></i> 帮助？@Auth 江枫</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="arrow"></div>
+
+    <!-- ===== 输出 ===== -->
+    <div class="section-label">输出 · Output</div>
+    <div class="output">
+      <div class="ot-icon"><i class="fa-solid fa-box-archive"></i></div>
+      <div class="ot-body">
+        <h4>builds/&lt;app-name&gt;/</h4>
+        <p>5 个 HTML 页面 + shared/ 共享资源，双模式可运行（iframe 联动 / 独立打开）。</p>
+      </div>
+      <div class="tree"><span class="c">builds/&lt;app&gt;/</span>
+                ├── <span class="f">index.html</span>      <span class="c"># 容器</span>
+                ├── <span class="f">login.html</span>      <span class="c"># 登录</span>
+                ├── <span class="f">home.html</span>       <span class="c"># 主页</span>
+                ├── <span class="f">discover.html</span>   <span class="c"># 发现</span>
+                ├── <span class="f">profile.html</span>    <span class="c"># 我的</span>
+                └── <span class="d">shared/</span>
+                    ├── vendor/      <span class="c"># tailwind / FA</span>
+                    └── common/      <span class="c"># styles / app / qrcode</span></div>
+    </div>
+
+    <!-- ===== 图例 ===== -->
+    <div class="legend">
+      <span class="lg"><span class="sw" style="background:var(--c-plan)"></span>规划 Planning</span>
+      <span class="lg"><span class="sw" style="background:var(--c-design)"></span>设计 Design</span>
+      <span class="lg"><span class="sw" style="background:var(--c-dev)"></span>开发 Development</span>
+      <span class="lg"><span class="sw" style="background:var(--c-ship)"></span>交付 Delivery</span>
+      <span class="lg" style="margin-left:auto"><i class="fa-solid fa-arrow-down-long" style="color:var(--spine)"></i> 主流程</span>
+    </div>
+
+    <footer class="foot">
+      基于 ROSES 框架（Role / Objective / Scenario / Expected Solution / Steps）· @by 江枫<br>
+      风格：暗黑极客 · 扁平图标 · 工程蓝图 · Claude 官方 —— 右上角可切换
+    </footer>
+  </main>
+
+  <script>
+    // 主题切换 + 记忆
+    (function () {
+      var root = document.documentElement;
+      var btns = document.querySelectorAll('.theme-btn');
+      var KEY = 'flowchart-theme';
+
+      function apply(name) {
+        root.setAttribute('data-theme', name);
+        btns.forEach(function (b) {
+          b.setAttribute('aria-pressed', b.dataset.target === name ? 'true' : 'false');
+        });
+        try { localStorage.setItem(KEY, name); } catch (e) {}
+      }
+
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () { apply(b.dataset.target); });
+      });
+
+      var valid = ['geek', 'flat', 'blueprint', 'claude'];
+
+      // 优先级：URL ?theme= > localStorage > 默认 claude
+      var q = null;
+      try { q = new URLSearchParams(location.search).get('theme'); } catch (e) {}
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch (e) {}
+
+      var chosen = (q && valid.indexOf(q) > -1) ? q
+                 : (saved && valid.indexOf(saved) > -1) ? saved
+                 : 'claude';
+      apply(chosen);
+    })();
+  </script>
+</body>
+</html>

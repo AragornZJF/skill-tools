@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>宠物详情 · PetPals</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6 slide-in">
+    <div class="sub-nav">
+      <button class="sub-nav-btn ripple-btn" id="backBtn"><i class="fa-solid fa-arrow-left"></i></button>
+      <span class="sub-nav-title">宠物档案</span>
+      <button class="sub-nav-btn ripple-btn"><i class="fa-solid fa-pen"></i></button>
+    </div>
+
+    <div class="pet-cover">
+      <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&q=80" alt="团子">
+      <div class="pet-cover-overlay">
+        <p class="pet-cover-name">团子</p>
+        <p class="pet-cover-breed">英短蓝猫 · 2岁 · ♂</p>
+      </div>
+    </div>
+
+    <div class="glass-card mt-4 p-4">
+      <div class="pet-info-row">
+        <i class="fa-solid fa-cake-candles"></i>
+        <span class="label">生日</span>
+        <span>2024-03-15</span>
+      </div>
+      <div class="pet-info-row">
+        <i class="fa-solid fa-venus-mars"></i>
+        <span class="label">性别</span>
+        <span>公 · 已绝育</span>
+      </div>
+      <div class="pet-info-row">
+        <i class="fa-solid fa-weight-scale"></i>
+        <span class="label">体重</span>
+        <span>4.5 kg</span>
+      </div>
+      <div class="pet-info-row">
+        <i class="fa-solid fa-shield-heart"></i>
+        <span class="label">疫苗</span>
+        <span>已完成 3 针 · 下次 2025-03</span>
+      </div>
+      <div class="pet-info-row">
+        <i class="fa-solid fa-paw"></i>
+        <span class="label">性格</span>
+        <span>粘人 · 贪吃 · 爱钻纸箱</span>
+      </div>
+    </div>
+
+    <div class="detail-tabs mt-4">
+      <button class="detail-tab active" data-panel="album">相册</button>
+      <button class="detail-tab" data-panel="timeline">动态</button>
+      <button class="detail-tab" data-panel="health">健康</button>
+    </div>
+
+    <div class="detail-panel active" id="panel-album">
+      <div class="album-grid">
+        <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=300&q=80" alt="团子">
+        <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=300&q=80" alt="团子">
+        <img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=300&q=80" alt="团子">
+        <img src="https://images.unsplash.com/photo-1561948955-570b270e7c36?w=300&q=80" alt="团子">
+        <img src="https://images.unsplash.com/photo-1606214174585-fe31582dc6ee?w=300&q=80" alt="团子">
+        <img src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=300&q=80" alt="团子">
+      </div>
+    </div>
+
+    <div class="detail-panel" id="panel-timeline">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">今天 14:30</p>
+          <p class="timeline-content">今天团子又偷偷钻进纸箱啦，一开门就露出这个表情！</p>
+          <img class="timeline-image" src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&q=80" alt="团子">
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--mint);"></div>
+          <p class="timeline-date">3 天前</p>
+          <p class="timeline-content">体检报告出来了，一切指标正常，团子很健康！</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--secondary);"></div>
+          <p class="timeline-date">1 周前</p>
+          <p class="timeline-content">给团子买了新猫抓板，结果它只喜欢盒子...</p>
+          <img class="timeline-image" src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=400&q=80" alt="团子">
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--accent);"></div>
+          <p class="timeline-date">2 周前</p>
+          <p class="timeline-content">团子今天 2 岁啦！给做了猫饭蛋糕庆祝🎂</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-panel" id="panel-health">
+      <div class="health-card">
+        <div class="health-icon" style="background:var(--primary-grad);"><i class="fa-solid fa-syringe"></i></div>
+        <div class="health-info">
+          <p class="health-title">狂犬疫苗（第 3 针）</p>
+          <p class="health-date">2024-09-15 · 下次：2025-09-15</p>
+        </div>
+        <span class="chip chip-mint">已完成</span>
+      </div>
+      <div class="health-card">
+        <div class="health-icon" style="background:var(--secondary);"><i class="fa-solid fa-stethoscope"></i></div>
+        <div class="health-info">
+          <p class="health-title">年度体检</p>
+          <p class="health-date">2024-08-20 · 各项指标正常</p>
+        </div>
+        <span class="chip chip-mint">正常</span>
+      </div>
+      <div class="health-card">
+        <div class="health-icon" style="background:var(--accent);"><i class="fa-solid fa-shield-virus"></i></div>
+        <div class="health-info">
+          <p class="health-title">驱虫（体内）</p>
+          <p class="health-date">2024-10-01 · 下次：2025-01-01</p>
+        </div>
+        <span class="chip chip-accent">待提醒</span>
+      </div>
+      <div class="health-card">
+        <div class="health-icon" style="background:var(--lavender);"><i class="fa-solid fa-bone"></i></div>
+        <div class="health-info">
+          <p class="health-title">牙齿检查</p>
+          <p class="health-date">2024-07-10 · 牙结石轻度</p>
+        </div>
+        <span class="chip chip-lavender">关注中</span>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindDetailTabs();
+    bindBackBtn();
+  </script>
+</body>
+</html>

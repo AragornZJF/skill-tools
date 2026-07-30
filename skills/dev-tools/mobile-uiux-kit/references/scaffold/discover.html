@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发现</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索感兴趣的内容">
+      </div>
+    </div>
+
+    <div class="waterfall">
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" alt="山景">
+        <div class="wf-info">
+          <p class="wf-title">探索自然之美</p>
+          <p class="wf-desc">徒步穿越阿尔卑斯山脉的绝美风景</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80" alt="旅行">
+        <div class="wf-info">
+          <p class="wf-title">背包客的夏天</p>
+          <p class="wf-desc">冰岛环岛自驾攻略</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80" alt="咖啡">
+        <div class="wf-info">
+          <p class="wf-title">城市独立咖啡馆</p>
+          <p class="wf-desc">6 家藏在巷子里的宝藏小店</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80" alt="电影">
+        <div class="wf-info">
+          <p class="wf-title">暑期档电影推荐</p>
+          <p class="wf-desc">这 10 部值得看</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1543362906-acfc16c67564?w=400&q=80" alt="美食">
+        <div class="wf-info">
+          <p class="wf-title">周末轻食料理</p>
+          <p class="wf-desc">快手早餐，好吃不长胖</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=400&q=80" alt="音乐">
+        <div class="wf-info">
+          <p class="wf-title">夏日歌单推荐</p>
+          <p class="wf-desc">适合午后循环播放的旋律</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+  </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <div class="flex items-center justify-between pt-3 pb-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-location-dot" style="color:#06a77d;font-size:14px;"></i>
+          <p class="text-sm font-semibold" style="color:#1d1d1f;">中关村软件园</p>
+          <i class="fa-solid fa-chevron-down" style="color:#8e8e93;font-size:10px;"></i>
+        </div>
+        <p class="text-xs mt-1" style="color:#8e8e93;">25 分钟送达 · 轻食即刻</p>
+      </div>
+      <img class="avatar-sm" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="头像">
+    </div>
+
+    <div class="search-bar-wrapper" style="padding-top:0;">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索餐厅或美食">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-3 mt-2">
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#e8f7f2,#d9f0e8);">
+          <i class="fa-solid fa-leaf" style="color:#06a77d;font-size:18px;"></i>
+        </div>
+        <span class="text-xs" style="color:#1d1d1f;">轻食</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#e8f7f2,#d9f0e8);">
+          <i class="fa-solid fa-bowl-food" style="color:#06a77d;font-size:18px;"></i>
+        </div>
+        <span class="text-xs" style="color:#1d1d1f;">沙拉</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#e8f7f2,#d9f0e8);">
+          <i class="fa-solid fa-mug-hot" style="color:#06a77d;font-size:18px;"></i>
+        </div>
+        <span class="text-xs" style="color:#1d1d1f;">咖啡</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#e8f7f2,#d9f0e8);">
+          <i class="fa-solid fa-apple-whole" style="color:#06a77d;font-size:18px;"></i>
+        </div>
+        <span class="text-xs" style="color:#1d1d1f;">果蔬</span>
+      </div>
+    </div>
+
+    <div class="banner-card ripple-btn mt-4">
+      <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&q=80" alt="banner">
+      <div class="banner-overlay">
+        <h2 class="text-lg font-bold text-white">新客专享</h2>
+        <p class="text-xs text-white/80">轻食 15 元起 · 首单立减 12</p>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-5 mb-3">
+      <h3 class="section-title" style="margin-bottom:0;">附近轻食</h3>
+      <span class="text-xs" style="color:#06a77d;cursor:pointer;">查看全部 <i class="fa-solid fa-chevron-right"></i></span>
+    </div>
+
+    <div class="space-y-3">
+      <div class="list-card ripple-btn">
+        <img class="list-thumb" src="https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?w=200&q=80" alt="餐厅">
+        <div class="flex-1">
+          <p class="font-semibold text-sm" style="color:#1d1d1f;">绿野沙拉工坊</p>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="text-xs" style="color:#06a77d;">★ 4.9</span>
+            <span class="text-xs" style="color:#8e8e93;">月销 1820</span>
+          </div>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="chip">25 分钟</span>
+            <span class="text-xs" style="color:#8e8e93;">起送 ¥20 | 配送 ¥3</span>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="list-card ripple-btn">
+        <img class="list-thumb" src="https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?w=200&q=80" alt="餐厅">
+        <div class="flex-1">
+          <p class="font-semibold text-sm" style="color:#1d1d1f;">鲜作轻食厨房</p>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="text-xs" style="color:#06a77d;">★ 4.8</span>
+            <span class="text-xs" style="color:#8e8e93;">月销 2436</span>
+          </div>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="chip">30 分钟</span>
+            <span class="text-xs" style="color:#8e8e93;">起送 ¥25 | 免配送费</span>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="list-card ripple-btn">
+        <img class="list-thumb" src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?w=200&q=80" alt="餐厅">
+        <div class="flex-1">
+          <p class="font-semibold text-sm" style="color:#1d1d1f;">薄荷精品咖啡</p>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="text-xs" style="color:#06a77d;">★ 4.7</span>
+            <span class="text-xs" style="color:#8e8e93;">月销 1108</span>
+          </div>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="chip">20 分钟</span>
+            <span class="text-xs" style="color:#8e8e93;">起送 ¥30 | 配送 ¥4</span>
+          </div>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+  </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布动态 · PetPals</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6 slide-in">
+    <div class="sub-nav">
+      <button class="sub-nav-btn ripple-btn" id="backBtn"><i class="fa-solid fa-xmark"></i></button>
+      <span class="sub-nav-title">发布动态</span>
+      <button id="publishSubmitBtn" class="primary-btn ripple-btn" style="padding:6px 18px;font-size:14px;">发布</button>
+    </div>
+
+    <div class="flex items-center gap-3 mt-2 mb-4">
+      <img class="avatar-sm" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="头像">
+      <div>
+        <p class="text-sm font-semibold" style="color:var(--text-main);">猫奴小鱼</p>
+        <p class="text-xs" style="color:var(--text-sub);">公开 · 所有人可见</p>
+      </div>
+    </div>
+
+    <textarea class="publish-textarea" placeholder="记录毛孩子的可爱瞬间..."></textarea>
+
+    <div class="image-picker">
+      <div class="image-slot">
+        <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=300&q=80" alt="选图">
+      </div>
+      <div class="image-add ripple-btn">
+        <i class="fa-solid fa-camera" style="font-size:20px;"></i>
+        <span>添加图片</span>
+      </div>
+    </div>
+
+    <div class="glass-card mt-4 overflow-hidden">
+      <div class="publish-option ripple-btn" id="petSelectBtn">
+        <div class="publish-option-icon" style="background:var(--primary-grad);"><i class="fa-solid fa-paw"></i></div>
+        <span class="publish-option-label">选择宠物</span>
+        <span class="publish-option-value">团子 · 雪团</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;font-size:12px;"></i>
+      </div>
+      <div class="publish-option ripple-btn" id="topicSelectBtn">
+        <div class="publish-option-icon" style="background:var(--secondary);"><i class="fa-solid fa-hashtag"></i></div>
+        <span class="publish-option-label">添加话题</span>
+        <span class="publish-option-value">#猫咪日常</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;font-size:12px;"></i>
+      </div>
+      <div class="publish-option ripple-btn" id="locationBtn">
+        <div class="publish-option-icon" style="background:var(--mint);"><i class="fa-solid fa-location-dot"></i></div>
+        <span class="publish-option-label">所在位置</span>
+        <span class="publish-option-value">上海 · 静安区</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;font-size:12px;"></i>
+      </div>
+      <div class="publish-option ripple-btn" id="visibilityBtn">
+        <div class="publish-option-icon" style="background:var(--lavender);"><i class="fa-solid fa-eye"></i></div>
+        <span class="publish-option-label">谁可以看</span>
+        <span class="publish-option-value">公开</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;font-size:12px;"></i>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-4 px-2">
+      <div class="flex items-center gap-4">
+        <i class="fa-solid fa-image ripple-btn" style="font-size:22px;color:var(--primary);cursor:pointer;"></i>
+        <i class="fa-solid fa-video ripple-btn" style="font-size:22px;color:var(--secondary);cursor:pointer;"></i>
+        <i class="fa-solid fa-face-smile ripple-btn" style="font-size:22px;color:var(--accent);cursor:pointer;"></i>
+      </div>
+      <span class="text-xs" style="color:var(--text-sub);"><i class="fa-solid fa-circle-info"></i> 文明分享，禁止违规内容</span>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindBackBtn();
+    bindPublishSubmit();
+  </script>
+</body>
+</html>

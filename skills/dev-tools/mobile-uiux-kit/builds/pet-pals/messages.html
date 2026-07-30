@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>消息 · PetPals</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6 slide-in">
+    <div class="sub-nav">
+      <button class="sub-nav-btn ripple-btn" id="backBtn"><i class="fa-solid fa-arrow-left"></i></button>
+      <span class="sub-nav-title">消息</span>
+      <button class="sub-nav-btn ripple-btn"><i class="fa-solid fa-gear"></i></button>
+    </div>
+
+    <div class="grid grid-cols-4 gap-2 mb-4">
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="cat-circle cat-circle-pink" style="width:48px;height:48px;font-size:18px;"><i class="fa-solid fa-heart"></i></div>
+        <span class="text-xs" style="color:var(--text-main);">点赞</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="cat-circle cat-circle-blue" style="width:48px;height:48px;font-size:18px;"><i class="fa-solid fa-comment"></i></div>
+        <span class="text-xs" style="color:var(--text-main);">评论</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="cat-circle cat-circle-mint" style="width:48px;height:48px;font-size:18px;"><i class="fa-solid fa-user-plus"></i></div>
+        <span class="text-xs" style="color:var(--text-main);">关注</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="cat-circle cat-circle-amber" style="width:48px;height:48px;font-size:18px;"><i class="fa-solid fa-bell"></i></div>
+        <span class="text-xs" style="color:var(--text-main);">通知</span>
+      </div>
+    </div>
+
+    <div class="msg-tabs">
+      <button class="msg-tab active" data-panel="all">全部</button>
+      <button class="msg-tab" data-panel="likes">点赞 <span class="badge">5</span></button>
+      <button class="msg-tab" data-panel="comments">评论 <span class="badge">3</span></button>
+      <button class="msg-tab" data-panel="system">系统</button>
+    </div>
+
+    <div class="msg-panel active" id="panel-all">
+      <div class="msg-item ripple-btn">
+        <img class="msg-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="用户">
+        <div class="msg-content">
+          <p class="msg-name">柴犬老爸</p>
+          <p class="msg-text">赞了你的动态：今天团子又偷偷钻进纸箱啦</p>
+        </div>
+        <span class="msg-time">3分钟前</span>
+        <div class="msg-dot"></div>
+      </div>
+      <div class="msg-item ripple-btn">
+        <img class="msg-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="用户">
+        <div class="msg-content">
+          <p class="msg-name">布偶妈妈</p>
+          <p class="msg-text">评论：团子也太可爱了吧！想rua</p>
+        </div>
+        <span class="msg-time">15分钟前</span>
+        <div class="msg-dot"></div>
+      </div>
+      <div class="msg-item ripple-btn">
+        <img class="msg-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="用户">
+        <div class="msg-content">
+          <p class="msg-name">金毛控</p>
+          <p class="msg-text">关注了你</p>
+        </div>
+        <span class="msg-time">1小时前</span>
+      </div>
+      <div class="msg-item ripple-btn">
+        <div class="msg-avatar flex items-center justify-center" style="background:var(--primary-grad);">
+          <i class="fa-solid fa-trophy" style="color:#fff;font-size:18px;"></i>
+        </div>
+        <div class="msg-content">
+          <p class="msg-name">PetPals 小助手</p>
+          <p class="msg-text">恭喜获得「连续打卡7天」徽章！</p>
+        </div>
+        <span class="msg-time">2小时前</span>
+      </div>
+      <div class="msg-item ripple-btn">
+        <img class="msg-avatar" src="https://images.unsplash.com/photo-1605568427561-40dd23c2acea?w=100&q=80" alt="用户">
+        <div class="msg-content">
+          <p class="msg-name">柯基队长</p>
+          <p class="msg-text">赞了你的动态：周末带大豆去公园遛弯</p>
+        </div>
+        <span class="msg-time">昨天</span>
+      </div>
+    </div>
+
+    <div class="msg-panel" id="panel-likes">
+      <div class="msg-item ripple-btn">
+        <img class="msg-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="用户">
+        <div class="msg-content">
+          <p class="msg-name">柴犬老爸</p>
+          <p class="msg-text">赞了你的动态：今天团子又偷偷钻进纸箱啦</p>
+        </div>
+        <span class="msg-time">3分钟前</span>
+        <div class="msg-dot"></div>
+      </div>
+      <div class="msg-item ripple-btn">
+        <img class="msg-avatar" src="https://images.unsplash.com/photo-1605568427561-40dd23c2acea?w=100&q=80" alt="用户">
+        <div class="msg-content">
+          <p class="msg-name">柯基队长</p>
+          <p class="msg-text">赞了你的动态：周末带大豆去公园遛弯</p>
+        </div>
+        <span class="msg-time">昨天</span>
+      </div>
+      <div class="msg-item ripple-btn">
+        <img class="msg-avatar" src="https://images.unsplash.com/photo-1534361960057-19889db9621e?w=100&q=80" alt="用户">
+        <div class="msg-content">
+          <p class="msg-name">哈士奇姐姐</p>
+          <p class="msg-text">赞了你的动态：雪团今天洗完澡毛茸茸的</p>
+        </div>
+        <span class="msg-time">昨天</span>
+      </div>
+    </div>
+
+    <div class="msg-panel" id="panel-comments">
+      <div class="msg-item ripple-btn">
+        <img class="msg-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="用户">
+        <div class="msg-content">
+          <p class="msg-name">布偶妈妈</p>
+          <p class="msg-text">团子也太可爱了吧！想rua</p>
+        </div>
+        <span class="msg-time">15分钟前</span>
+        <div class="msg-dot"></div>
+      </div>
+      <div class="msg-item ripple-btn">
+        <img class="msg-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="用户">
+        <div class="msg-content">
+          <p class="msg-name">柴犬老爸</p>
+          <p class="msg-text">这个表情太绝了哈哈哈哈</p>
+        </div>
+        <span class="msg-time">1小时前</span>
+      </div>
+      <div class="msg-item ripple-btn">
+        <img class="msg-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="用户">
+        <div class="msg-content">
+          <p class="msg-name">金毛控</p>
+          <p class="msg-text">我家也是英短，加个好友交流一下</p>
+        </div>
+        <span class="msg-time">3小时前</span>
+      </div>
+    </div>
+
+    <div class="msg-panel" id="panel-system">
+      <div class="msg-item ripple-btn">
+        <div class="msg-avatar flex items-center justify-center" style="background:var(--primary-grad);">
+          <i class="fa-solid fa-trophy" style="color:#fff;font-size:18px;"></i>
+        </div>
+        <div class="msg-content">
+          <p class="msg-name">PetPals 小助手</p>
+          <p class="msg-text">恭喜获得「连续打卡7天」徽章！</p>
+        </div>
+        <span class="msg-time">2小时前</span>
+      </div>
+      <div class="msg-item ripple-btn">
+        <div class="msg-avatar flex items-center justify-center" style="background:var(--secondary);">
+          <i class="fa-solid fa-gift" style="color:#fff;font-size:18px;"></i>
+        </div>
+        <div class="msg-content">
+          <p class="msg-name">PetPals 小助手</p>
+          <p class="msg-text">萌宠选美大赛开始啦，快来晒宝贝赢大奖！</p>
+        </div>
+        <span class="msg-time">昨天</span>
+      </div>
+      <div class="msg-item ripple-btn">
+        <div class="msg-avatar flex items-center justify-center" style="background:var(--mint);">
+          <i class="fa-solid fa-shield-heart" style="color:#fff;font-size:18px;"></i>
+        </div>
+        <div class="msg-content">
+          <p class="msg-name">PetPals 小助手</p>
+          <p class="msg-text">团子的狂犬疫苗即将到期，记得预约哦</p>
+        </div>
+        <span class="msg-time">3天前</span>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindMsgTabs();
+    bindBackBtn();
+  </script>
+</body>
+</html>

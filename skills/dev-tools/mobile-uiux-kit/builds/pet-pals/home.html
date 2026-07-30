@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页 · PetPals</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <div class="flex items-center justify-between pt-3 pb-4">
+      <div>
+        <h1 class="text-xl font-bold" style="color:var(--text-main);">PetPals</h1>
+        <p class="text-xs mt-1" style="color:var(--text-sub);">和毛孩子一起分享日常</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center ripple-btn" style="background:var(--primary-soft);cursor:pointer;" data-nav="messages">
+          <i class="fa-solid fa-bell" style="color:var(--primary);font-size:16px;"></i>
+        </div>
+        <img class="avatar-sm" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="头像">
+      </div>
+    </div>
+
+    <div class="search-bar-wrapper" style="padding-top:0;">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索宠物、铲屎官、话题">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-3 mt-2">
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="cat-circle cat-circle-pink"><i class="fa-solid fa-cat"></i></div>
+        <span class="text-xs" style="color:var(--text-main);">猫咪</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="cat-circle cat-circle-blue"><i class="fa-solid fa-dog"></i></div>
+        <span class="text-xs" style="color:var(--text-main);">狗狗</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="cat-circle cat-circle-mint"><i class="fa-solid fa-feather"></i></div>
+        <span class="text-xs" style="color:var(--text-main);">鸟类</span>
+      </div>
+      <div class="flex flex-col items-center gap-1 ripple-btn" style="cursor:pointer;">
+        <div class="cat-circle cat-circle-amber"><i class="fa-solid fa-fish"></i></div>
+        <span class="text-xs" style="color:var(--text-main);">水族</span>
+      </div>
+    </div>
+
+    <div class="banner-card ripple-btn mt-4">
+      <img src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=600&q=80" alt="banner">
+      <div class="banner-overlay">
+        <span class="chip chip-accent" style="margin-bottom:6px;"><i class="fa-solid fa-star"></i> 本周活动</span>
+        <h2 class="text-lg font-bold text-white">萌宠选美大赛</h2>
+        <p class="text-xs text-white/80">晒出你家宝贝 · 赢豪华大礼包</p>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-5 mb-3">
+      <h3 class="section-title" style="margin-bottom:0;">今日推荐</h3>
+      <span class="text-xs" style="color:var(--primary);cursor:pointer;">查看全部 <i class="fa-solid fa-chevron-right"></i></span>
+    </div>
+
+    <div class="space-y-3">
+      <div class="post-card ripple-btn">
+        <div class="post-header">
+          <img class="post-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="用户">
+          <div class="post-user">
+            <p class="post-user-name">猫奴小鱼</p>
+            <p class="post-user-meta">3 小时前 · 上海</p>
+          </div>
+          <i class="fa-solid fa-ellipsis" style="color:var(--text-sub);"></i>
+        </div>
+        <img class="post-image" src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&q=80" alt="猫咪">
+        <div class="post-actions">
+          <span class="post-action" data-like>
+            <i class="fa-regular fa-heart"></i>
+            <span class="like-count">328</span>
+          </span>
+          <span class="post-action">
+            <i class="fa-regular fa-comment"></i>
+            <span>42</span>
+          </span>
+          <span class="post-action">
+            <i class="fa-solid fa-share-nodes"></i>
+            <span>分享</span>
+          </span>
+        </div>
+        <div class="post-caption">
+          今天团子又偷偷钻进纸箱啦，一开门就露出这个表情，太可爱了！
+          <div class="post-pet-tag" style="cursor:pointer;" data-nav="pet-detail"><i class="fa-solid fa-cat"></i> 团子 · 英短蓝猫 · 2岁</div>
+        </div>
+      </div>
+
+      <div class="post-card ripple-btn">
+        <div class="post-header">
+          <img class="post-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="用户">
+          <div class="post-user">
+            <p class="post-user-name">柴犬老爸</p>
+            <p class="post-user-meta">5 小时前 · 北京</p>
+          </div>
+          <i class="fa-solid fa-ellipsis" style="color:var(--text-sub);"></i>
+        </div>
+        <img class="post-image" src="https://images.unsplash.com/photo-1605568427561-40dd23c2acea?w=600&q=80" alt="柴犬">
+        <div class="post-actions">
+          <span class="post-action liked" data-like>
+            <i class="fa-solid fa-heart"></i>
+            <span class="like-count">512</span>
+          </span>
+          <span class="post-action">
+            <i class="fa-regular fa-comment"></i>
+            <span>68</span>
+          </span>
+          <span class="post-action">
+            <i class="fa-solid fa-share-nodes"></i>
+            <span>分享</span>
+          </span>
+        </div>
+        <div class="post-caption">
+          周末带大豆去公园遛弯，阳光下的笑容太治愈了～
+          <div class="post-pet-tag" style="cursor:pointer;" data-nav="pet-detail"><i class="fa-solid fa-dog"></i> 大豆 · 柴犬 · 3岁</div>
+        </div>
+      </div>
+
+      <div class="post-card ripple-btn">
+        <div class="post-header">
+          <img class="post-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="用户">
+          <div class="post-user">
+            <p class="post-user-name">布偶妈妈</p>
+            <p class="post-user-meta">昨天 · 杭州</p>
+          </div>
+          <i class="fa-solid fa-ellipsis" style="color:var(--text-sub);"></i>
+        </div>
+        <img class="post-image" src="https://images.unsplash.com/photo-1592194996308-7b43878e84a6?w=600&q=80" alt="布偶猫">
+        <div class="post-actions">
+          <span class="post-action" data-like>
+            <i class="fa-regular fa-heart"></i>
+            <span class="like-count">876</span>
+          </span>
+          <span class="post-action">
+            <i class="fa-regular fa-comment"></i>
+            <span>103</span>
+          </span>
+          <span class="post-action">
+            <i class="fa-solid fa-share-nodes"></i>
+            <span>分享</span>
+          </span>
+        </div>
+        <div class="post-caption">
+          雪团今天洗完澡毛茸茸的像朵云，忍不住拍了 100 张！
+          <div class="post-pet-tag" style="cursor:pointer;" data-nav="pet-detail"><i class="fa-solid fa-cat"></i> 雪团 · 布偶猫 · 1岁</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <button class="fab-btn" id="fab"><i class="fa-solid fa-plus"></i></button>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindPostLikes();
+    bindFab();
+    bindMsgEntry();
+    bindPetDetailEntry();
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发现</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索美食、餐厅">
+      </div>
+    </div>
+
+    <div class="waterfall">
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80" alt="美食">
+        <div class="wf-info">
+          <p class="wf-title">牛油果能量碗</p>
+          <p class="wf-desc">藜麦 · 鹰嘴豆 · 牛油果</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=400&q=80" alt="美食">
+        <div class="wf-info">
+          <p class="wf-title">彩虹蔬果沙拉</p>
+          <p class="wf-desc">12 种时令鲜蔬</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1541519227354-08fa5d50c44d?w=400&q=80" alt="美食">
+        <div class="wf-info">
+          <p class="wf-title">牛油果吐司</p>
+          <p class="wf-desc">全麦手作 · 水波蛋</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1502741224143-90386d7f8c82?w=400&q=80" alt="美食">
+        <div class="wf-info">
+          <p class="wf-title">冷压果蔬汁</p>
+          <p class="wf-desc">每日鲜榨 · 0 添加</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80" alt="美食">
+        <div class="wf-info">
+          <p class="wf-title"> poke 拌饭</p>
+          <p class="wf-desc">三文鱼 · 毛豆 · 海苔</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400&q=80" alt="美食">
+        <div class="wf-info">
+          <p class="wf-title">蜂蜜希腊酸奶杯</p>
+          <p class="wf-desc">格兰诺拉 · 鲜莓果</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+  </script>
+</body>
+</html>
