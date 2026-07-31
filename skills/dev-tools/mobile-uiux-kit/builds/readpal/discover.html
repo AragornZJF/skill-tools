@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发现书友 · 阅伴 ReadPal</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 搜索栏 -->
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索书友 / 书名 / 书评">
+      </div>
+    </div>
+
+    <!-- 今日推荐书友 -->
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="section-title" style="margin:0;">今日推荐书友</h3>
+      <span class="text-xs" style="color:#7F8C8D;">
+        <i class="fa-solid fa-shuffle"></i> 换一批
+      </span>
+    </div>
+
+    <!-- 匹配大卡片 -->
+    <div class="match-card" id="matchCard">
+      <div class="match-hero">
+        <img src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=80" alt="书友背景">
+        <div class="match-badge">匹配度 92%</div>
+        <div class="match-hero-overlay">
+          <div class="flex items-center gap-3">
+            <img class="match-avatar" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&q=80" alt="书友头像">
+            <div>
+              <p class="match-name">叶知秋</p>
+              <p class="text-xs text-white/80">读过 86 本 · 笔记 203 篇</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="match-body">
+        <div class="match-tags">
+          <span class="match-tag">现当代文学</span>
+          <span class="match-tag">哲学思辨</span>
+          <span class="match-tag accent">推理悬疑</span>
+          <span class="match-tag accent">诗歌</span>
+        </div>
+
+        <div class="match-reading">
+          <img class="match-reading-cover" src="https://images.unsplash.com/photo-1512820790803-83ca734da794?w=100&q=80" alt="书籍">
+          <div>
+            <p class="match-reading-title">正在读《不能承受的生命之轻》</p>
+            <p class="match-reading-author">米兰·昆德拉</p>
+          </div>
+        </div>
+
+        <p class="match-quote">"表面是清晰明了的谎言，背后却是晦涩难懂的真相。"</p>
+      </div>
+    </div>
+
+    <!-- 匹配操作按钮 -->
+    <div class="match-actions">
+      <button class="match-btn skip ripple-btn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <button class="match-btn like ripple-btn">
+        <i class="fa-solid fa-heart"></i>
+      </button>
+      <button class="match-btn super ripple-btn">
+        <i class="fa-solid fa-star"></i>
+      </button>
+    </div>
+
+    <!-- 已匹配书友 -->
+    <h3 class="section-title">已匹配书友</h3>
+    <div class="matched-list">
+      <div class="matched-card ripple-btn">
+        <img class="matched-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&q=80" alt="头像">
+        <div class="matched-info">
+          <p class="matched-name">陆星河</p>
+          <p class="matched-bio">共同兴趣：科幻 · 历史 · 哲学</p>
+        </div>
+        <span class="matched-percent">88%</span>
+      </div>
+
+      <div class="matched-card ripple-btn">
+        <img class="matched-avatar" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&q=80" alt="头像">
+        <div class="matched-info">
+          <p class="matched-name">温如也</p>
+          <p class="matched-bio">共同兴趣：散文 · 古典文学</p>
+        </div>
+        <span class="matched-percent">85%</span>
+      </div>
+
+      <div class="matched-card ripple-btn">
+        <img class="matched-avatar" src="https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=100&q=80" alt="头像">
+        <div class="matched-info">
+          <p class="matched-name">江月明</p>
+          <p class="matched-bio">共同兴趣：推理 · 心理学</p>
+        </div>
+        <span class="matched-percent">79%</span>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    initMatchCards();
+  </script>
+</body>
+</html>

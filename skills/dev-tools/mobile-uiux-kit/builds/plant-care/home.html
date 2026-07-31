@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>花园</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <div class="flex items-center justify-between pt-3 pb-4">
+      <div>
+        <p class="text-xs" style="color:#7c9a93;">星期一 · 晴</p>
+        <h1 class="text-xl font-bold" style="color:#1f3d36;">你的花园，早安</h1>
+      </div>
+      <img class="avatar-sm" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="头像">
+    </div>
+
+    <div class="search-bar-wrapper" style="padding-top:0;">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索植物、养护知识">
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-2 mb-3">
+      <h3 class="section-title" style="margin-bottom:0;">今日养护</h3>
+      <span class="text-xs" style="color:#38b2a0;cursor:pointer;">全部 4 项 <i class="fa-solid fa-chevron-right"></i></span>
+    </div>
+
+    <div class="space-y-2.5">
+      <div class="task-card ripple-btn">
+        <div class="task-icon" style="background:linear-gradient(135deg,#38b2a0,#7fd3c4);">
+          <i class="fa-solid fa-droplet"></i>
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold text-sm" style="color:#1f3d36;">给龟背竹浇水</p>
+          <p class="text-xs mt-0.5" style="color:#7c9a93;">每 5 天一次 · 已 4 天未浇</p>
+        </div>
+        <span class="chip">现在</span>
+      </div>
+      <div class="task-card ripple-btn">
+        <div class="task-icon" style="background:linear-gradient(135deg,#c9a24b,#e0c37d);">
+          <i class="fa-solid fa-sun"></i>
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold text-sm" style="color:#1f3d36;">多肉补光 2 小时</p>
+          <p class="text-xs mt-0.5" style="color:#7c9a93;">散射光 · 避开正午强光</p>
+        </div>
+        <span class="chip chip-accent">提醒</span>
+      </div>
+      <div class="task-card ripple-btn">
+        <div class="task-icon" style="background:linear-gradient(135deg,#6d8dc9,#8fb1e0);">
+          <i class="fa-solid fa-fill-drip"></i>
+        </div>
+        <div class="flex-1">
+          <p class="font-semibold text-sm" style="color:#1f3d36;">绿萝换水</p>
+          <p class="text-xs mt-0.5" style="color:#7c9a93;">水培 · 3 天换一次水</p>
+        </div>
+        <span class="chip chip-accent">待办</span>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-5 mb-3">
+      <h3 class="section-title" style="margin-bottom:0;">我的植物</h3>
+      <span class="text-xs" style="color:#38b2a0;cursor:pointer;">全部 8 盆 <i class="fa-solid fa-chevron-right"></i></span>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <div class="plant-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?w=400&q=80" alt="龟背竹">
+        <div class="plant-card-info">
+          <p class="plant-card-name">龟背竹</p>
+          <div class="flex items-center gap-1.5 mt-1">
+            <span class="status-dot" style="background:#38b2a0;"></span>
+            <p class="plant-card-meta" style="margin-top:0;">状态良好 · 28cm</p>
+          </div>
+        </div>
+      </div>
+      <div class="plant-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1463320726281-696a485928c7?w=400&q=80" alt="多肉">
+        <div class="plant-card-info">
+          <p class="plant-card-name">玉露多肉</p>
+          <div class="flex items-center gap-1.5 mt-1">
+            <span class="status-dot" style="background:#c9a24b;"></span>
+            <p class="plant-card-meta" style="margin-top:0;">需要光照 · 9cm</p>
+          </div>
+        </div>
+      </div>
+      <div class="plant-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1459156212016-c812468e2115?w=400&q=80" alt="绿萝">
+        <div class="plant-card-info">
+          <p class="plant-card-name">水培绿萝</p>
+          <div class="flex items-center gap-1.5 mt-1">
+            <span class="status-dot" style="background:#38b2a0;"></span>
+            <p class="plant-card-meta" style="margin-top:0;">状态良好 · 45cm</p>
+          </div>
+        </div>
+      </div>
+      <div class="plant-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1520302630591-fd1c66edc19d?w=400&q=80" alt="琴叶榕">
+        <div class="plant-card-info">
+          <p class="plant-card-name">琴叶榕</p>
+          <div class="flex items-center gap-1.5 mt-1">
+            <span class="status-dot" style="background:#38b2a0;"></span>
+            <p class="plant-card-meta" style="margin-top:0;">状态良好 · 60cm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="section-title">养植小贴士</h3>
+    <div class="space-y-3">
+      <div class="list-card ripple-btn">
+        <img class="list-thumb" src="https://images.unsplash.com/photo-1470058869958-2a77ade41c02?w=200&q=80" alt="浇水">
+        <div class="flex-1">
+          <p class="font-semibold text-sm" style="color:#1f3d36;">浇水的黄金法则</p>
+          <p class="text-xs mt-1" style="color:#7c9a93;">见干见湿 · 不干不浇</p>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="list-card ripple-btn">
+        <img class="list-thumb" src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=200&q=80" alt="多肉">
+        <div class="flex-1">
+          <p class="font-semibold text-sm" style="color:#1f3d36;">多肉度夏指南</p>
+          <p class="text-xs mt-1" style="color:#7c9a93;">控水通风 · 遮阴防暴晒</p>
+        </div>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拍立记 · 登录</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content flex flex-col justify-center px-8">
+    <div class="text-center mb-10">
+      <div class="app-logo">
+        <i class="fa-solid fa-camera-retro"></i>
+      </div>
+      <h1 class="text-2xl font-bold mt-4" style="color:#1d1d1f;">拍立记</h1>
+      <p class="text-sm mt-1" style="color:#86868b;">记录每一帧</p>
+    </div>
+
+    <div class="glass-card p-6 space-y-4">
+      <div class="input-group">
+        <i class="fa-solid fa-mobile-screen input-icon"></i>
+        <input type="text" id="username" placeholder="手机号" class="glass-input">
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-shield-halved input-icon"></i>
+        <input type="text" id="password" placeholder="验证码" class="glass-input" style="padding-right:96px;">
+        <button type="button" class="code-btn" id="codeBtn">获取验证码</button>
+      </div>
+      <button id="loginBtn" class="primary-btn ripple-btn w-full">开始记录</button>
+      <p class="text-center text-xs" style="color:#86868b;">登录即同意 <span style="color:#007aff;">用户协议</span> 与 <span style="color:#007aff;">隐私政策</span></p>
+    </div>
+
+    <div class="divider">或使用以下方式</div>
+    <div class="social-row">
+      <button type="button" class="social-btn" aria-label="Apple 登录" style="color:#1d1d1f;">
+        <i class="fa-brands fa-apple"></i>
+      </button>
+      <button type="button" class="social-btn" aria-label="微信登录" style="color:#07c160;">
+        <i class="fa-brands fa-weixin"></i>
+      </button>
+      <button type="button" class="social-btn" aria-label="QQ 登录" style="color:#12b7f5;">
+        <i class="fa-brands fa-qq"></i>
+      </button>
+    </div>
+
+    <div class="text-center mt-8">
+      <span id="authLink" class="text-xs" style="color:#86868b;cursor:pointer;">帮助？@Auth 江枫</span>
+    </div>
+  </main>
+
+  <script src="./shared/common/qrcode-data.js"></script>
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogin();
+
+    /* 验证码按钮：点击后 60s 倒计时（纯前端演示） */
+    (function () {
+      var btn = document.getElementById('codeBtn');
+      var timer = null;
+      btn.addEventListener('click', function () {
+        if (timer) return;
+        var n = 60;
+        btn.textContent = n + 's 后重发';
+        btn.style.opacity = '0.6';
+        timer = setInterval(function () {
+          n--;
+          if (n <= 0) {
+            clearInterval(timer);
+            timer = null;
+            btn.textContent = '获取验证码';
+            btn.style.opacity = '1';
+          } else {
+            btn.textContent = n + 's 后重发';
+          }
+        }, 1000);
+      });
+    })();
+
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
+  </script>
+</body>
+</html>

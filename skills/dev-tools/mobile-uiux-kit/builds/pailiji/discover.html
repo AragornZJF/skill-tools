@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拍立记 · 发现</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 搜索栏 -->
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索模板、灵感、作者">
+      </div>
+    </div>
+
+    <!-- 分类 chips -->
+    <div class="tpl-strip" style="margin-bottom:16px;">
+      <button class="tpl-chip active" style="width:auto;">
+        <span class="tpl-chip-thumb" style="width:auto;padding:0 14px;height:32px;border-radius:16px;font-size:13px;white-space:nowrap;">全部</span>
+      </button>
+      <button class="tpl-chip" style="width:auto;">
+        <span class="tpl-chip-thumb" style="width:auto;padding:0 14px;height:32px;border-radius:16px;font-size:13px;white-space:nowrap;">拍立得</span>
+      </button>
+      <button class="tpl-chip" style="width:auto;">
+        <span class="tpl-chip-thumb" style="width:auto;padding:0 14px;height:32px;border-radius:16px;font-size:13px;white-space:nowrap;">日期戳</span>
+      </button>
+      <button class="tpl-chip" style="width:auto;">
+        <span class="tpl-chip-thumb" style="width:auto;padding:0 14px;height:32px;border-radius:16px;font-size:13px;white-space:nowrap;">胶片</span>
+      </button>
+      <button class="tpl-chip" style="width:auto;">
+        <span class="tpl-chip-thumb" style="width:auto;padding:0 14px;height:32px;border-radius:16px;font-size:13px;white-space:nowrap;">手账</span>
+      </button>
+      <button class="tpl-chip" style="width:auto;">
+        <span class="tpl-chip-thumb" style="width:auto;padding:0 14px;height:32px;border-radius:16px;font-size:13px;white-space:nowrap;">旅行</span>
+      </button>
+      <button class="tpl-chip" style="width:auto;">
+        <span class="tpl-chip-thumb" style="width:auto;padding:0 14px;height:32px;border-radius:16px;font-size:13px;white-space:nowrap;">美食</span>
+      </button>
+      <button class="tpl-chip" style="width:auto;">
+        <span class="tpl-chip-thumb" style="width:auto;padding:0 14px;height:32px;border-radius:16px;font-size:13px;white-space:nowrap;">日常</span>
+      </button>
+    </div>
+
+    <!-- 灵感瀑布流 -->
+    <div class="waterfall">
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" style="aspect-ratio:3/4;" alt="山景">
+        <div class="wf-info">
+          <img class="wf-avatar" src="https://ui-avatars.com/api/?name=Lin&background=007aff&color=fff&size=64" alt="作者">
+          <div class="wf-text">
+            <p class="wf-title">山间清晨</p>
+            <p class="wf-desc">林小满 · 拍立得</p>
+          </div>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80" style="aspect-ratio:3/4;" alt="咖啡">
+        <div class="wf-info">
+          <img class="wf-avatar" src="https://ui-avatars.com/api/?name=SuYe&background=ff9500&color=fff&size=64" alt="作者">
+          <div class="wf-text">
+            <p class="wf-title">早班咖啡</p>
+            <p class="wf-desc">苏野 · 日期戳</p>
+          </div>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=400&q=80" style="aspect-ratio:3/4;" alt="街道">
+        <div class="wf-info">
+          <img class="wf-avatar" src="https://ui-avatars.com/api/?name=Mo&background=34c759&color=fff&size=64" alt="作者">
+          <div class="wf-text">
+            <p class="wf-title">下班那条街</p>
+            <p class="wf-desc">莫迟 · 胶片</p>
+          </div>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&q=80" style="aspect-ratio:3/4;" alt="绿植">
+        <div class="wf-info">
+          <img class="wf-avatar" src="https://ui-avatars.com/api/?name=Yu&background=5856d6&color=fff&size=64" alt="作者">
+          <div class="wf-text">
+            <p class="wf-title">阳台的第七天</p>
+            <p class="wf-desc">余白 · 留白</p>
+          </div>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=400&q=80" style="aspect-ratio:3/4;" alt="天空">
+        <div class="wf-info">
+          <img class="wf-avatar" src="https://ui-avatars.com/api/?name=Qi&background=ff2d55&color=fff&size=64" alt="作者">
+          <div class="wf-text">
+            <p class="wf-title">今天的天空</p>
+            <p class="wf-desc">七夏 · 经典</p>
+          </div>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80" style="aspect-ratio:3/4;" alt="旅行">
+        <div class="wf-info">
+          <img class="wf-avatar" src="https://ui-avatars.com/api/?name=Lu&background=af52de&color=fff&size=64" alt="作者">
+          <div class="wf-text">
+            <p class="wf-title">环岛日记 Day 4</p>
+            <p class="wf-desc">陆屿 · 拍立得</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+  </script>
+</body>
+</html>

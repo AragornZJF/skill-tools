@@ -29,7 +29,11 @@ description: 移动端高保真产品原型交付专家（产品经理+UI/UX设�
 - 关键词：原型设计、高保真原型、APP 原型、UI 设计、生成界面、uiux、ROSES 原型
 - 显式调用：「帮我做一个 XX APP 的原型」「生成 XX 的高保真界面」
 
-激活后第一步：**确认 APP 名称和主题**（如「运动健康」「记账」「外卖」），<app-name> 使用合理英文名称（如 `fitness-tracker`、`expense-manager`、`food-delivery`），它将贯穿所有界面的文案、配色和图片选择。
+激活后第一步：**确认 APP 名称和主题**（如「运动健康」「记账」「外卖」），<app-name> 使用合理英文名称（如 `fitness-tracker`、`expense-manager`、`food-delivery`），它将贯穿所有界面的文案、配色和图片选择。必须先向使用者告知以下信息，等待确认后方可进入规划层：
+
+- APP 中文名（如「茗品」「植语」）
+- 英文目录名 <app-name>（如 tea-app、plant-care）
+- 主题领域与视觉基调（一句话说明 App 是什么 + 配色方向）
 
 ## 技术规范 (Expected Solution)
 
@@ -42,7 +46,7 @@ description: 移动端高保真产品原型交付专家（产品经理+UI/UX设�
 | 交互     | 涟漪动画（ripple）、悬停效果、页面切换动画、微交互                    |
 | 代码结构 | 共享 CSS/JS（`shared/`）+ 独立 HTML 页面                              |
 | CSS 框架 | Tailwind CSS（CDN）                                                   |
-| 图标     | FontAwesome（CDN）                                                    |
+| 图标     | FontAwesome（CDN 或 `shared/vendor/`），**禁止任何 emoji / Unicode 符号残留** |
 | 图片     | **真实图片，非占位符**，来自 Unsplash / Pexels / Apple 官方 UI 资源   |
 | JS 规范  | 驼峰命名、功能职责单一、`addEventListener` 动态绑定（行为与结构分离） |
 | 通用组件 | `createModal()` 函数（`shared/common/app.js`），支持任意内容弹窗      |
@@ -71,9 +75,17 @@ description: 移动端高保真产品原型交付专家（产品经理+UI/UX设�
 
 ### 交付层 (Delivery)
 
-- **测试与优化**：确保跨浏览器兼容性和交互流畅性。**最后一步强制自检（两项，缺一不可）**：
-  - **(a) 图片可达性**：逐一确认每个 `<img src>` 真实可访问（返回 200、非占位符、非加载失败）。任一 404/400 立即换图重验，直到全部通过；交付时**零失败图片**。提示：沙箱常拦截 `curl` / `WebFetch` / `webReader`，可用图像分析类工具（如 `analyze_image` MCP）远程探测图片是否可加载——能返回内容描述即视为通过。
-  - **(b) 作者署名**：grep `openQrcodeModal`，确认在 `login.html` 与 `profile.html` 各命中一次（点击作者署名弹出扫码窗）。
+- **测试与优化**：确保跨浏览器兼容性和交互流畅性。**最后一步强制自检（五项，缺一不可）**：
+  - **(a) 样式检查**：核查 CSS 规则本身是否正确（静态层面，无需看渲染即可排查），任一发现立即修复重验：
+    - **选择器与属性拼写**：类名缺 `.` 前缀导致整条选择器失效；属性名/值拼写错误。
+    - **后代选择器特异性**：`.parent img` 这类后代选择器会误匹配所有嵌套 img（实测踩坑：`.wf-card img` 同时命中主图与 `.wf-info` 内嵌的 `.wf-avatar`，因 specificity 11 > 10 压制头像自身样式致变形）→ 改用 `.parent > img` 仅匹配直接子级。
+    - **z-index 层级**：模态框应盖住 Tab/状态栏；FAB 不被内容遮挡；状态栏不被卡片覆盖。
+  - **(b) 布局展示**：核查渲染呈现是否正常（动态层面，需看实际效果），任一发现立即修复重验：
+    - **内容溢出 / 横向滚动条**：写死 `width:375px` 撑出 iframe 视口（见「原则与边界·页面宽度自适应容器」）；卡片/图片溢出触发横向滚动。
+    - **变形压缩**：`object-fit` / `width` / `aspect-ratio` 规则冲突把图片撑变形；文字被容器挤压或截断。
+  - **(c) 图片可达性**：逐一确认每个 `<img src>` 真实可访问（返回 200、非占位符、非加载失败）。任一 404/400 立即换图重验，直到全部通过；交付时**零失败图片**。提示：沙箱常拦截 `curl` / `WebFetch` / `webReader`，可用图像分析类工具（如 `analyze_image` MCP）远程探测图片是否可加载--能返回内容描述即视为通过。
+  - **(d) 图标规范**：扫描全部生成的 HTML，禁止任何 emoji / Unicode 符号残留（含 `[\x{1F300}-\x{1FAFF}]`、`[\x{2600}-\x{27BF}]`、`[\x{1F000}-\x{1F2FF}]` 等范围及 `★ ♥ ✓ ✗ → ● ■ ▶` 等准 emoji）。所有图标必须用 FontAwesome（`<i class="fa[srb] ...">`），裸 `fa-xxx` 不合规。命中任一 emoji/符号即替换重验，直至 0 命中。
+  - **(e) 作者署名**：grep `openQrcodeModal`，确认在 `login.html` 与 `profile.html` 各命中一次（点击作者署名弹出扫码窗）。
 
 ## 输出结构
 
@@ -99,7 +111,7 @@ builds/<app-name>/
 
 ## 脚手架
 
-`references/scaffold/` 提供一套可复用的初始模板（已实现手机外壳、状态栏、Tab 导航、玻璃拟态样式、涟漪动画）。生成时：
+`templates/scaffold/` 提供一套可复用的初始模板（已实现手机外壳、状态栏、Tab 导航、玻璃拟态样式、涟漪动画）。生成时：
 
 1. 以 scaffold 为基础，**复制结构**到目标目录。
 2. 按目标 APP 的主题替换文案、配色、图片、图标。

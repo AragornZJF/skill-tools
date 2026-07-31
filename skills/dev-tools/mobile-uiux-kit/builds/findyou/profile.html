@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人中心 · 觅TA FindYou</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 头部信息 -->
+    <div class="profile-header">
+      <img class="avatar-lg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="头像">
+      <div class="profile-info">
+        <h2 class="text-lg font-bold" style="color:#2D1F2D;">夏屿 · 26</h2>
+        <p class="text-xs" style="color:#8C7A8A;">觅TAID: FY202408</p>
+        <p class="text-xs mt-1" style="color:#E8709A;">"想和你一起看遍人间烟火"</p>
+      </div>
+    </div>
+
+    <!-- 统计 -->
+    <div class="glass-card profile-stats">
+      <div class="stat-col"><p class="stat-num">36</p><p class="stat-label">关注</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><p class="stat-num">1.2k</p><p class="stat-label">粉丝</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><p class="stat-num">286</p><p class="stat-label">获赞</p></div>
+    </div>
+
+    <!-- 魅力值 -->
+    <div class="glass-card charm-card mt-4">
+      <div class="charm-label">
+        <i class="fa-solid fa-wand-magic-sparkles" style="color:#E8709A;"></i>
+        魅力值
+      </div>
+      <div class="charm-bar">
+        <div class="charm-fill" style="width:78%;"></div>
+      </div>
+      <div class="charm-meta">
+        <span>完善资料可提升魅力值</span>
+        <span style="color:#E8709A;font-weight:700;">78%</span>
+      </div>
+    </div>
+
+    <!-- 我的相册 -->
+    <div class="mt-4">
+      <h3 class="section-title" style="margin-bottom:10px;">我的相册</h3>
+      <div class="album-row">
+        <img class="album-photo" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&q=80" alt="相册">
+        <img class="album-photo" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&q=80" alt="相册">
+        <img class="album-photo" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=200&q=80" alt="相册">
+        <img class="album-photo" src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&q=80" alt="相册">
+        <img class="album-photo" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=200&q=80" alt="相册">
+        <img class="album-photo" src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=200&q=80" alt="相册">
+      </div>
+    </div>
+
+    <!-- 设置列表 -->
+    <div class="glass-card mt-4 overflow-hidden">
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-gear setting-icon" style="background:#E8709A;"></i>
+        <span class="flex-1">账户设置</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-bell setting-icon" style="background:#FFB7C5;"></i>
+        <span class="flex-1">消息通知</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-shield-halved setting-icon" style="background:#34c759;"></i>
+        <span class="flex-1">隐私与安全</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn" id="helpCenterBtn">
+        <i class="fa-solid fa-circle-question setting-icon" style="background:#5856d6;"></i>
+        <span class="flex-1">帮助中心</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn ripple-btn">退出登录</button>
+
+    <div class="text-center mt-4">
+      <span id="authLink" class="text-xs" style="color:#8C7A8A;cursor:pointer;">帮助？@Auth 江枫</span>
+    </div>
+  </main>
+
+  <script src="./shared/common/qrcode-data.js"></script>
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogout();
+
+    document.getElementById('helpCenterBtn').addEventListener('click', openQrcodeModal);
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>搭子 · 登录</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <!-- iOS 状态栏 -->
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content flex flex-col justify-center px-8">
+    <div class="text-center mb-8">
+      <div class="app-logo">
+        <i class="fa-solid fa-people-arrows"></i>
+      </div>
+      <h1 class="text-2xl font-bold mt-4" style="color:#1d1d1f;">搭子</h1>
+      <p class="text-sm mt-1" style="color:#86868b;">找到那个和你一起的人</p>
+    </div>
+
+    <div class="glass-card p-6 space-y-4">
+      <div class="text-center mb-2">
+        <p class="text-xs font-semibold" style="color:#7c3aed;">先选几个你感兴趣的吧</p>
+        <div class="pick-tags" id="interestTags">
+          <span class="pick-tag ripple-btn" data-tag="羽毛球"><i class="fa-solid fa-baseball"></i> 羽毛球</span>
+          <span class="pick-tag ripple-btn" data-tag="咖啡探店"><i class="fa-solid fa-mug-hot"></i> 咖啡探店</span>
+          <span class="pick-tag ripple-btn" data-tag="桌游"><i class="fa-solid fa-dice"></i> 桌游</span>
+          <span class="pick-tag ripple-btn" data-tag="徒步"><i class="fa-solid fa-person-hiking"></i> 徒步</span>
+          <span class="pick-tag ripple-btn" data-tag="健身"><i class="fa-solid fa-dumbbell"></i> 健身</span>
+          <span class="pick-tag ripple-btn" data-tag="读书"><i class="fa-solid fa-book"></i> 读书</span>
+          <span class="pick-tag ripple-btn" data-tag="音乐现场"><i class="fa-solid fa-music"></i> 音乐现场</span>
+          <span class="pick-tag ripple-btn" data-tag="密室"><i class="fa-solid fa-puzzle-piece"></i> 密室逃脱</span>
+          <span class="pick-tag ripple-btn" data-tag="美食"><i class="fa-solid fa-utensils"></i> 美食打卡</span>
+          <span class="pick-tag ripple-btn" data-tag="摄影"><i class="fa-solid fa-camera"></i> 摄影扫街</span>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <i class="fa-solid fa-mobile-screen input-icon"></i>
+        <input type="text" id="username" placeholder="手机号" class="glass-input">
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-lock input-icon"></i>
+        <input type="password" id="password" placeholder="密码" class="glass-input">
+      </div>
+      <button id="loginBtn" class="primary-btn ripple-btn w-full">登录 / 注册</button>
+      <p class="text-center text-xs" style="color:#86868b;">登录即表示同意<span style="color:#7c3aed;">《用户协议》</span>和<span style="color:#7c3aed;">《隐私政策》</span></p>
+    </div>
+
+    <div class="text-center mt-6">
+      <span id="authLink" class="text-xs" style="color:#86868b;cursor:pointer;">帮助？@Auth 江枫</span>
+    </div>
+  </main>
+
+  <script src="./shared/common/qrcode-data.js"></script>
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+
+    // 兴趣标签点选
+    var tagEls = document.querySelectorAll('#interestTags .pick-tag');
+    var pickedTags = [];
+    tagEls.forEach(function (tag) {
+      tag.addEventListener('click', function () {
+        var t = tag.dataset.tag;
+        if (tag.classList.contains('picked')) {
+          tag.classList.remove('picked');
+          pickedTags = pickedTags.filter(function (v) { return v !== t; });
+        } else {
+          tag.classList.add('picked');
+          pickedTags.push(t);
+        }
+      });
+    });
+
+    bindLogin();
+
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
+  </script>
+</body>
+</html>

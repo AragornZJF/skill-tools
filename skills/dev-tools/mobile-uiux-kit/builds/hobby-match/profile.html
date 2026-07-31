@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>搭子 · 我的</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <!-- iOS 状态栏 -->
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 个人信息 -->
+    <div class="profile-header">
+      <img class="avatar-lg" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&q=80" alt="头像">
+      <div class="profile-info">
+        <h2 class="text-lg font-bold" style="color:#1d1d1f;">城市探险家</h2>
+        <p class="text-xs" style="color:#86868b;">ID: 10086 · 加入 30 天</p>
+        <div class="tag-row mt-2">
+          <span class="interest-tag purple" style="font-size:10px;padding:3px 10px;"><i class="fa-solid fa-baseball"></i> 羽毛球</span>
+          <span class="interest-tag pink" style="font-size:10px;padding:3px 10px;"><i class="fa-solid fa-mug-hot"></i> 咖啡</span>
+          <span class="interest-tag orange" style="font-size:10px;padding:3px 10px;"><i class="fa-solid fa-dice"></i> 桌游</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 数据统计 -->
+    <div class="glass-card profile-stats">
+      <div class="stat-col">
+        <p class="stat-num">12</p>
+        <p class="stat-label">我的搭子</p>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-col">
+        <p class="stat-num">28</p>
+        <p class="stat-label">参加活动</p>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-col">
+        <p class="stat-num">6</p>
+        <p class="stat-label">收藏</p>
+      </div>
+    </div>
+
+    <!-- 我的搭子 -->
+    <div class="glass-card mt-4 p-4">
+      <div class="flex items-center justify-between mb-3">
+        <p class="font-semibold text-sm" style="color:#1d1d1f;">最近搭子</p>
+        <span class="text-xs" style="color:#7c3aed;cursor:pointer;">查看全部 <i class="fa-solid fa-chevron-right"></i></span>
+      </div>
+      <div class="space-y-3">
+        <div class="my-buddy-item">
+          <img class="my-buddy-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="小鹿">
+          <div class="flex-1">
+            <p class="font-semibold text-sm" style="color:#1d1d1f;">小鹿</p>
+            <p class="text-xs" style="color:#86868b;">一起打了 8 场羽毛球</p>
+          </div>
+          <span class="text-xs font-semibold" style="color:#7c3aed;">95% 默契</span>
+        </div>
+        <div class="my-buddy-item">
+          <img class="my-buddy-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="阿乐">
+          <div class="flex-1">
+            <p class="font-semibold text-sm" style="color:#1d1d1f;">阿乐</p>
+            <p class="text-xs" style="color:#86868b;">桌游吧常驻队友</p>
+          </div>
+          <span class="text-xs font-semibold" style="color:#7c3aed;">91% 默契</span>
+        </div>
+        <div class="my-buddy-item">
+          <img class="my-buddy-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="思思">
+          <div class="flex-1">
+            <p class="font-semibold text-sm" style="color:#1d1d1f;">思思</p>
+            <p class="text-xs" style="color:#86868b;">美食探店搭子</p>
+          </div>
+          <span class="text-xs font-semibold" style="color:#7c3aed;">88% 默契</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 设置列表 -->
+    <div class="glass-card mt-4 overflow-hidden">
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-calendar-days setting-icon" style="background:#7c3aed;"></i>
+        <span class="flex-1">我的活动</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-user-group setting-icon" style="background:#a855f7;"></i>
+        <span class="flex-1">我的搭子</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-bell setting-icon" style="background:#f97316;"></i>
+        <span class="flex-1">消息通知</span>
+        <span class="text-xs" style="color:#86868b;">3 条新消息</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-gear setting-icon" style="background:#6366f1;"></i>
+        <span class="flex-1">账户设置</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-shield-halved setting-icon" style="background:#22c55e;"></i>
+        <span class="flex-1">隐私与安全</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn" id="helpCenterBtn">
+        <i class="fa-solid fa-circle-question setting-icon" style="background:#ec4899;"></i>
+        <span class="flex-1">帮助中心</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+    </div>
+
+    <!-- 退出登录 -->
+    <button id="logoutBtn" class="logout-btn ripple-btn">退出登录</button>
+
+    <!-- 作者署名 -->
+    <div class="text-center mt-4">
+      <span id="authLink" class="text-xs" style="color:#86868b;cursor:pointer;">帮助？@Auth 江枫</span>
+    </div>
+  </main>
+
+  <script src="./shared/common/qrcode-data.js"></script>
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogout();
+
+    document.getElementById('helpCenterBtn').addEventListener('click', openQrcodeModal);
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
+  </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>搭子 · 首页</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <!-- iOS 状态栏 -->
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 顶部问候 -->
+    <div class="flex items-center justify-between pt-3 pb-4">
+      <div>
+        <p class="text-xs" style="color:#86868b;">下午好 <i class="fa-solid fa-sun" style="color:#f59e0b;"></i></p>
+        <h1 class="text-xl font-bold" style="color:#1d1d1f;">今天找谁一起玩？</h1>
+      </div>
+      <img class="avatar-sm" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=100&q=80" alt="头像">
+    </div>
+
+    <!-- 主题 Banner -->
+    <div class="banner-card ripple-btn">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="组局活动">
+      <div class="banner-overlay">
+        <h2 class="text-lg font-bold text-white"><i class="fa-solid fa-fire"></i> 周末羽毛球局</h2>
+        <p class="text-xs text-white/80">已有 6 人报名 · 朝阳公园</p>
+      </div>
+    </div>
+
+    <!-- 数据统计 -->
+    <div class="grid grid-cols-2 gap-3 mt-4">
+      <div class="glass-card stat-card ripple-btn">
+        <i class="fa-solid fa-calendar-check stat-icon"></i>
+        <p class="stat-num">128</p>
+        <p class="stat-label">今日活动</p>
+      </div>
+      <div class="glass-card stat-card ripple-btn">
+        <i class="fa-solid fa-user-group stat-icon"></i>
+        <p class="stat-num">3.2k</p>
+        <p class="stat-label">附近搭子</p>
+      </div>
+    </div>
+
+    <!-- 我的兴趣 -->
+    <h3 class="section-title">我的兴趣</h3>
+    <div class="tag-row">
+      <span class="interest-tag purple ripple-btn selected"><i class="fa-solid fa-baseball"></i> 羽毛球</span>
+      <span class="interest-tag pink ripple-btn"><i class="fa-solid fa-mug-hot"></i> 咖啡探店</span>
+      <span class="interest-tag orange ripple-btn"><i class="fa-solid fa-dice"></i> 桌游</span>
+      <span class="interest-tag green ripple-btn"><i class="fa-solid fa-person-hiking"></i> 徒步</span>
+      <span class="interest-tag blue ripple-btn">+ 添加</span>
+    </div>
+
+    <!-- 附近搭子推荐 -->
+    <h3 class="section-title"><i class="fa-solid fa-bullseye" style="color:#7c3aed;"></i> 高匹配搭子</h3>
+    <div class="space-y-3">
+      <div class="buddy-card ripple-btn">
+        <img class="buddy-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="头像">
+        <div>
+          <p class="buddy-name">小鹿</p>
+          <div class="buddy-tags">
+            <span class="buddy-tag">羽毛球</span>
+            <span class="buddy-tag">徒步</span>
+          </div>
+          <p class="buddy-meta">1.2km · 活跃度 92%</p>
+        </div>
+        <div class="match-badge">
+          <span class="match-percent">95%</span>
+          <span class="match-label">匹配</span>
+        </div>
+      </div>
+
+      <div class="buddy-card ripple-btn">
+        <img class="buddy-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="头像">
+        <div>
+          <p class="buddy-name">阿乐</p>
+          <div class="buddy-tags">
+            <span class="buddy-tag">桌游</span>
+            <span class="buddy-tag">咖啡探店</span>
+          </div>
+          <p class="buddy-meta">0.8km · 活跃度 87%</p>
+        </div>
+        <div class="match-badge">
+          <span class="match-percent">91%</span>
+          <span class="match-label">匹配</span>
+        </div>
+      </div>
+
+      <div class="buddy-card ripple-btn">
+        <img class="buddy-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" alt="头像">
+        <div>
+          <p class="buddy-name">思思</p>
+          <div class="buddy-tags">
+            <span class="buddy-tag">美食打卡</span>
+            <span class="buddy-tag">摄影</span>
+          </div>
+          <p class="buddy-meta">2.5km · 活跃度 78%</p>
+        </div>
+        <div class="match-badge">
+          <span class="match-percent">88%</span>
+          <span class="match-label">匹配</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 即将开始的活动 -->
+    <h3 class="section-title"><i class="fa-solid fa-calendar-days" style="color:#7c3aed;"></i> 即将开始</h3>
+    <div class="space-y-3">
+      <div class="event-card ripple-btn">
+        <img class="event-thumb" src="https://images.unsplash.com/photo-1613918431703-aa50889e3be9?w=200&q=80" alt="羽毛球">
+        <div class="flex-1">
+          <p class="event-title"><i class="fa-solid fa-baseball"></i> 周末羽毛球双打局</p>
+          <p class="event-info"><i class="fa-regular fa-clock"></i> 周六 15:00 · 朝阳体育馆</p>
+          <p class="event-info"><i class="fa-solid fa-user-group"></i> 4/6 人</p>
+          <span class="event-join"><i class="fa-solid fa-circle-check"></i> 已报名</span>
+        </div>
+      </div>
+
+      <div class="event-card ripple-btn">
+        <img class="event-thumb" src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=200&q=80" alt="桌游">
+        <div class="flex-1">
+          <p class="event-title"><i class="fa-solid fa-moon"></i> 阿瓦隆之夜</p>
+          <p class="event-info"><i class="fa-regular fa-clock"></i> 周五 19:30 · 三里屯桌游吧</p>
+          <p class="event-info"><i class="fa-solid fa-user-group"></i> 5/8 人</p>
+          <span class="event-join"><i class="fa-solid fa-plus-circle"></i> 加入</span>
+        </div>
+      </div>
+
+      <div class="event-card ripple-btn">
+        <img class="event-thumb" src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=200&q=80" alt="徒步">
+        <div class="flex-1">
+          <p class="event-title"><i class="fa-solid fa-person-hiking"></i> 香山轻徒步</p>
+          <p class="event-info"><i class="fa-regular fa-clock"></i> 周日 8:00 · 香山地铁站集合</p>
+          <p class="event-info"><i class="fa-solid fa-user-group"></i> 8/12 人</p>
+          <span class="event-join"><i class="fa-solid fa-plus-circle"></i> 加入</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+  </script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>记账 · 金记</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <!-- iOS 状态栏 -->
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-28">
+    <!-- 顶部问候 -->
+    <div class="flex items-center justify-between pt-3 pb-4 fade-up">
+      <div>
+        <p class="text-xs" style="color:#8b8d94;">7月31日 星期三</p>
+        <h1 class="text-xl font-bold mt-0.5" style="color:#22242b;">早上好，小金</h1>
+      </div>
+      <div class="flex items-center gap-3">
+        <i class="fa-regular fa-bell text-lg" style="color:#8b8d94;"></i>
+        <img class="avatar-sm" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt="头像">
+      </div>
+    </div>
+
+    <!-- 总资产卡 -->
+    <section class="asset-card ripple-btn fade-up delay-1">
+      <p class="asset-label">总资产 (元)</p>
+      <p class="asset-amount">
+        <span class="currency">¥</span><span id="totalAsset" data-target="86520">0</span>
+      </p>
+      <div class="asset-row">
+        <div class="asset-col">
+          <p class="asset-col-label">本月收入</p>
+          <p class="asset-col-value income"><span id="monthIncome">+¥12,800</span></p>
+        </div>
+        <div class="asset-col">
+          <p class="asset-col-label">本月支出</p>
+          <p class="asset-col-value expense"><span id="monthExpense">-¥4,935</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 预算进度 -->
+    <section class="glass-card budget-card mt-4 fade-up delay-2">
+      <div class="budget-head">
+        <span class="budget-title"><i class="fa-solid fa-bullseye mr-1" style="color:var(--gold);"></i>本月预算</span>
+        <span class="budget-remain">还可花 <b style="color:var(--primary);">¥3,065</b></span>
+      </div>
+      <div class="progress-track">
+        <div id="budgetFill" class="progress-fill" data-percent="62"></div>
+      </div>
+      <div class="budget-foot">
+        <span>已用 ¥4,935</span>
+        <span>预算 ¥8,000</span>
+      </div>
+    </section>
+
+    <!-- 快捷操作 -->
+    <section class="glass-card quick-row fade-up delay-2">
+      <div class="quick-item ripple-btn" id="quickRecord">
+        <span class="quick-icon" style="background:var(--gold-grad);"><i class="fa-solid fa-plus"></i></span>
+        <span class="quick-label">记一笔</span>
+      </div>
+      <div class="quick-item ripple-btn">
+        <span class="quick-icon" style="background:var(--primary-grad);"><i class="fa-solid fa-qrcode"></i></span>
+        <span class="quick-label">扫一扫</span>
+      </div>
+      <div class="quick-item ripple-btn">
+        <span class="quick-icon" style="background:linear-gradient(135deg,#4f7bd9,#6aa1e8);"><i class="fa-solid fa-receipt"></i></span>
+        <span class="quick-label">账单</span>
+      </div>
+      <div class="quick-item ripple-btn">
+        <span class="quick-icon" style="background:linear-gradient(135deg,#2e9e5b,#5bc98a);"><i class="fa-solid fa-chart-pie"></i></span>
+        <span class="quick-label">报表</span>
+      </div>
+    </section>
+
+    <!-- 理财贴士 -->
+    <section class="tip-card mt-4 ripple-btn fade-up delay-3">
+      <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80" alt="理财贴士">
+      <div class="tip-overlay">
+        <span class="tip-tag">小贴士</span>
+        <p class="tip-title">三个让存款悄悄变多的习惯</p>
+      </div>
+    </section>
+
+    <!-- 最近账单 -->
+    <div class="flex items-center justify-between mt-5 mb-3 fade-up delay-3">
+      <h3 class="section-title" style="margin:0;font-size:16px;font-weight:700;color:#22242b;">最近账单</h3>
+      <span class="text-xs" style="color:#8b8d94;">查看全部 <i class="fa-solid fa-chevron-right" style="font-size:10px;"></i></span>
+    </div>
+    <div id="billList" class="fade-up delay-4"></div>
+  </main>
+
+  <!-- 记一笔 FAB -->
+  <button id="fabRecord" class="fab ripple-btn" aria-label="记一笔">
+    <i class="fa-solid fa-plus"></i>
+  </button>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    /* ---------- 账单数据（可二次开发：替换为接口返回） ---------- */
+    const bills = [
+      { icon: 'fa-utensils',    color: '#e8763a', name: '星巴克咖啡', note: '餐饮 · 今天 09:12', amount: -32 },
+      { icon: 'fa-sack-dollar', color: '#2e9e5b', name: '工资到账',   note: '收入 · 昨天 10:00', amount: 12800 },
+      { icon: 'fa-bus-simple',  color: '#3d6bd8', name: '地铁通勤',   note: '交通 · 今天 08:30', amount: -6 },
+      { icon: 'fa-bag-shopping',color: '#b057d0', name: '京东超市',   note: '购物 · 昨天 20:15', amount: -268 },
+      { icon: 'fa-chart-line',  color: '#c9a35c', name: '基金收益',   note: '理财 · 周一 15:00', amount: 186.5 },
+      { icon: 'fa-house-chimney', color: '#5a6b8f', name: '物业费',   note: '居住 · 周日 09:30', amount: -680 }
+    ];
+    const recordCats = [
+      { icon: 'fa-utensils',      label: '餐饮' },
+      { icon: 'fa-bus-simple',    label: '交通' },
+      { icon: 'fa-bag-shopping',  label: '购物' },
+      { icon: 'fa-house-chimney', label: '居住' },
+      { icon: 'fa-film',          label: '娱乐' },
+      { icon: 'fa-heart-pulse',   label: '医疗' },
+      { icon: 'fa-sack-dollar',   label: '工资' },
+      { icon: 'fa-chart-line',    label: '理财' }
+    ];
+
+    /* ---------- 渲染账单列表 ---------- */
+    function formatAmount(amount) {
+      const abs = Math.abs(amount).toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return amount >= 0 ? '+¥' + abs : '-¥' + abs;
+    }
+
+    function renderBills() {
+      const list = document.getElementById('billList');
+      list.innerHTML = bills.map(function (bill) {
+        const cls = bill.amount >= 0 ? 'income' : 'expense';
+        return (
+          '<div class="bill-item ripple-btn">' +
+            '<span class="cat-icon" style="background:' + bill.color + ';"><i class="fa-solid ' + bill.icon + '"></i></span>' +
+            '<div class="bill-main">' +
+              '<p class="bill-name">' + bill.name + '</p>' +
+              '<p class="bill-note">' + bill.note + '</p>' +
+            '</div>' +
+            '<span class="bill-amount ' + cls + '">' + formatAmount(bill.amount) + '</span>' +
+          '</div>'
+        );
+      }).join('');
+    }
+
+    /* ---------- 记账弹窗 ---------- */
+    let recordModal = null;
+    let selectedCat = '餐饮';
+
+    function openRecordModal() {
+      const catChips = recordCats.map(function (cat) {
+        const active = cat.label === selectedCat ? ' active' : '';
+        return (
+          '<button class="cat-chip' + active + '" data-cat="' + cat.label + '">' +
+            '<i class="fa-solid ' + cat.icon + '"></i><span>' + cat.label + '</span>' +
+          '</button>'
+        );
+      }).join('');
+
+      recordModal = createModal({
+        title: '记一笔',
+        bodyHTML:
+          '<input type="number" id="recordAmount" class="record-amount" placeholder="0.00" min="0" step="0.01">' +
+          '<div class="cat-grid">' + catChips + '</div>' +
+          '<button id="saveRecordBtn" class="save-record-btn">保 存</button>'
+      });
+      recordModal.open();
+
+      const amountInput = document.getElementById('recordAmount');
+      const saveBtn = document.getElementById('saveRecordBtn');
+      setTimeout(function () { amountInput.focus(); }, 100);
+
+      // 分类 chips：单选高亮
+      document.querySelectorAll('.cat-chip').forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          document.querySelectorAll('.cat-chip').forEach(function (c) { c.classList.remove('active'); });
+          chip.classList.add('active');
+          selectedCat = chip.dataset.cat;
+        });
+      });
+
+      // 保存：校验 → 更新数据 → 重渲染 → 轻提示
+      saveBtn.addEventListener('click', function () {
+        const value = parseFloat(amountInput.value);
+        if (!value || value <= 0) {
+          shakeElement(saveBtn);
+          return;
+        }
+        const now = new Date();
+        const time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+        bills.unshift({
+          icon: recordCats.find(function (c) { return c.label === selectedCat; }).icon,
+          color: recordCats.find(function (c) { return c.label === selectedCat; }).color,
+          name: selectedCat + '支出',
+          note: selectedCat + ' · 今天 ' + time,
+          amount: -value
+        });
+        renderBills();
+        showToast('已记一笔：' + formatAmount(-value));
+        recordModal.close();
+      });
+    }
+
+    /* ---------- 初始化 ---------- */
+    enableRipple();
+    renderBills();
+    animateNumber(document.getElementById('totalAsset'), { prefix: '', duration: 1100 });
+    animateProgress(document.getElementById('budgetFill'));
+
+    document.getElementById('fabRecord').addEventListener('click', openRecordModal);
+    document.getElementById('quickRecord').addEventListener('click', openRecordModal);
+  </script>
+</body>
+</html>

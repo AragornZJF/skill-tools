@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>搭子 · 发现</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <!-- iOS 状态栏 -->
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 搜索栏 -->
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索活动、搭子、兴趣...">
+      </div>
+    </div>
+
+    <!-- 分类标签横滚 -->
+    <div class="category-row" id="categoryRow">
+      <span class="cat-chip active ripple-btn" data-cat="all">全部</span>
+      <span class="cat-chip ripple-btn" data-cat="sports"><i class="fa-solid fa-futbol"></i> 运动</span>
+      <span class="cat-chip ripple-btn" data-cat="food"><i class="fa-solid fa-utensils"></i> 美食</span>
+      <span class="cat-chip ripple-btn" data-cat="boardgame"><i class="fa-solid fa-dice"></i> 桌游</span>
+      <span class="cat-chip ripple-btn" data-cat="outdoor"><i class="fa-solid fa-campground"></i> 户外</span>
+      <span class="cat-chip ripple-btn" data-cat="study"><i class="fa-solid fa-book"></i> 学习</span>
+      <span class="cat-chip ripple-btn" data-cat="music"><i class="fa-solid fa-music"></i> 音乐</span>
+      <span class="cat-chip ripple-btn" data-cat="photo"><i class="fa-solid fa-camera"></i> 摄影</span>
+      <span class="cat-chip ripple-btn" data-cat="esports"><i class="fa-solid fa-gamepad"></i> 电竞</span>
+    </div>
+
+    <!-- 双列瀑布流 -->
+    <div class="waterfall">
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1613918431703-aa50889e3be9?w=400&q=80" alt="羽毛球">
+        <div class="wf-info">
+          <p class="wf-title"><i class="fa-solid fa-baseball"></i> 周末羽毛球双打</p>
+          <p class="wf-desc">朝阳体育馆 · 周六下午</p>
+          <div class="wf-meta">
+            <span><i class="fa-solid fa-user"></i> 4/6</span>
+            <span><i class="fa-solid fa-location-dot"></i> 1.8km</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&q=80" alt="咖啡探店">
+        <div class="wf-info">
+          <p class="wf-title"><i class="fa-solid fa-mug-hot"></i> 胡同咖啡巡礼</p>
+          <p class="wf-desc">打卡 5 家隐藏小店</p>
+          <div class="wf-meta">
+            <span><i class="fa-solid fa-user"></i> 3/5</span>
+            <span><i class="fa-solid fa-location-dot"></i> 0.5km</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?w=400&q=80" alt="桌游">
+        <div class="wf-info">
+          <p class="wf-title"><i class="fa-solid fa-dice"></i> 阿瓦隆之夜</p>
+          <p class="wf-desc">推理与演技的较量</p>
+          <div class="wf-meta">
+            <span><i class="fa-solid fa-user"></i> 5/8</span>
+            <span><i class="fa-solid fa-location-dot"></i> 2.1km</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&q=80" alt="徒步">
+        <div class="wf-info">
+          <p class="wf-title"><i class="fa-solid fa-person-hiking"></i> 香山轻徒步</p>
+          <p class="wf-desc">新手友好 · 全程8km</p>
+          <div class="wf-meta">
+            <span><i class="fa-solid fa-user"></i> 8/12</span>
+            <span><i class="fa-solid fa-location-dot"></i> 5.6km</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=80" alt="读书会">
+        <div class="wf-info">
+          <p class="wf-title"><i class="fa-solid fa-book"></i> 周末读书分享会</p>
+          <p class="wf-desc">本期：《沟通的艺术》</p>
+          <div class="wf-meta">
+            <span><i class="fa-solid fa-user"></i> 6/10</span>
+            <span><i class="fa-solid fa-location-dot"></i> 3.0km</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80" alt="音乐现场">
+        <div class="wf-info">
+          <p class="wf-title"><i class="fa-solid fa-music"></i> 周五不插电现场</p>
+          <p class="wf-desc">民谣弹唱 + 开放麦</p>
+          <div class="wf-meta">
+            <span><i class="fa-solid fa-user"></i> 12/20</span>
+            <span><i class="fa-solid fa-location-dot"></i> 1.5km</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=80" alt="健身">
+        <div class="wf-info">
+          <p class="wf-title"><i class="fa-solid fa-dumbbell"></i> 晨间HIIT打卡</p>
+          <p class="wf-desc">公园集合 · 7:00开练</p>
+          <div class="wf-meta">
+            <span><i class="fa-solid fa-user"></i> 3/8</span>
+            <span><i class="fa-solid fa-location-dot"></i> 0.3km</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=400&q=80" alt="烘焙">
+        <div class="wf-info">
+          <p class="wf-title"><i class="fa-solid fa-cake-candles"></i> 烘焙体验课</p>
+          <p class="wf-desc">零基础学做蛋糕</p>
+          <div class="wf-meta">
+            <span><i class="fa-solid fa-user"></i> 4/6</span>
+            <span><i class="fa-solid fa-location-dot"></i> 2.8km</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1603190287605-e6ade32fa852?w=400&q=80" alt="密室">
+        <div class="wf-info">
+          <p class="wf-title"><i class="fa-solid fa-puzzle-piece"></i> 密室逃脱组队</p>
+          <p class="wf-desc">恐怖主题，胆大来</p>
+          <div class="wf-meta">
+            <span><i class="fa-solid fa-user"></i> 2/6</span>
+            <span><i class="fa-solid fa-location-dot"></i> 4.0km</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400&q=80" alt="学习">
+        <div class="wf-info">
+          <p class="wf-title"><i class="fa-solid fa-book-open"></i> 周末自习局</p>
+          <p class="wf-desc">国图自习室 · 安静氛围</p>
+          <div class="wf-meta">
+            <span><i class="fa-solid fa-user"></i> 10/15</span>
+            <span><i class="fa-solid fa-location-dot"></i> 3.5km</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+
+    // 分类标签切换
+    var catChips = document.querySelectorAll('#categoryRow .cat-chip');
+    catChips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        catChips.forEach(function (c) { c.classList.remove('active'); });
+        chip.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

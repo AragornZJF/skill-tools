@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 · 趣言 LingoGo</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <!-- iOS 状态栏 -->
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content flex flex-col justify-center px-8">
+    <div class="text-center mb-10">
+      <div class="app-logo">
+        <i class="fa-solid fa-language"></i>
+      </div>
+      <h1 class="text-2xl font-bold mt-4" style="color:#1d1d1f;">趣言 LingoGo</h1>
+      <p class="text-sm mt-1" style="color:#86868b;">每天 15 分钟，开口说世界</p>
+    </div>
+
+    <div class="glass-card p-6 space-y-4">
+      <div class="input-group">
+        <i class="fa-solid fa-user input-icon"></i>
+        <input type="text" id="username" placeholder="手机号 / 邮箱" class="glass-input">
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-lock input-icon"></i>
+        <input type="password" id="password" placeholder="密码" class="glass-input">
+      </div>
+      <button id="loginBtn" class="primary-btn ripple-btn w-full">登录 / 开始学习</button>
+      <div class="flex items-center justify-between text-xs" style="color:#86868b;">
+        <span>还没有账户？<span style="color:#8b5cf6;font-weight:600;">立即注册</span></span>
+        <span>忘记密码</span>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3 my-6">
+      <span class="flex-1 h-px" style="background:rgba(0,0,0,0.08);"></span>
+      <span class="text-xs" style="color:#86868b;">第三方登录</span>
+      <span class="flex-1 h-px" style="background:rgba(0,0,0,0.08);"></span>
+    </div>
+
+    <div class="flex justify-center gap-5">
+      <button class="ripple-btn flex items-center justify-center" style="width:48px;height:48px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08);color:#07c160;font-size:20px;border:none;cursor:pointer;">
+        <i class="fa-brands fa-weixin"></i>
+      </button>
+      <button class="ripple-btn flex items-center justify-center" style="width:48px;height:48px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08);color:#1d1d1f;font-size:20px;border:none;cursor:pointer;">
+        <i class="fa-brands fa-apple"></i>
+      </button>
+      <button class="ripple-btn flex items-center justify-center" style="width:48px;height:48px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.08);color:#f43f5e;font-size:20px;border:none;cursor:pointer;">
+        <i class="fa-brands fa-google"></i>
+      </button>
+    </div>
+
+    <!-- 【强制】作者署名 -->
+    <div class="text-center mt-8">
+      <span id="authLink" class="text-xs" style="color:#86868b;cursor:pointer;">帮助？@Auth 江枫 </span>
+    </div>
+  </main>
+
+  <script src="./shared/common/qrcode-data.js"></script>
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogin();
+
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
+  </script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>拍立记 · 记录</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 has-fab">
+    <!-- 标题行 -->
+    <div class="home-head">
+      <div>
+        <h1 class="home-title">拍立记</h1>
+        <p class="home-sub">今日已记录 3 帧 · 连续 12 天</p>
+      </div>
+      <div class="home-date">
+        <span class="home-date-num">7 / 31</span>
+        <span class="home-date-week">周五</span>
+      </div>
+    </div>
+
+    <!-- Hero 大预览卡（默认拍立得模板） -->
+    <div class="hero-card tpl-polaroid" id="heroCard">
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1495567720989-cebdbdd97913?w=600&q=80" alt="今日记录">
+        <span class="hero-stamp">07.31</span>
+      </div>
+      <div class="hero-caption" id="heroCaption">2026.07.31 · 晨光</div>
+    </div>
+
+    <!-- 模板选择条 -->
+    <div class="tpl-section-label">
+      <h3>选择模板</h3>
+      <span>5 款版式</span>
+    </div>
+    <div class="tpl-strip" id="tplStrip">
+      <button class="tpl-chip" data-tpl="classic" data-caption="晨光 · 7月31日">
+        <span class="tpl-chip-thumb"><i class="fa-solid fa-square"></i></span>
+        <span class="tpl-chip-name">经典</span>
+      </button>
+      <button class="tpl-chip active" data-tpl="polaroid" data-caption="2026.07.31 · 晨光">
+        <span class="tpl-chip-thumb"><i class="fa-solid fa-image"></i></span>
+        <span class="tpl-chip-name">拍立得</span>
+      </button>
+      <button class="tpl-chip" data-tpl="stamp" data-caption="MARK · 早晨的第一缕光">
+        <span class="tpl-chip-thumb"><i class="fa-solid fa-stamp"></i></span>
+        <span class="tpl-chip-name">日期戳</span>
+      </button>
+      <button class="tpl-chip" data-tpl="film" data-caption="FRAME 042 · 2026">
+        <span class="tpl-chip-thumb"><i class="fa-solid fa-film"></i></span>
+        <span class="tpl-chip-name">胶片</span>
+      </button>
+      <button class="tpl-chip" data-tpl="minimal" data-caption="MORNING">
+        <span class="tpl-chip-thumb"><i class="fa-regular fa-square"></i></span>
+        <span class="tpl-chip-name">留白</span>
+      </button>
+    </div>
+
+    <!-- 今日记录 -->
+    <div class="tpl-section-label">
+      <h3>今日记录</h3>
+      <span>全部 ›</span>
+    </div>
+    <div class="today-row">
+      <div class="today-thumb ripple-btn">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300&q=80" alt="早晨咖啡">
+      </div>
+      <div class="today-thumb ripple-btn">
+        <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=300&q=80" alt="阳台绿植">
+      </div>
+      <div class="today-thumb ripple-btn">
+        <img src="https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=300&q=80" alt="午后街道">
+      </div>
+    </div>
+
+    <!-- 本周精选（借用发现卡风格，丰富首页） -->
+    <div class="tpl-section-label">
+      <h3>本周精选模板</h3>
+      <span>更多 ›</span>
+    </div>
+    <div class="waterfall">
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80" style="aspect-ratio:4/5;" alt="山景">
+        <div class="wf-info">
+          <img class="wf-avatar" src="https://ui-avatars.com/api/?name=Lin&background=007aff&color=fff&size=64" alt="作者">
+          <div class="wf-text">
+            <p class="wf-title">山间清晨</p>
+            <p class="wf-desc">用 · 拍立得模板</p>
+          </div>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80" style="aspect-ratio:4/5;" alt="咖啡馆">
+        <div class="wf-info">
+          <img class="wf-avatar" src="https://ui-avatars.com/api/?name=SuYe&background=ff9500&color=fff&size=64" alt="作者">
+          <div class="wf-text">
+            <p class="wf-title">巷子里的咖啡馆</p>
+            <p class="wf-desc">用 · 日期戳模板</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 浮动快门 -->
+  <button class="shutter-fab" id="shutterBtn" aria-label="拍照">
+    <i class="fa-solid fa-camera"></i>
+  </button>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+
+    /* 模板切换：点击 chip 切 Hero 卡版式 */
+    (function () {
+      var hero = document.getElementById('heroCard');
+      var caption = document.getElementById('heroCaption');
+      var chips = document.querySelectorAll('.tpl-chip');
+      var tpls = ['classic', 'polaroid', 'stamp', 'film', 'minimal'];
+
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var tpl = chip.getAttribute('data-tpl');
+          /* 切换 Hero 模板 class */
+          tpls.forEach(function (t) {
+            hero.classList.remove('tpl-' + t);
+          });
+          hero.classList.add('tpl-' + tpl);
+          /* 切换文案 */
+          caption.textContent = chip.getAttribute('data-caption');
+          /* 切换选中态 */
+          chips.forEach(function (c) {
+            c.classList.remove('active');
+          });
+          chip.classList.add('active');
+        });
+      });
+    })();
+
+    /* 快门按钮：点击反馈（纯前端演示） */
+    document.getElementById('shutterBtn').addEventListener('click', function () {
+      this.style.transform = 'scale(0.85)';
+      var self = this;
+      setTimeout(function () {
+        self.style.transform = '';
+      }, 150);
+    });
+  </script>
+</body>
+</html>

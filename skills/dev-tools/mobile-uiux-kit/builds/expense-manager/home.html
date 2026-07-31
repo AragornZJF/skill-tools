@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页 · 简记</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 顶部用户栏 -->
+    <div class="flex items-center justify-between pt-3 pb-4">
+      <div>
+        <p class="text-xs" style="color:#86868b;">早安，江枫</p>
+        <h1 class="text-xl font-bold" style="color:#1d1d1f;">7月账本</h1>
+      </div>
+      <img class="avatar-sm" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80" alt="头像">
+    </div>
+
+    <!-- 余额卡 -->
+    <div class="balance-card ripple-btn">
+      <p class="balance-label">本月结余</p>
+      <p class="balance-amount"><span style="font-size:18px;">&yen;</span> 3,280.50</p>
+      <div class="balance-row">
+        <div class="balance-col">
+          <p class="balance-col-label">收入</p>
+          <p class="balance-col-value"><i class="fa-solid fa-arrow-down" style="font-size:11px;margin-right:3px;"></i>&yen; 8,500.00</p>
+        </div>
+        <div class="balance-col">
+          <p class="balance-col-label">支出</p>
+          <p class="balance-col-value"><i class="fa-solid fa-arrow-up" style="font-size:11px;margin-right:3px;"></i>&yen; 5,219.50</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 快捷入口 -->
+    <div class="quick-grid">
+      <div class="quick-item ripple-btn">
+        <div class="quick-icon" style="background:#2563EB;"><i class="fa-solid fa-pen"></i></div>
+        <span class="quick-label">记一笔</span>
+      </div>
+      <div class="quick-item ripple-btn">
+        <div class="quick-icon" style="background:#34C759;"><i class="fa-solid fa-chart-pie"></i></div>
+        <span class="quick-label">统计</span>
+      </div>
+      <div class="quick-item ripple-btn">
+        <div class="quick-icon" style="background:#FF9500;"><i class="fa-solid fa-wallet"></i></div>
+        <span class="quick-label">预算</span>
+      </div>
+      <div class="quick-item ripple-btn">
+        <div class="quick-icon" style="background:#5856D6;"><i class="fa-solid fa-file-invoice"></i></div>
+        <span class="quick-label">账单</span>
+      </div>
+    </div>
+
+    <!-- 预算进度条 -->
+    <div class="glass-card mt-4 p-4">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-sm font-semibold" style="color:#1d1d1f;">7月预算</span>
+        <span class="text-xs" style="color:#86868b;"><span style="color:#FF3B30;font-weight:600;">&yen;5,219</span> / &yen;8,000</span>
+      </div>
+      <div style="height:8px;border-radius:4px;background:rgba(0,0,0,0.06);overflow:hidden;">
+        <div style="height:100%;width:65%;border-radius:4px;background:linear-gradient(90deg,#2563EB,#60A5FA);"></div>
+      </div>
+      <p class="text-xs mt-2" style="color:#86868b;">已使用 65%，剩余 &yen;2,780.50</p>
+    </div>
+
+    <!-- 交易流水 -->
+    <h3 class="section-title">最近交易</h3>
+
+    <p class="txn-date-header">今天</p>
+    <div class="txn-item">
+      <div class="txn-icon" style="background:#FF9500;"><i class="fa-solid fa-utensils"></i></div>
+      <div class="txn-info">
+        <p class="txn-title">午餐 · 食堂</p>
+        <p class="txn-time">12:30</p>
+      </div>
+      <p class="txn-amount expense">-&yen; 18.50</p>
+    </div>
+    <div class="txn-item">
+      <div class="txn-icon" style="background:#FF3B30;"><i class="fa-solid fa-mug-saucer"></i></div>
+      <div class="txn-info">
+        <p class="txn-title">咖啡 · 星巴克</p>
+        <p class="txn-time">09:15</p>
+      </div>
+      <p class="txn-amount expense">-&yen; 32.00</p>
+    </div>
+
+    <p class="txn-date-header">昨天</p>
+    <div class="txn-item">
+      <div class="txn-icon" style="background:#34C759;"><i class="fa-solid fa-money-bill-wave"></i></div>
+      <div class="txn-info">
+        <p class="txn-title">工资 · 7月</p>
+        <p class="txn-time">18:00</p>
+      </div>
+      <p class="txn-amount income">+&yen; 8,500.00</p>
+    </div>
+    <div class="txn-item">
+      <div class="txn-icon" style="background:#5856D6;"><i class="fa-solid fa-bag-shopping"></i></div>
+      <div class="txn-info">
+        <p class="txn-title">购物 · 京东</p>
+        <p class="txn-time">20:42</p>
+      </div>
+      <p class="txn-amount expense">-&yen; 159.00</p>
+    </div>
+
+    <p class="txn-date-header">7月29日</p>
+    <div class="txn-item">
+      <div class="txn-icon" style="background:#00C7BE;"><i class="fa-solid fa-car"></i></div>
+      <div class="txn-info">
+        <p class="txn-title">打车 · 滴滴</p>
+        <p class="txn-time">22:10</p>
+      </div>
+      <p class="txn-amount expense">-&yen; 24.80</p>
+    </div>
+    <div class="txn-item">
+      <div class="txn-icon" style="background:#FF9500;"><i class="fa-solid fa-utensils"></i></div>
+      <div class="txn-info">
+        <p class="txn-title">晚餐 · 外卖</p>
+        <p class="txn-time">19:30</p>
+      </div>
+      <p class="txn-amount expense">-&yen; 38.00</p>
+    </div>
+  </main>
+
+  <!-- 悬浮记一笔 -->
+  <button class="fab-btn ripple-btn" id="fabBtn">
+    <i class="fa-solid fa-plus"></i>
+  </button>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+
+    document.getElementById('fabBtn').addEventListener('click', function () {
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ action: 'login-success' }, '*');
+      }
+    });
+  </script>
+</body>
+</html>

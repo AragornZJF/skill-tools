@@ -1,0 +1,924 @@
+/* =========================================================
+   金记 gold-note · 共享样式
+   主题：记账理财 —— 米白底 + 藏青 + 金色点缀，极简高级
+   玻璃拟态 + 多层阴影 + iOS 状态栏 + 涟漪动画
+   ========================================================= */
+
+:root {
+  --primary: #26335c;
+  --primary-grad: linear-gradient(135deg, #26335c 0%, #3d4f8f 100%);
+  --navy-deep: #1c2747;
+  --gold: #c9a35c;
+  --gold-light: #e8cf9a;
+  --gold-grad: linear-gradient(135deg, #d8b46a 0%, #b8914a 100%);
+  --text-main: #22242b;
+  --text-sub: #8b8d94;
+  --text-hairline: #c7c7cc;
+  --bg-grad: linear-gradient(180deg, #f7f6f3 0%, #ffffff 100%);
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(38, 51, 92, 0.1);
+  --income: #2e9e5b;
+  --expense: #d64545;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- iOS 风格细滚动条（app-frame iframe 内） ---------- */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.22) transparent;
+}
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  background: transparent;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- 手机外壳（index.html 容器） ---------- */
+.shell-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #e5e5ea;
+}
+.phone-shell {
+  position: relative;
+  width: 375px;
+  height: 812px;
+  background: #000;
+  border-radius: 55px;
+  padding: 12px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+.dynamic-island {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 34px;
+  background: #000;
+  border-radius: 20px;
+  z-index: 50;
+}
+.app-frame {
+  width: 100%;
+  height: calc(100% - 83px);
+  border: none;
+  border-radius: 44px 44px 0 0;
+  background: #fff;
+  transition: opacity 0.3s ease;
+}
+
+/* ---------- 底部 Tab 导航（玻璃拟态） ---------- */
+.tab-bar {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  right: 12px;
+  height: 83px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding-top: 10px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 0 0 44px 44px;
+  border-top: 1px solid var(--glass-border);
+}
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+.tab-item .svg-inline--fa {
+  height: 1.5em;
+}
+.tab-item.active {
+  color: var(--primary);
+}
+.tab-item.active i {
+  transform: scale(1.1);
+}
+
+/* ---------- 页面通用（login/home/profile） ---------- */
+.page-body {
+  width: 100%;
+  max-width: 375px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--bg-grad);
+}
+.page-content {
+  padding-top: 54px;
+  min-height: 100vh;
+}
+
+/* ---------- iOS 状态栏 ---------- */
+.status-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  z-index: 100;
+}
+.status-icons i {
+  margin-left: 6px;
+  font-size: 13px;
+}
+
+/* ---------- 玻璃拟态卡片 ---------- */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- 登录页 ---------- */
+.app-logo {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  border-radius: 20px;
+  background: var(--primary-grad);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-light);
+  font-size: 32px;
+  box-shadow: 0 8px 16px rgba(38, 51, 92, 0.35);
+}
+.input-group {
+  position: relative;
+}
+.input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-sub);
+  font-size: 14px;
+}
+.glass-input {
+  width: 100%;
+  padding: 13px 14px 13px 40px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.glass-input:focus {
+  border-color: var(--primary);
+}
+.primary-btn {
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary-grad);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(38, 51, 92, 0.35);
+}
+.link-accent {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* ---------- 首页 ---------- */
+.avatar-sm {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+/* 总资产卡：深藏青渐变 + 金色点缀 */
+.asset-card {
+  position: relative;
+  border-radius: 20px;
+  padding: 20px;
+  background: linear-gradient(140deg, #1c2747 0%, #2c3d6e 60%, #3d4f8f 100%);
+  color: #fff;
+  overflow: hidden;
+  box-shadow:
+    0 2px 4px rgba(28, 39, 71, 0.2),
+    0 10px 24px rgba(28, 39, 71, 0.3);
+}
+.asset-card::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201, 163, 92, 0.28) 0%, transparent 70%);
+  pointer-events: none;
+}
+.asset-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 1px;
+}
+.asset-amount {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-variant-numeric: tabular-nums;
+  margin-top: 4px;
+}
+.asset-amount .currency {
+  font-size: 17px;
+  font-weight: 600;
+  margin-right: 2px;
+  color: var(--gold-light);
+}
+.asset-row {
+  display: flex;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+.asset-col {
+  flex: 1;
+}
+.asset-col + .asset-col {
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  padding-left: 14px;
+}
+.asset-col-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+}
+.asset-col-value {
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 3px;
+  font-variant-numeric: tabular-nums;
+}
+.asset-col-value.income {
+  color: #6fdc9b;
+}
+.asset-col-value.expense {
+  color: #ffb4b4;
+}
+
+/* 预算进度条 */
+.budget-card {
+  padding: 16px;
+}
+.budget-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.budget-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.budget-remain {
+  font-size: 12px;
+  color: var(--text-sub);
+}
+.progress-track {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(38, 51, 92, 0.08);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: 4px;
+  background: var(--gold-grad);
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.budget-foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--text-sub);
+}
+.budget-foot .hot {
+  color: var(--expense);
+  font-weight: 600;
+}
+
+/* 快捷操作 */
+.quick-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+.stat-num {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--text-sub);
+}
+.quick-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 4px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.quick-item:active {
+  transform: scale(0.94);
+}
+.quick-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: #fff;
+}
+.quick-label {
+  font-size: 11px;
+  color: var(--text-sub);
+}
+
+/* 理财贴士横卡 */
+.tip-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 130px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+.tip-card img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.tip-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px;
+  background: linear-gradient(transparent 30%, rgba(20, 26, 46, 0.82));
+}
+.tip-tag {
+  align-self: flex-start;
+  font-size: 10px;
+  color: var(--navy-deep);
+  background: var(--gold-light);
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.tip-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* 账单列表 */
+.bill-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.bill-item + .bill-item {
+  margin-top: 10px;
+}
+.cat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.bill-main {
+  flex: 1;
+  min-width: 0;
+}
+.bill-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+.bill-note {
+  font-size: 11px;
+  color: var(--text-sub);
+  margin-top: 2px;
+}
+.bill-amount {
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.bill-amount.expense {
+  color: var(--expense);
+}
+.bill-amount.income {
+  color: var(--income);
+}
+
+/* 记一笔 FAB */
+.fab {
+  position: fixed;
+  right: 18px;
+  bottom: 96px;
+  z-index: 90;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: var(--gold-grad);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow:
+    0 2px 4px rgba(184, 145, 74, 0.3),
+    0 10px 20px rgba(184, 145, 74, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+.fab:active {
+  transform: scale(0.92);
+}
+
+/* ---------- 记账弹窗（复用 createModal 结构） ---------- */
+.record-amount {
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--text-main);
+  background: rgba(38, 51, 92, 0.04);
+  border-radius: 14px;
+  padding: 10px 8px;
+  font-variant-numeric: tabular-nums;
+}
+.record-amount::-webkit-input-placeholder {
+  color: #d0d0d6;
+  font-size: 20px;
+}
+.record-amount::-moz-placeholder {
+  color: #d0d0d6;
+  font-size: 20px;
+}
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+.cat-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 2px;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  background: rgba(38, 51, 92, 0.05);
+  font-size: 11px;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cat-chip i {
+  font-size: 16px;
+}
+.cat-chip.active {
+  border-color: var(--gold);
+  background: rgba(201, 163, 92, 0.12);
+  color: var(--primary);
+  font-weight: 600;
+}
+.save-record-btn {
+  width: 100%;
+  margin-top: 16px;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary-grad);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(38, 51, 92, 0.3);
+}
+
+/* ---------- 个人中心 ---------- */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+}
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+.avatar-lg {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.profile-stats {
+  display: flex;
+  align-items: center;
+  padding: 18px 0;
+}
+.stat-col {
+  flex: 1;
+  text-align: center;
+}
+.stat-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(0, 0, 0, 0.08);
+}
+.setting-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  color: var(--text-main);
+  font-size: 14px;
+}
+.setting-item:last-child {
+  border-bottom: none;
+}
+.setting-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+}
+.logout-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: #fff;
+  color: #ff3b30;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* ---------- 涟漪动画 ---------- */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+.ripple-btn:active {
+  transform: scale(0.97);
+}
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(0);
+  -webkit-animation: rippleEffect 0.6s ease-out;
+  animation: rippleEffect 0.6s ease-out;
+  pointer-events: none;
+}
+@-webkit-keyframes rippleEffect {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+@keyframes rippleEffect {
+  to {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* ---------- 模态框 ---------- */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.active {
+  display: flex;
+}
+.modal-card {
+  width: 300px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 20px;
+  padding: 24px 20px 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  position: relative;
+  -webkit-animation: modalIn 0.3s ease-out;
+  animation: modalIn 0.3s ease-out;
+}
+@-webkit-keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.06);
+  color: #86868b;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.modal-close:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+.modal-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1d1d1f;
+  margin-bottom: 16px;
+}
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.modal-qrcode {
+  width: 200px;
+  height: 200px;
+  border-radius: 12px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.modal-author {
+  margin-top: 14px;
+  font-size: 12px;
+  color: #86868b;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ---------- 发现页：搜索栏 ---------- */
+.search-bar-wrapper {
+  padding-top: 8px;
+  padding-bottom: 12px;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(118, 118, 128, 0.12);
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+.search-icon {
+  font-size: 15px;
+  color: #8e8e93;
+}
+.search-input {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 15px;
+  color: #1d1d1f;
+  font-family: inherit;
+}
+.search-input::-webkit-input-placeholder {
+  color: #c7c7cc;
+}
+.search-input::-moz-placeholder {
+  color: #c7c7cc;
+}
+
+/* 发现页：分类 chips 横滚 */
+.chips-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scrollbar-width: none;
+}
+.chips-row::-webkit-scrollbar {
+  display: none;
+}
+.chip {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(38, 51, 92, 0.12);
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.chip.active {
+  background: var(--primary-grad);
+  color: #fff;
+  border-color: transparent;
+  font-weight: 600;
+}
+
+/* ---------- 发现页：双列瀑布流 ---------- */
+.waterfall {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.wf-card {
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 8px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.wf-card:active {
+  transform: scale(0.97);
+}
+.wf-card > img {
+  width: 100%;
+  display: block;
+  aspect-ratio: 4/3;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+.wf-info {
+  padding: 10px 12px;
+}
+.wf-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1d1d1f;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.wf-desc {
+  font-size: 11px;
+  color: #86868b;
+  margin-top: 4px;
+  line-height: 1.4;
+}
+.wf-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 10px;
+  color: #a0a0a6;
+}
+.wf-meta i {
+  font-size: 10px;
+}
+
+/* ---------- 入场动画 ---------- */
+.fade-up {
+  opacity: 0;
+  transform: translateY(14px);
+  -webkit-animation: fadeUp 0.5s ease forwards;
+  animation: fadeUp 0.5s ease forwards;
+}
+.delay-1 { -webkit-animation-delay: 0.08s; animation-delay: 0.08s; }
+.delay-2 { -webkit-animation-delay: 0.16s; animation-delay: 0.16s; }
+.delay-3 { -webkit-animation-delay: 0.24s; animation-delay: 0.24s; }
+.delay-4 { -webkit-animation-delay: 0.32s; animation-delay: 0.32s; }
+@-webkit-keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

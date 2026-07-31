@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>识植物</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索植物、病虫害、养护">
+      </div>
+    </div>
+
+    <div class="glass-card p-4 mb-4 flex items-center gap-3 ripple-btn" style="cursor:pointer;">
+      <div class="task-icon" style="background:linear-gradient(135deg,#38b2a0,#7fd3c4);">
+        <i class="fa-solid fa-camera"></i>
+      </div>
+      <div class="flex-1">
+        <p class="text-sm font-semibold" style="color:#1f3d36;">拍照识植物</p>
+        <p class="text-xs mt-0.5" style="color:#7c9a93;">上传照片，识别品种与病害</p>
+      </div>
+      <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+    </div>
+
+    <div class="waterfall">
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=80" alt="植物">
+        <div class="wf-info">
+          <p class="wf-title">新手养花最容易犯的 5 个错</p>
+          <p class="wf-desc">浇水太勤 · 光照不当</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&q=80" alt="观叶">
+        <div class="wf-info">
+          <p class="wf-title">十大网红观叶植物图鉴</p>
+          <p class="wf-desc">龟背竹 · 琴叶榕 · 橡皮树</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=400&q=80" alt="多肉">
+        <div class="wf-info">
+          <p class="wf-title">多肉植物全科指南</p>
+          <p class="wf-desc">十二卷 · 景天 · 仙人掌</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1463320726281-696a485928c7?w=400&q=80" alt="绿植">
+        <div class="wf-info">
+          <p class="wf-title">家居绿植摆放风水学</p>
+          <p class="wf-desc">客厅 · 卧室 · 书房搭配</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1520302630591-fd1c66edc19d?w=400&q=80" alt="叶子">
+        <div class="wf-info">
+          <p class="wf-title">叶片发黄自救指南</p>
+          <p class="wf-desc">缺水 · 过涝 · 缺铁怎么辨</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1470058869958-2a77ade41c02?w=400&q=80" alt="阳台">
+        <div class="wf-info">
+          <p class="wf-title">阳台种菜的快乐</p>
+          <p class="wf-desc">小番茄 · 薄荷 · 辣椒</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&q=80" alt="绿植">
+        <div class="wf-info">
+          <p class="wf-title">植物界的空气净化担当</p>
+          <p class="wf-desc">除甲醛 · 加湿 · 助眠</p>
+        </div>
+      </div>
+      <div class="wf-card">
+        <img src="https://images.unsplash.com/photo-1459156212016-c812468e2115?w=400&q=80" alt="绿植">
+        <div class="wf-info">
+          <p class="wf-title">办公桌的治愈系小盆栽</p>
+          <p class="wf-desc">耐阴 · 好养 · 提神</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+  </script>
+</body>
+</html>

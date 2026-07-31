@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>课程详情 · 趣言 LingoGo</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 子导航 -->
+    <div class="sub-nav">
+      <button class="sub-nav-btn ripple-btn" id="backBtn"><i class="fa-solid fa-arrow-left"></i></button>
+      <span class="sub-nav-title">课程详情</span>
+      <button class="sub-nav-btn ripple-btn"><i class="fa-solid fa-share-nodes"></i></button>
+    </div>
+
+    <!-- Hero -->
+    <div class="detail-hero">
+      <img id="heroImg" src="" alt="课程封面">
+      <div class="detail-hero-overlay">
+        <span class="course-flag detail-hero-top"><i class="fa-solid fa-flag"></i> <span id="heroFlag">ES</span></span>
+        <div>
+          <p class="detail-hero-name"><span id="heroGreet"></span></p>
+          <p class="detail-hero-en"><span id="heroName"></span> · <span id="heroEn"></span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 统计 -->
+    <div class="glass-card detail-stats">
+      <div class="stat-col"><div class="num">120</div><div class="lbl">课时</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><div class="num">40h</div><div class="lbl">总时长</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><div class="num" id="heroLevel">入门</div><div class="lbl">难度</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><div class="num" id="heroLearners">128 万</div><div class="lbl">学员</div></div>
+    </div>
+
+    <!-- 简介 -->
+    <p class="text-sm" style="color:#86868b;margin-top:14px;line-height:1.6;" id="heroTagline"></p>
+
+    <!-- 你将学会 -->
+    <h3 class="section-title">你将学会</h3>
+    <div class="glass-card" style="padding:4px 16px;">
+      <div class="learn-item"><div class="ic"><i class="fa-solid fa-check"></i></div><span>掌握标准发音与日常问候</span></div>
+      <div class="learn-item"><div class="ic"><i class="fa-solid fa-check"></i></div><span>点餐、购物、问路等场景对话</span></div>
+      <div class="learn-item"><div class="ic"><i class="fa-solid fa-check"></i></div><span>看懂简单的短文与公告</span></div>
+      <div class="learn-item"><div class="ic"><i class="fa-solid fa-check"></i></div><span>进行流畅的基础日常交流</span></div>
+    </div>
+
+    <!-- 课程大纲 -->
+    <h3 class="section-title">课程大纲</h3>
+    <div>
+      <div class="lesson-row ripple-btn">
+        <div class="lesson-no unit-num">1</div>
+        <div class="lesson-text"><p>发音与字母</p><span>12 课时 · 字母、音标、拼读</span></div>
+        <i class="fa-solid fa-chevron-right lesson-arrow"></i>
+      </div>
+      <div class="lesson-row ripple-btn">
+        <div class="lesson-no unit-num">2</div>
+        <div class="lesson-text"><p>日常问候</p><span>10 课时 · 自我介绍、寒暄</span></div>
+        <i class="fa-solid fa-chevron-right lesson-arrow"></i>
+      </div>
+      <div class="lesson-row ripple-btn">
+        <div class="lesson-no unit-num">3</div>
+        <div class="lesson-text"><p>场景对话</p><span>15 课时 · 餐厅、交通、购物</span></div>
+        <i class="fa-solid fa-chevron-right lesson-arrow"></i>
+      </div>
+      <div class="lesson-row ripple-btn">
+        <div class="lesson-no unit-num">4</div>
+        <div class="lesson-text"><p>文化进阶</p><span>8 课时 · 习俗、影视、歌曲</span></div>
+        <i class="fa-solid fa-chevron-right lesson-arrow"></i>
+      </div>
+    </div>
+
+    <!-- 主讲老师 -->
+    <h3 class="section-title">主讲老师</h3>
+    <div class="glass-card teacher-card ripple-btn">
+      <img class="teacher-avatar" id="teacherAvatar" src="" alt="老师">
+      <div class="teacher-info">
+        <p id="teacherName">老师</p>
+        <span>母语外教 · 5 年教龄 · CEFR 认证</span>
+      </div>
+      <span class="teacher-stars"><i class="fa-solid fa-star"></i> 4.9</span>
+    </div>
+
+    <!-- 报名 -->
+    <button class="enroll-btn ripple-btn" id="enrollBtn"><i class="fa-solid fa-play"></i> 立即开始学习</button>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindBackBtn();
+    populateCourseDetail();
+
+    /* 按 ?lang= 参数填充对应语言的内容（默认西班牙语） */
+    function populateCourseDetail() {
+      var COURSES = {
+        es: { name: '西班牙语', en: 'Español', flag: 'ES', img: 'https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=600&q=80', level: '入门', learners: '128 万', greet: '¡Hola!', tagline: '热情奔放的全球第二大母语，约 5.8 亿人在使用。掌握它，拉美与南欧尽在掌握。', teacher: 'María', teacherImg: 'https://ui-avatars.com/api/?name=Mar%C3%ADa&background=f43f5e&color=fff&size=120' },
+        jp: { name: '日语', en: '日本語', flag: 'JP', img: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&q=80', level: '进阶', learners: '96 万', greet: 'こんにちは', tagline: '从五十音到流利交流，约 1.3 亿人使用。追番、旅行、留学无障碍。', teacher: '佐藤', teacherImg: 'https://ui-avatars.com/api/?name=Sato&background=f43f5e&color=fff&size=120' },
+        fr: { name: '法语', en: 'Français', flag: 'FR', img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80', level: '入门', learners: '152 万', greet: 'Bonjour !', tagline: '浪漫优雅的外交语言，约 3.2 亿人使用，遍布五大洲。', teacher: 'Camille', teacherImg: 'https://ui-avatars.com/api/?name=Camille&background=8b5cf6&color=fff&size=120' },
+        kr: { name: '韩语', en: '한국어', flag: 'KR', img: 'https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=600&q=80', level: '入门', learners: '110 万', greet: '안녕하세요', tagline: '追剧追星无障碍，约 8000 万人使用，发音规则清晰、易上手。', teacher: '수진', teacherImg: 'https://ui-avatars.com/api/?name=Sujin&background=8b5cf6&color=fff&size=120' },
+        de: { name: '德语', en: 'Deutsch', flag: 'DE', img: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&q=80', level: '进阶', learners: '64 万', greet: 'Hallo!', tagline: '严谨精密的工程语言，约 1.3 亿人使用，留学与求职的加分项。', teacher: 'Lukas', teacherImg: 'https://ui-avatars.com/api/?name=Lukas&background=ffb347&color=fff&size=120' },
+        en: { name: '英语', en: 'English', flag: 'EN', img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&q=80', level: '基础', learners: '320 万', greet: 'Hello!', tagline: '走遍世界的通用语，约 15 亿人使用，职场与旅行的必备技能。', teacher: 'Emma', teacherImg: 'https://ui-avatars.com/api/?name=Emma&background=4b8cff&color=fff&size=120' }
+      };
+
+      var params = new URLSearchParams(window.location.search);
+      var lang = params.get('lang') || 'es';
+      var c = COURSES[lang] || COURSES.es;
+
+      document.getElementById('heroImg').src = c.img;
+      document.getElementById('heroImg').alt = c.name;
+      document.getElementById('heroFlag').textContent = c.flag;
+      document.getElementById('heroGreet').textContent = c.greet;
+      document.getElementById('heroName').textContent = c.name;
+      document.getElementById('heroEn').textContent = c.en;
+      document.getElementById('heroLevel').textContent = c.level;
+      document.getElementById('heroLearners').textContent = c.learners;
+      document.getElementById('heroTagline').textContent = c.tagline;
+      document.getElementById('teacherName').textContent = c.teacher + ' 老师';
+      document.getElementById('teacherAvatar').src = c.teacherImg;
+      document.title = c.name + ' · 课程详情';
+
+      /* 报名反馈弹窗 */
+      var enrollBtn = document.getElementById('enrollBtn');
+      enrollBtn.addEventListener('click', function () {
+        createModal({
+          title: '已加入学习',
+          bodyHTML:
+            '<div style="font-size:46px;color:var(--accent);margin-bottom:10px;"><i class="fa-solid fa-circle-check"></i></div>' +
+            '<p style="font-size:15px;font-weight:600;color:#1d1d1f;">已为你开启「' + c.name + '」课程</p>' +
+            '<p style="font-size:13px;color:#86868b;margin-top:6px;">从发音入门开始，每天 15 分钟，加油！</p>'
+        }).open();
+      });
+    }
+  </script>
+</body>
+</html>

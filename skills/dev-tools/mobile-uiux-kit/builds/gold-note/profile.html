@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的 · 金记</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <!-- iOS 状态栏 -->
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 用户信息 -->
+    <div class="profile-header fade-up">
+      <img class="avatar-lg" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&q=80" alt="头像">
+      <div class="profile-info">
+        <h2 class="text-lg font-bold" style="color:#22242b;">金小记</h2>
+        <p class="text-xs mt-0.5" style="color:#8b8d94;">ID: 20240731</p>
+        <span class="chip active mt-2" style="padding:4px 10px;font-size:10px;">记账 186 天</span>
+      </div>
+    </div>
+
+    <!-- 资产统计 -->
+    <div class="glass-card profile-stats fade-up delay-1">
+      <div class="stat-col">
+        <p class="stat-num" style="color:var(--primary);">86,520</p>
+        <p class="stat-label">总资产</p>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-col">
+        <p class="stat-num" style="color:var(--gold);">+312.8</p>
+        <p class="stat-label">本月收益</p>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-col">
+        <p class="stat-num">1,284</p>
+        <p class="stat-label">账单笔数</p>
+      </div>
+    </div>
+
+    <!-- 设置列表 -->
+    <div class="glass-card mt-4 overflow-hidden fade-up delay-2">
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-shield-halved setting-icon" style="background:#26335c;"></i>
+        <span class="flex-1">账户与安全</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-credit-card setting-icon" style="background:#c9a35c;"></i>
+        <span class="flex-1">银行卡管理</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-bullseye setting-icon" style="background:#3d6bd8;"></i>
+        <span class="flex-1">预算与分类</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-bell setting-icon" style="background:#e8763a;"></i>
+        <span class="flex-1">消息通知</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn" id="helpCenterBtn">
+        <i class="fa-solid fa-circle-question setting-icon" style="background:#5856d6;"></i>
+        <span class="flex-1">帮助中心</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-circle-info setting-icon" style="background:#5a6b8f;"></i>
+        <span class="flex-1">关于金记</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn ripple-btn fade-up delay-3">退出登录</button>
+
+    <!-- 作者署名（强制） -->
+    <div class="text-center mt-4 fade-up delay-3">
+      <span id="authLink" class="text-xs" style="color:#8b8d94;cursor:pointer;">帮助？@Auth 江枫</span>
+    </div>
+  </main>
+
+  <script src="./shared/common/qrcode-data.js"></script>
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogout();
+
+    document.getElementById('helpCenterBtn').addEventListener('click', openQrcodeModal);
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
+  </script>
+</body>
+</html>

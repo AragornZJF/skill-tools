@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发现 · 趣言 LingoGo</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 标题 -->
+    <div class="pt-3 pb-1">
+      <h1 class="text-xl font-bold" style="color:#1d1d1f;">探索语言世界</h1>
+      <p class="text-xs" style="color:#86868b;">选一门新语言，开启你的环球之旅</p>
+    </div>
+
+    <!-- 搜索栏 -->
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索语言、课程、文章">
+      </div>
+    </div>
+
+    <!-- 分类 chips -->
+    <div class="chip-row" id="chipRow">
+      <span class="chip active">全部</span>
+      <span class="chip">英语</span>
+      <span class="chip">日语</span>
+      <span class="chip">韩语</span>
+      <span class="chip">法语</span>
+      <span class="chip">西语</span>
+      <span class="chip">德语</span>
+    </div>
+
+    <!-- 热门语言 瀑布流 -->
+    <h3 class="section-title" style="margin-top:4px;">热门语言课程</h3>
+    <div class="waterfall">
+      <div class="lang-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=400&q=80" alt="西班牙语">
+        <span class="lang-level">入门</span>
+        <div class="lang-info">
+          <p class="lang-name">西班牙语</p>
+          <div class="lang-meta"><span class="lang-learners">128 万人在学</span><span class="lang-flag">ES</span></div>
+        </div>
+      </div>
+
+      <div class="lang-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&q=80" alt="日语">
+        <span class="lang-level">进阶</span>
+        <div class="lang-info">
+          <p class="lang-name">日语</p>
+          <div class="lang-meta"><span class="lang-learners">96 万人在学</span><span class="lang-flag">JP</span></div>
+        </div>
+      </div>
+
+      <div class="lang-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&q=80" alt="法语">
+        <span class="lang-level">入门</span>
+        <div class="lang-info">
+          <p class="lang-name">法语</p>
+          <div class="lang-meta"><span class="lang-learners">152 万人在学</span><span class="lang-flag">FR</span></div>
+        </div>
+      </div>
+
+      <div class="lang-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=400&q=80" alt="韩语">
+        <span class="lang-level">入门</span>
+        <div class="lang-info">
+          <p class="lang-name">韩语</p>
+          <div class="lang-meta"><span class="lang-learners">110 万人在学</span><span class="lang-flag">KR</span></div>
+        </div>
+      </div>
+
+      <div class="lang-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=400&q=80" alt="德语">
+        <span class="lang-level">进阶</span>
+        <div class="lang-info">
+          <p class="lang-name">德语</p>
+          <div class="lang-meta"><span class="lang-learners">64 万人在学</span><span class="lang-flag">DE</span></div>
+        </div>
+      </div>
+
+      <div class="lang-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400&q=80" alt="英语">
+        <span class="lang-level">基础</span>
+        <div class="lang-info">
+          <p class="lang-name">英语</p>
+          <div class="lang-meta"><span class="lang-learners">320 万人在学</span><span class="lang-flag">EN</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 学习小贴士 -->
+    <h3 class="section-title">学习小贴士</h3>
+    <div class="glass-card ripple-btn" style="padding:14px 16px;display:flex;align-items:center;gap:12px;">
+      <div class="practice-ic" style="background:linear-gradient(135deg,#58cc02,#46a302);width:38px;height:38px;font-size:15px;flex-shrink:0;"><i class="fa-solid fa-lightbulb"></i></div>
+      <div>
+        <p style="font-size:14px;font-weight:700;color:#1d1d1f;">每天固定 15 分钟</p>
+        <p style="font-size:12px;color:#86868b;margin-top:2px;">短时高频比偶尔突击更有效，连续打卡胜过临时抱佛脚。</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindCourseEntry();
+
+    // 分类 chip 切换高亮（行为与结构分离，addEventListener 绑定）
+    (function initChipSwitch() {
+      var chips = document.querySelectorAll('#chipRow .chip');
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          chips.forEach(function (c) { c.classList.remove('active'); });
+          chip.classList.add('active');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

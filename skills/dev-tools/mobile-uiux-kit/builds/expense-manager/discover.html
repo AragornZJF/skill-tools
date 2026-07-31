@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发现 · 简记</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 搜索栏 -->
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索理财知识、记账技巧">
+      </div>
+    </div>
+
+    <!-- 分类标签 -->
+    <div class="flex gap-2 mb-3" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <span class="ripple-btn" style="flex-shrink:0;padding:6px 14px;border-radius:20px;background:var(--primary);color:#fff;font-size:12px;font-weight:600;">全部</span>
+      <span class="ripple-btn" style="flex-shrink:0;padding:6px 14px;border-radius:20px;background:rgba(37,99,235,0.10);color:var(--primary);font-size:12px;">理财入门</span>
+      <span class="ripple-btn" style="flex-shrink:0;padding:6px 14px;border-radius:20px;background:rgba(37,99,235,0.10);color:var(--primary);font-size:12px;">记账技巧</span>
+      <span class="ripple-btn" style="flex-shrink:0;padding:6px 14px;border-radius:20px;background:rgba(37,99,235,0.10);color:var(--primary);font-size:12px;">存钱攻略</span>
+      <span class="ripple-btn" style="flex-shrink:0;padding:6px 14px;border-radius:20px;background:rgba(37,99,235,0.10);color:var(--primary);font-size:12px;">投资基础</span>
+    </div>
+
+    <!-- 双列瀑布流 -->
+    <div class="waterfall">
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1579621970795-87facc2f976d?w=400&q=80" alt="理财入门">
+        <div class="wf-info">
+          <p class="wf-title">月薪5000如何理财？新手必看的3个步骤</p>
+          <p class="wf-desc">从记账开始，一步步建立你的财务自由之路</p>
+          <span class="wf-tag">理财入门</span>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80" alt="记账技巧">
+        <div class="wf-info">
+          <p class="wf-title">坚持记账100天，我学到了什么</p>
+          <p class="wf-desc">记账不只是记录，更是审视消费习惯的镜子</p>
+          <span class="wf-tag">记账技巧</span>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=400&q=80" alt="存钱攻略">
+        <div class="wf-info">
+          <p class="wf-title">52周存钱法：一年多存13778元</p>
+          <p class="wf-desc">每周递增10元，无痛存钱法实测有效</p>
+          <span class="wf-tag">存钱攻略</span>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&q=80" alt="投资基础">
+        <div class="wf-info">
+          <p class="wf-title">指数基金定投指南</p>
+          <p class="wf-desc">普通人也能学会的懒人投资法</p>
+          <span class="wf-tag">投资基础</span>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=400&q=80" alt="消费习惯">
+        <div class="wf-info">
+          <p class="wf-title">警惕这5个消费陷阱</p>
+          <p class="wf-desc">为什么你的钱总是不够花？问题可能在这里</p>
+          <span class="wf-tag">记账技巧</span>
+        </div>
+      </div>
+      <div class="wf-card ripple-btn">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80" alt="财务规划">
+        <div class="wf-info">
+          <p class="wf-title">年轻人如何制定财务规划</p>
+          <p class="wf-desc">从应急金到保险，一份完整的人生财务清单</p>
+          <span class="wf-tag">理财入门</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+  </script>
+</body>
+</html>

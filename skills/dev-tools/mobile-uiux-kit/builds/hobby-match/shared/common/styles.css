@@ -1,16 +1,21 @@
 /* =========================================================
-   共享样式：玻璃拟态 + 多层阴影 + iOS 状态栏 + 涟漪动画
-   原型脚手架，按目标 APP 主题调整配色变量
+   共享样式：搭子 - 紫罗兰渐变 + Z世代年轻化社交
+   玻璃拟态 + 多层阴影 + iOS 状态栏 + 涟漪动画
    ========================================================= */
 
 :root {
-  --primary: #007aff;
-  --primary-grad: linear-gradient(135deg, #007aff 0%, #4eb5ff 100%);
+  --primary: #7c3aed;
+  --primary-grad: linear-gradient(135deg, #7c3aed 0%, #c084fc 100%);
   --text-main: #1d1d1f;
   --text-sub: #86868b;
-  --bg-grad: linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+  --bg-grad: linear-gradient(180deg, #faf8ff 0%, #ffffff 100%);
   --glass-bg: rgba(255, 255, 255, 0.65);
   --glass-border: rgba(255, 255, 255, 0.4);
+  --tag-purple: #ede9fe;
+  --tag-pink: #fce7f3;
+  --tag-orange: #fff7ed;
+  --tag-green: #ecfdf5;
+  --tag-blue: #eff6ff;
 }
 
 * {
@@ -26,7 +31,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- iOS 风格细滚动条（app-frame iframe 内） ---------- */
+/* ---------- iOS 风格细滚动条 ---------- */
 html {
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.22) transparent;
@@ -47,7 +52,7 @@ html {
   background: rgba(0, 0, 0, 0.35);
 }
 
-/* ---------- 手机外壳（index.html 容器） ---------- */
+/* ---------- 手机外壳 ---------- */
 .shell-body {
   display: flex;
   align-items: center;
@@ -84,7 +89,7 @@ html {
   transition: opacity 0.3s ease;
 }
 
-/* ---------- 底部 Tab 导航（玻璃拟态） ---------- */
+/* ---------- 底部 Tab 导航 ---------- */
 .tab-bar {
   position: absolute;
   bottom: 12px;
@@ -95,6 +100,8 @@ html {
   justify-content: space-around;
   align-items: flex-start;
   padding-top: 10px;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-radius: 0 0 44px 44px;
   border-top: 1px solid var(--glass-border);
 }
@@ -122,7 +129,7 @@ html {
   transform: scale(1.1);
 }
 
-/* ---------- 页面通用（login/home/profile） ---------- */
+/* ---------- 页面通用 ---------- */
 .page-body {
   width: 100%;
   max-width: 375px;
@@ -150,6 +157,9 @@ html {
   font-weight: 600;
   color: var(--text-main);
   z-index: 100;
+  background: rgba(250, 248, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .status-icons i {
   margin-left: 6px;
@@ -181,7 +191,7 @@ html {
   justify-content: center;
   color: #fff;
   font-size: 32px;
-  box-shadow: 0 8px 16px rgba(0, 122, 255, 0.3);
+  box-shadow: 0 8px 16px rgba(124, 58, 237, 0.35);
 }
 .input-group {
   position: relative;
@@ -216,7 +226,7 @@ html {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 8px 16px rgba(0, 122, 255, 0.3);
+  box-shadow: 0 8px 16px rgba(124, 58, 237, 0.35);
 }
 
 /* ---------- 首页 ---------- */
@@ -224,7 +234,6 @@ html {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  -o-object-fit: cover;
   object-fit: cover;
 }
 .banner-card {
@@ -234,10 +243,9 @@ html {
   height: 160px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
-.banner-card img {
+.banner-card > img {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
   object-fit: cover;
 }
 .banner-overlay {
@@ -272,21 +280,144 @@ html {
   color: var(--text-main);
   margin: 20px 0 12px;
 }
-.list-card {
+
+/* 兴趣标签气泡 */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.interest-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.interest-tag.purple {
+  background: var(--tag-purple);
+  color: #6d28d9;
+}
+.interest-tag.pink {
+  background: var(--tag-pink);
+  color: #db2777;
+}
+.interest-tag.orange {
+  background: var(--tag-orange);
+  color: #ea580c;
+}
+.interest-tag.green {
+  background: var(--tag-green);
+  color: #059669;
+}
+.interest-tag.blue {
+  background: var(--tag-blue);
+  color: #2563eb;
+}
+.interest-tag:active {
+  transform: scale(0.95);
+}
+.interest-tag.selected {
+  color: #fff;
+  background: var(--primary);
+}
+
+/* 搭子列表卡片 */
+.buddy-card {
   display: flex;
   align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+.buddy-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ede9fe;
+}
+.buddy-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+.buddy-tags {
+  display: flex;
+  gap: 4px;
+  margin-top: 3px;
+}
+.buddy-tag {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--tag-purple);
+  color: #7c3aed;
+}
+.buddy-meta {
+  font-size: 11px;
+  color: var(--text-sub);
+  margin-top: 2px;
+}
+.match-badge {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.match-percent {
+  font-size: 15px;
+  font-weight: 700;
+  color: #7c3aed;
+}
+.match-label {
+  font-size: 9px;
+  color: var(--text-sub);
+}
+
+/* 活动卡片 */
+.event-card {
+  display: flex;
   gap: 12px;
   padding: 12px;
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
 }
-.list-thumb {
-  width: 56px;
-  height: 56px;
+.event-thumb {
+  width: 80px;
+  height: 80px;
   border-radius: 12px;
-  -o-object-fit: cover;
   object-fit: cover;
+  flex-shrink: 0;
+}
+.event-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+.event-info {
+  font-size: 11px;
+  color: var(--text-sub);
+  margin-top: 4px;
+}
+.event-join {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #7c3aed;
 }
 
 /* ---------- 个人中心 ---------- */
@@ -304,7 +435,6 @@ html {
   width: 84px;
   height: 84px;
   border-radius: 50%;
-  -o-object-fit: cover;
   object-fit: cover;
   border: 3px solid #fff;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
@@ -360,6 +490,23 @@ html {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* 我的搭子列表 */
+.my-buddy-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+.my-buddy-item + .my-buddy-item {
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+.my-buddy-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 /* ---------- 涟漪动画 ---------- */
 .ripple-btn {
   position: relative;
@@ -374,15 +521,8 @@ html {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.5);
   transform: scale(0);
-  -webkit-animation: rippleEffect 0.6s ease-out;
   animation: rippleEffect 0.6s ease-out;
   pointer-events: none;
-}
-@-webkit-keyframes rippleEffect {
-  to {
-    transform: scale(2.5);
-    opacity: 0;
-  }
 }
 @keyframes rippleEffect {
   to {
@@ -415,18 +555,7 @@ html {
   padding: 24px 20px 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
   position: relative;
-  -webkit-animation: modalIn 0.3s ease-out;
   animation: modalIn 0.3s ease-out;
-}
-@-webkit-keyframes modalIn {
-  from {
-    opacity: 0;
-    transform: scale(0.92) translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
 }
 @keyframes modalIn {
   from {
@@ -474,7 +603,6 @@ html {
   width: 200px;
   height: 200px;
   border-radius: 12px;
-  -o-object-fit: cover;
   object-fit: cover;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -512,11 +640,42 @@ html {
   color: #1d1d1f;
   font-family: inherit;
 }
-.search-input::-webkit-input-placeholder {
+.search-input::placeholder {
   color: #c7c7cc;
 }
-.search-input::-moz-placeholder {
-  color: #c7c7cc;
+
+/* ---------- 发现页：分类标签横滚 ---------- */
+.category-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.category-row::-webkit-scrollbar {
+  display: none;
+}
+.cat-chip {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #fff;
+  color: var(--text-main);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.cat-chip.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.cat-chip:active {
+  transform: scale(0.95);
 }
 
 /* ---------- 发现页：双列瀑布流 ---------- */
@@ -541,11 +700,10 @@ html {
 .wf-card:active {
   transform: scale(0.97);
 }
-.wf-card img {
+.wf-card > img {
   width: 100%;
   display: block;
   aspect-ratio: 4/3;
-  -o-object-fit: cover;
   object-fit: cover;
 }
 .wf-info {
@@ -566,4 +724,38 @@ html {
   color: #86868b;
   margin-top: 4px;
   line-height: 1.4;
+}
+.wf-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 10px;
+  color: #86868b;
+}
+.wf-meta i {
+  margin-right: 2px;
+}
+
+/* ---------- 登录页标签气泡 ---------- */
+.pick-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 6px;
+}
+.pick-tag {
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 12px;
+  background: rgba(124, 58, 237, 0.08);
+  color: #7c3aed;
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pick-tag.picked {
+  background: #7c3aed;
+  color: #fff;
 }

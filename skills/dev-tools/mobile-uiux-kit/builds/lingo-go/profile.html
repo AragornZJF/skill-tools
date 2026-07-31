@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的 · 趣言 LingoGo</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 个人信息 -->
+    <div class="profile-head">
+      <img class="avatar-lg" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80" alt="头像">
+      <div>
+        <p class="profile-name">小林</p>
+        <span class="level-tag"><i class="fa-solid fa-star"></i> Lv.7 专注学徒</span>
+        <p class="text-xs" style="color:#86868b;margin-top:5px;">已坚持 12 天 · 正在学 Español</p>
+      </div>
+    </div>
+
+    <!-- 学习数据 -->
+    <div class="glass-card profile-stats">
+      <div class="stat-col"><div class="num">12</div><div class="lbl">连续打卡</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><div class="num">856</div><div class="lbl">学习单词</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><div class="num">48</div><div class="lbl">完成课时</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><div class="num">9</div><div class="lbl">获得勋章</div></div>
+    </div>
+
+    <!-- 成就勋章 -->
+    <h3 class="section-title">我的成就</h3>
+    <div class="glass-card">
+      <div class="badge-row">
+        <div class="badge">
+          <div class="badge-ic" style="background:linear-gradient(135deg,#ff9a3c,#ff5e3a);"><i class="fa-solid fa-fire"></i></div>
+          <span>七日连击</span>
+        </div>
+        <div class="badge">
+          <div class="badge-ic" style="background:linear-gradient(135deg,#f43f5e,#8b5cf6);"><i class="fa-solid fa-bullseye"></i></div>
+          <span>百词达人</span>
+        </div>
+        <div class="badge">
+          <div class="badge-ic" style="background:linear-gradient(135deg,#ffd86b,#ffb347);"><i class="fa-solid fa-trophy"></i></div>
+          <span>初级毕业</span>
+        </div>
+        <div class="badge">
+          <div class="badge-ic" style="background:linear-gradient(135deg,#29d3ff,#4b8cff);"><i class="fa-solid fa-gem"></i></div>
+          <span>宝石收集</span>
+        </div>
+        <div class="badge locked">
+          <div class="badge-ic"><i class="fa-solid fa-moon"></i></div>
+          <span>夜猫子</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 设置列表 -->
+    <h3 class="section-title">更多功能</h3>
+    <div class="glass-card" style="overflow:hidden;">
+      <div class="setting-item ripple-btn">
+        <div class="setting-icon" style="background:#8b5cf6;"><i class="fa-solid fa-bullseye"></i></div>
+        <span>学习目标</span><i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <div class="setting-icon" style="background:#58cc02;"><i class="fa-solid fa-bell"></i></div>
+        <span>每日提醒</span><i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <div class="setting-icon" style="background:#ffb347;"><i class="fa-solid fa-chart-line"></i></div>
+        <span>学习统计</span><i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <div class="setting-icon" style="background:#f43f5e;"><i class="fa-solid fa-medal"></i></div>
+        <span>排行榜</span><i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <div class="setting-icon" style="background:#4b8cff;"><i class="fa-solid fa-user-plus"></i></div>
+        <span>邀请好友</span><i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <div class="setting-icon" style="background:#86868b;"><i class="fa-solid fa-gear"></i></div>
+        <span>设置</span><i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn ripple-btn">退出登录</button>
+
+    <!-- 【强制】作者署名 -->
+    <div class="text-center" style="margin-top:18px;">
+      <span id="authLink" class="text-xs" style="color:#86868b;cursor:pointer;">帮助？@Auth 江枫 </span>
+    </div>
+  </main>
+
+  <script src="./shared/common/qrcode-data.js"></script>
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogout();
+
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
+  </script>
+</body>
+</html>

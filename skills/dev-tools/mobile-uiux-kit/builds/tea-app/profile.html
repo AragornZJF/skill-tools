@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <div class="profile-header">
+      <img class="avatar-lg" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="头像">
+      <div class="profile-info">
+        <h2 class="text-lg font-bold" style="color:#2d2a26;">茶友小茗</h2>
+        <div class="flex items-center gap-1 mt-1">
+          <span class="chip">茶龄 3 年</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card profile-stats">
+      <div class="stat-col"><p class="stat-num">128</p><p class="stat-label">品茶记录</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><p class="stat-num">26</p><p class="stat-label">收藏茶品</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><p class="stat-num">12</p><p class="stat-label">茶友</p></div>
+    </div>
+
+    <div class="glass-card mt-4 overflow-hidden">
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-bookmark setting-icon" style="background:#7a9a3c;"></i>
+        <span class="flex-1">我的茶单</span>
+        <span class="text-xs mr-2" style="color:#8a8278;">26</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-book setting-icon" style="background:#b8763e;"></i>
+        <span class="flex-1">品茶日记</span>
+        <span class="text-xs mr-2" style="color:#8a8278;">128</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-mug-hot setting-icon" style="background:#8a7bc4;"></i>
+        <span class="flex-1">泡茶偏好</span>
+        <span class="text-xs mr-2" style="color:#7a9a3c;">盖碗</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-bell setting-icon" style="background:#d47d92;"></i>
+        <span class="flex-1">消息通知</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-gear setting-icon" style="background:#8a8278;"></i>
+        <span class="flex-1">账户设置</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn" id="helpCenterBtn">
+        <i class="fa-solid fa-circle-question setting-icon" style="background:#5856d6;"></i>
+        <span class="flex-1">帮助中心</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn ripple-btn">退出登录</button>
+
+    <div class="text-center mt-4">
+      <span id="authLink" class="text-xs" style="color:#8a8278;cursor:pointer;">帮助？@Auth 江枫</span>
+    </div>
+  </main>
+
+  <script src="./shared/common/qrcode-data.js"></script>
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogout();
+
+    document.getElementById('helpCenterBtn').addEventListener('click', openQrcodeModal);
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
+  </script>
+</body>
+</html>

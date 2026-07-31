@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人中心 · 简记</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 用户信息 -->
+    <div class="profile-header">
+      <img class="avatar-lg" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="头像">
+      <div class="profile-info">
+        <h2 class="text-lg font-bold" style="color:#1d1d1f;">江枫</h2>
+        <p class="text-xs" style="color:#86868b;">简记 ID: JF20240731</p>
+      </div>
+      <div class="ml-auto">
+        <i class="fa-solid fa-qrcode" style="font-size:22px;color:#86868b;cursor:pointer;"></i>
+      </div>
+    </div>
+
+    <!-- 记账统计 -->
+    <div class="glass-card profile-stats">
+      <div class="stat-col"><p class="stat-num">186</p><p class="stat-label">记账天数</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><p class="stat-num">1,243</p><p class="stat-label">交易笔数</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><p class="stat-num">12</p><p class="stat-label">连续打卡</p></div>
+    </div>
+
+    <!-- 月度概览卡 -->
+    <div class="glass-card mt-4 p-4">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-sm font-semibold" style="color:#1d1d1f;">7月概览</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;font-size:12px;"></i>
+      </div>
+      <div class="flex gap-4">
+        <div style="flex:1;text-align:center;padding:10px;border-radius:12px;background:rgba(52,199,89,0.10);">
+          <i class="fa-solid fa-arrow-trend-up" style="color:#34C759;font-size:18px;"></i>
+          <p style="font-size:16px;font-weight:700;color:#34C759;margin-top:4px;">&yen;8,500</p>
+          <p style="font-size:10px;color:#86868b;">总收入</p>
+        </div>
+        <div style="flex:1;text-align:center;padding:10px;border-radius:12px;background:rgba(255,59,48,0.08);">
+          <i class="fa-solid fa-arrow-trend-down" style="color:#FF3B30;font-size:18px;"></i>
+          <p style="font-size:16px;font-weight:700;color:#FF3B30;margin-top:4px;">&yen;5,219</p>
+          <p style="font-size:10px;color:#86868b;">总支出</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 设置列表 -->
+    <div class="glass-card mt-4 overflow-hidden">
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-gear setting-icon" style="background:#2563EB;"></i>
+        <span class="flex-1">账户设置</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-bell setting-icon" style="background:#FF9500;"></i>
+        <span class="flex-1">记账提醒</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-shield-halved setting-icon" style="background:#34C759;"></i>
+        <span class="flex-1">隐私与安全</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-cloud-arrow-up setting-icon" style="background:#5856D6;"></i>
+        <span class="flex-1">数据备份</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn" id="helpCenterBtn">
+        <i class="fa-solid fa-circle-question setting-icon" style="background:#86868b;"></i>
+        <span class="flex-1">帮助中心</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn ripple-btn">退出登录</button>
+
+    <div class="text-center mt-4">
+      <span id="authLink" class="text-xs" style="color:#86868b;cursor:pointer;">帮助？@Auth 江枫</span>
+    </div>
+  </main>
+
+  <script src="./shared/common/qrcode-data.js"></script>
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogout();
+
+    document.getElementById('helpCenterBtn').addEventListener('click', openQrcodeModal);
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
+  </script>
+</body>
+</html>

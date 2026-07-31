@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人中心 · 阅伴 ReadPal</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 头部信息 -->
+    <div class="profile-header">
+      <img class="avatar-lg" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="头像">
+      <div class="profile-info">
+        <h2 class="text-lg font-bold" style="color:#2D3436;">林深时见鹿</h2>
+        <p class="text-xs" style="color:#7F8C8D;">阅伴ID: 20240831</p>
+        <p class="text-xs mt-1" style="color:#6B8E9E;">"读书是一座随身携带的避难所"</p>
+      </div>
+    </div>
+
+    <!-- 统计 -->
+    <div class="glass-card profile-stats">
+      <div class="stat-col"><p class="stat-num">48</p><p class="stat-label">读过</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><p class="stat-num">126</p><p class="stat-label">笔记</p></div>
+      <div class="stat-divider"></div>
+      <div class="stat-col"><p class="stat-num">23</p><p class="stat-label">书友</p></div>
+    </div>
+
+    <!-- 我的书架 -->
+    <div class="shelf-section mt-4">
+      <h3 class="section-title" style="margin-bottom:10px;">我的书架</h3>
+      <div class="book-row">
+        <div class="shelf-book">
+          <img class="shelf-cover" src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=150&q=80" alt="书籍">
+        </div>
+        <div class="shelf-book">
+          <img class="shelf-cover" src="https://images.unsplash.com/photo-1621351183012-e2f9972dd9bf?w=150&q=80" alt="书籍">
+        </div>
+        <div class="shelf-book">
+          <img class="shelf-cover" src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=150&q=80" alt="书籍">
+        </div>
+        <div class="shelf-book">
+          <img class="shelf-cover" src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?w=150&q=80" alt="书籍">
+        </div>
+        <div class="shelf-book">
+          <img class="shelf-cover" src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=150&q=80" alt="书籍">
+        </div>
+        <div class="shelf-book">
+          <img class="shelf-cover" src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=150&q=80" alt="书籍">
+        </div>
+      </div>
+    </div>
+
+    <!-- 设置列表 -->
+    <div class="glass-card mt-2 overflow-hidden">
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-gear setting-icon" style="background:#6B8E9E;"></i>
+        <span class="flex-1">账户设置</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-bell setting-icon" style="background:#C4A882;"></i>
+        <span class="flex-1">消息通知</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn">
+        <i class="fa-solid fa-shield-halved setting-icon" style="background:#34c759;"></i>
+        <span class="flex-1">隐私与安全</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+      <div class="setting-item ripple-btn" id="helpCenterBtn">
+        <i class="fa-solid fa-circle-question setting-icon" style="background:#5856d6;"></i>
+        <span class="flex-1">帮助中心</span>
+        <i class="fa-solid fa-chevron-right" style="color:#c7c7cc;"></i>
+      </div>
+    </div>
+
+    <button id="logoutBtn" class="logout-btn ripple-btn">退出登录</button>
+
+    <div class="text-center mt-4">
+      <span id="authLink" class="text-xs" style="color:#7F8C8D;cursor:pointer;">帮助？@Auth 江枫</span>
+    </div>
+  </main>
+
+  <script src="./shared/common/qrcode-data.js"></script>
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    bindLogout();
+
+    document.getElementById('helpCenterBtn').addEventListener('click', openQrcodeModal);
+    document.getElementById('authLink').addEventListener('click', openQrcodeModal);
+  </script>
+</body>
+</html>

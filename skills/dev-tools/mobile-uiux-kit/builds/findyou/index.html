@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>觅TA FindYou · 原型容器</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="shell-body">
+  <div class="phone-shell">
+    <div class="dynamic-island"></div>
+
+    <iframe id="appFrame" class="app-frame" src="./login.html" title="觅TA FindYou"></iframe>
+
+    <nav class="tab-bar" id="tabBar">
+      <button class="tab-item active" data-page="home.html">
+        <i class="fa-solid fa-heart"></i>
+        <span>缘分</span>
+      </button>
+      <button class="tab-item" data-page="discover.html">
+        <i class="fa-solid fa-compass"></i>
+        <span>发现</span>
+      </button>
+      <button class="tab-item" data-page="profile.html">
+        <i class="fa-solid fa-user"></i>
+        <span>我的</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    initTabNavigation();
+
+    window.addEventListener('message', function (e) {
+      var appFrame = document.getElementById('appFrame');
+      var tabItems = document.querySelectorAll('.tab-item');
+      if (e.data.action === 'login-success') {
+        switchPage(appFrame, 'home.html');
+        setActiveTab(tabItems, document.querySelector('.tab-item[data-page="home.html"]'));
+      } else if (e.data.action === 'logout') {
+        switchPage(appFrame, 'login.html');
+        setActiveTab(tabItems, document.querySelector('.tab-item[data-page="home.html"]'));
+      } else if (e.data.action === 'navigate') {
+        switchPage(appFrame, e.data.page);
+      }
+    });
+  </script>
+</body>
+</html>

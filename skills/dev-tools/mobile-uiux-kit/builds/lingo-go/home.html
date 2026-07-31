@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习中心 · 趣言 LingoGo</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 顶部问候 + 头像 -->
+    <div class="home-head">
+      <div>
+        <p class="text-xs" style="color:#86868b;"><i class="fa-solid fa-sun" style="color:#ffb347;"></i> ¡Hola! 早上好</p>
+        <h1 class="text-xl font-bold" style="color:#1d1d1f;">小林，今天学点新词？</h1>
+      </div>
+      <img class="avatar-sm" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=120&q=80" alt="头像">
+    </div>
+
+    <!-- 数据药丸 -->
+    <div class="flex gap-2 mb-4">
+      <span class="pill streak"><i class="fa-solid fa-fire"></i> 连续 12 天</span>
+      <span class="pill gem"><i class="fa-solid fa-gem"></i> 320</span>
+      <span class="pill" style="background:linear-gradient(135deg,#58cc02,#46a302);"><i class="fa-solid fa-heart"></i> 5</span>
+    </div>
+
+    <!-- 当前课程 Banner -->
+    <div class="course-banner ripple-btn">
+      <img src="https://images.unsplash.com/photo-1547891654-e66ed7ebb968?w=600&q=80" alt="西班牙语">
+      <div class="course-overlay">
+        <span class="course-flag"><i class="fa-solid fa-flag"></i> Español · 西班牙语</span>
+        <div>
+          <div class="course-info">
+            <p class="course-name">基础会话 · 第 3 单元</p>
+            <p class="course-sub">问候与自我介绍</p>
+          </div>
+          <div class="course-bottom">
+            <div class="course-progress">
+              <div class="bar-track"><div class="bar-fill" style="width:62%;"></div></div>
+              <p class="course-sub" style="margin-top:6px;">已完成 62%</p>
+            </div>
+            <button class="continue-btn ripple-btn">继续学习</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 今日目标 -->
+    <div class="glass-card goal-card ripple-btn">
+      <div class="goal-ring">
+        <svg width="46" height="46" viewBox="0 0 46 46">
+          <defs>
+            <linearGradient id="goalGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f43f5e"></stop>
+              <stop offset="1" stop-color="#8b5cf6"></stop>
+            </linearGradient>
+          </defs>
+          <circle cx="23" cy="23" r="20" fill="none" stroke="rgba(139,92,246,0.15)" stroke-width="4"></circle>
+          <circle cx="23" cy="23" r="20" fill="none" stroke="url(#goalGrad)" stroke-width="4" stroke-linecap="round" stroke-dasharray="125.66" stroke-dashoffset="50.27"></circle>
+        </svg>
+        <span class="ring-text">3/5</span>
+      </div>
+      <div class="goal-body">
+        <p class="goal-title">今日学习目标</p>
+        <p class="goal-desc">还差 2 节课即可达成，加油！</p>
+        <div class="goal-bar"><i style="width:60%;"></i></div>
+      </div>
+    </div>
+
+    <!-- 四宫格练习 -->
+    <div class="practice-grid">
+      <div class="glass-card practice-card ripple-btn">
+        <div class="practice-ic" style="background:linear-gradient(135deg,#f43f5e,#8b5cf6);"><i class="fa-solid fa-book-open"></i></div>
+        <p>每日课程</p><span>5 节待学</span>
+      </div>
+      <div class="glass-card practice-card ripple-btn">
+        <div class="practice-ic" style="background:linear-gradient(135deg,#58cc02,#46a302);"><i class="fa-solid fa-layer-group"></i></div>
+        <p>单词卡片</p><span>20 个新词</span>
+      </div>
+      <div class="glass-card practice-card ripple-btn">
+        <div class="practice-ic" style="background:linear-gradient(135deg,#ffb347,#ff8c42);"><i class="fa-solid fa-headphones"></i></div>
+        <p>听力训练</p><span>磨耳朵</span>
+      </div>
+      <div class="glass-card practice-card ripple-btn">
+        <div class="practice-ic" style="background:linear-gradient(135deg,#fb7185,#f43f5e);"><i class="fa-solid fa-microphone"></i></div>
+        <p>口语挑战</p><span>AI 对话</span>
+      </div>
+    </div>
+
+    <!-- 学习地图 -->
+    <h3 class="section-title">学习地图 · 第 3 单元</h3>
+    <div>
+      <div class="lesson-row ripple-btn">
+        <div class="lesson-no" style="background:linear-gradient(135deg,#58cc02,#46a302);"><i class="fa-solid fa-check"></i></div>
+        <div class="lesson-text"><p>第 1 课 · 打招呼</p><span>已完成 · 满分通过</span></div>
+        <i class="fa-solid fa-chevron-right lesson-arrow"></i>
+      </div>
+      <div class="lesson-row ripple-btn">
+        <div class="lesson-no" style="background:linear-gradient(135deg,#f43f5e,#8b5cf6);">2</div>
+        <div class="lesson-text"><p>第 2 课 · 数字与时间</p><span>进行中 · 完成 60%</span></div>
+        <i class="fa-solid fa-chevron-right lesson-arrow"></i>
+      </div>
+      <div class="lesson-row ripple-btn">
+        <div class="lesson-no" style="background:rgba(0,0,0,0.06);color:#c7c7cc;"><i class="fa-solid fa-lock"></i></div>
+        <div class="lesson-text"><p>第 3 课 · 餐厅点餐</p><span>未解锁</span></div>
+        <i class="fa-solid fa-chevron-right lesson-arrow"></i>
+      </div>
+      <div class="lesson-row ripple-btn">
+        <div class="lesson-no" style="background:rgba(0,0,0,0.06);color:#c7c7cc;"><i class="fa-solid fa-lock"></i></div>
+        <div class="lesson-text"><p>第 4 课 · 问路与方向</p><span>未解锁</span></div>
+        <i class="fa-solid fa-chevron-right lesson-arrow"></i>
+      </div>
+    </div>
+
+    <!-- 今日金句 -->
+    <h3 class="section-title">今日金句</h3>
+    <div class="glass-card ripple-btn" style="padding:16px;display:flex;align-items:center;gap:14px;">
+      <div class="practice-ic" style="background:linear-gradient(135deg,#f43f5e,#8b5cf6);flex-shrink:0;"><i class="fa-solid fa-quote-left"></i></div>
+      <div style="flex:1;">
+        <p style="font-size:17px;font-weight:700;color:#8b5cf6;">¿Cómo estás?</p>
+        <p style="font-size:12px;color:#86868b;margin-top:3px;">你好吗？—— 西班牙语日常问候</p>
+      </div>
+      <i class="fa-solid fa-volume-high" style="color:#8b5cf6;font-size:18px;"></i>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+  </script>
+</body>
+</html>

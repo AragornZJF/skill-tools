@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发现 · 觅TA FindYou</title>
+  <script src="./shared/vendor/tailwindcss.js"></script>
+  <script src="./shared/vendor/font-awesome.min.js"></script>
+  <link rel="stylesheet" href="./shared/common/styles.css">
+</head>
+<body class="page-body">
+  <header class="status-bar">
+    <span class="status-time">9:41</span>
+    <span class="status-icons">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <i class="fa-solid fa-battery-full"></i>
+    </span>
+  </header>
+
+  <main class="page-content px-5 pb-6">
+    <!-- 搜索栏 -->
+    <div class="search-bar-wrapper">
+      <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="搜索昵称 / 标签 / 城市">
+      </div>
+    </div>
+
+    <!-- Tab 切换 -->
+    <div class="discover-tabs">
+      <button class="discover-tab active" data-panel="panelRecommend">推荐</button>
+      <button class="discover-tab" data-panel="panelNearby">附近</button>
+      <button class="discover-tab" data-panel="panelSwipe">滑动</button>
+    </div>
+
+    <!-- 推荐面板 -->
+    <div class="discover-panel active" id="panelRecommend">
+      <div class="recommend-card ripple-btn">
+        <img class="recommend-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80" alt="头像">
+        <div class="recommend-info">
+          <p class="recommend-name">苏晚晴 · 26</p>
+          <p class="recommend-meta">杭州 · 2.3km</p>
+          <div class="recommend-tags">
+            <span class="recommend-tag">猫奴</span>
+            <span class="recommend-tag">日料</span>
+            <span class="recommend-tag">摄影</span>
+          </div>
+        </div>
+        <span class="recommend-match">95%</span>
+      </div>
+
+      <div class="recommend-card ripple-btn">
+        <img class="recommend-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="头像">
+        <div class="recommend-info">
+          <p class="recommend-name">沈墨白 · 28</p>
+          <p class="recommend-meta">杭州 · 3.1km</p>
+          <div class="recommend-tags">
+            <span class="recommend-tag">跑步</span>
+            <span class="recommend-tag">旅行</span>
+            <span class="recommend-tag">电影</span>
+          </div>
+        </div>
+        <span class="recommend-match">88%</span>
+      </div>
+
+      <div class="recommend-card ripple-btn">
+        <img class="recommend-avatar" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&q=80" alt="头像">
+        <div class="recommend-info">
+          <p class="recommend-name">江月明 · 25</p>
+          <p class="recommend-meta">杭州 · 1.8km</p>
+          <div class="recommend-tags">
+            <span class="recommend-tag">烘焙</span>
+            <span class="recommend-tag">音乐</span>
+          </div>
+        </div>
+        <span class="recommend-match">82%</span>
+      </div>
+
+      <div class="recommend-card ripple-btn">
+        <img class="recommend-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=200&q=80" alt="头像">
+        <div class="recommend-info">
+          <p class="recommend-name">温如也 · 27</p>
+          <p class="recommend-meta">杭州 · 4.5km</p>
+          <div class="recommend-tags">
+            <span class="recommend-tag">读书</span>
+            <span class="recommend-tag">咖啡</span>
+            <span class="recommend-tag">吉他</span>
+          </div>
+        </div>
+        <span class="recommend-match">79%</span>
+      </div>
+    </div>
+
+    <!-- 附近面板 -->
+    <div class="discover-panel" id="panelNearby">
+      <div class="nearby-card ripple-btn">
+        <div class="nearby-avatar-wrap">
+          <img class="nearby-avatar" src="https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=100&q=80" alt="头像">
+          <span class="nearby-online"></span>
+        </div>
+        <div class="nearby-info">
+          <p class="nearby-name">叶知秋 · 27</p>
+          <p class="nearby-desc">"找一个一起看日落的人"</p>
+        </div>
+        <span class="nearby-distance">0.8km</span>
+      </div>
+
+      <div class="nearby-card ripple-btn">
+        <div class="nearby-avatar-wrap">
+          <img class="nearby-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="头像">
+          <span class="nearby-online"></span>
+        </div>
+        <div class="nearby-info">
+          <p class="nearby-name">林小满 · 24</p>
+          <p class="nearby-desc">"喜欢周末探店，怕孤独但享受独处"</p>
+        </div>
+        <span class="nearby-distance">1.2km</span>
+      </div>
+
+      <div class="nearby-card ripple-btn">
+        <div class="nearby-avatar-wrap">
+          <img class="nearby-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="头像">
+        </div>
+        <div class="nearby-info">
+          <p class="nearby-name">陆星河 · 29</p>
+          <p class="nearby-desc">"程序员，昼伏夜出，但周末全归你"</p>
+        </div>
+        <span class="nearby-distance">2.1km</span>
+      </div>
+
+      <div class="nearby-card ripple-btn">
+        <div class="nearby-avatar-wrap">
+          <img class="nearby-avatar" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&q=80" alt="头像">
+          <span class="nearby-online"></span>
+        </div>
+        <div class="nearby-info">
+          <p class="nearby-name">江月明 · 25</p>
+          <p class="nearby-desc">"烘焙爱好者，会做很好吃的蛋糕"</p>
+        </div>
+        <span class="nearby-distance">1.8km</span>
+      </div>
+
+      <div class="nearby-card ripple-btn">
+        <div class="nearby-avatar-wrap">
+          <img class="nearby-avatar" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=100&q=80" alt="头像">
+        </div>
+        <div class="nearby-info">
+          <p class="nearby-name">温如也 · 27</p>
+          <p class="nearby-desc">"周末常去西湖边弹吉他"</p>
+        </div>
+        <span class="nearby-distance">4.5km</span>
+      </div>
+    </div>
+
+    <!-- 滑动面板 -->
+    <div class="discover-panel" id="panelSwipe">
+      <div class="swipe-card" id="swipeCard">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&q=80" alt="滑动卡片">
+        <div class="swipe-overlay">
+          <p class="swipe-name">苏晚晴 · 26</p>
+          <p class="swipe-desc">杭州 · 2.3km · "喜欢猫和日料"</p>
+          <div class="swipe-tags">
+            <span class="swipe-tag">猫奴</span>
+            <span class="swipe-tag">日料</span>
+            <span class="swipe-tag">摄影</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="swipe-actions">
+        <button class="swipe-btn pass ripple-btn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button class="swipe-btn love ripple-btn">
+          <i class="fa-solid fa-heart"></i>
+        </button>
+        <button class="swipe-btn star ripple-btn">
+          <i class="fa-solid fa-star"></i>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script src="./shared/common/app.js"></script>
+  <script>
+    enableRipple();
+    initDiscoverTabs();
+    initSwipeCards();
+  </script>
+</body>
+</html>
