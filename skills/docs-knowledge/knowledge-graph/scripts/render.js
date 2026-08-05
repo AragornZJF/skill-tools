@@ -29,7 +29,7 @@ function render(data) {
     categories: data.categories
   });
 
-  html = html.split('{{TITLE}}').join(title);
+  html = html.replaceAll('{{TITLE}}', title);
   html = html.replace('/*__THEMES__*/', 'const themes = ' + themesJSON + ';');
   html = html.replace('/*__LAYOUTS__*/', 'const layouts = ' + layoutsJSON + ';');
   html = html.replace('/*__DATA__*/', 'const graphData = ' + dataJSON + ';');

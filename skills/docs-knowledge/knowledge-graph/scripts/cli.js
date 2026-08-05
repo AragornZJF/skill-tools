@@ -3,7 +3,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const { exec } = require('child_process');
 const { render } = require('./render');
 const { parseMarkdown } = require('./markdown-parser');
 const { validateData } = require('./validate');
@@ -51,17 +50,9 @@ Examples:
 }
 
 function openFile(filePath) {
-  let cmd;
-  if (process.platform === 'win32') {
-    cmd = 'cmd /c start "" "' + filePath + '"';
-  } else if (process.platform === 'darwin') {
-    cmd = 'open "' + filePath + '"';
-  } else {
-    cmd = 'xdg-open "' + filePath + '"';
-  }
-  exec(cmd, { windowsHide: true }, (err) => {
-    if (err) console.error('无法自动打开浏览器，请手动打开: ' + filePath);
-  });
+  // 不自动调用系统命令打开浏览器（避免引入子进程依赖）。
+  // 仅打印路径，提示用户手动在浏览器中打开。
+  console.log('请在浏览器中打开生成的文件: ' + filePath);
 }
 
 function installSkill() {
@@ -97,14 +88,7 @@ function main() {
   if (!fs.existsSync(filePath)) { console.error('错误: 文件不存在: ' + filePath); process.exit(1); }
 
   const ext = path.extname(filePath).toLowerCase();
-
-  let content;
-  try {
-    content = fs.readFileSync(filePath, 'utf-8');
-  } catch (err) {
-    console.error('错误: 无法读取文件 ' + filePath + ': ' + err.message);
-    process.exit(1);
-  }
+  const content = fs.readFileSync(filePath, 'utf-8');
 
   let data;
   if (ext === '.json') {
