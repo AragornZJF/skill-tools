@@ -19,6 +19,9 @@ function parseMarkdown(md, title) {
   const headingStack = [];
   let lastHeading = null;
 
+  // 去除 UTF-8 BOM，避免首个标题被当作普通行跳过
+  if (md.charCodeAt(0) === 0xFEFF) { md = md.slice(1); }
+
   const lines = md.split('\n');
   let inCodeBlock = false;
   for (const line of lines) {
@@ -53,6 +56,25 @@ function parseMarkdown(md, title) {
         lastHeading = { id, level };
         continue;
       }
+    }
+
+    // 表格行：提取第一列的反引号代码块（如技能名 `feynman-tech`）作为关键词节点
+    const tableFirstCol = line.trim().match(/^\|\s*`([^`]+)`/);
+    if (tableFirstCol) {
+      const name = tableFirstCol[1].trim();
+      if (name) {
+        const id = String(++idCounter);
+        const category = '关键词';
+        const weight = 30;
+        nodes.push({ id, name, category, weight });
+        categorySet.add(category);
+
+        const parent = headingStack.length > 0 ? headingStack[headingStack.length - 1] : lastHeading;
+        if (parent) {
+          links.push({ source: parent.id, target: id, relation: '关联' });
+        }
+      }
+      continue;
     }
 
     const headingMatch = line.match(/^(#{1,4})\s+(.+)/);

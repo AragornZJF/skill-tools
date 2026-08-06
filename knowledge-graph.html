@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Tools 技能集合知识图谱</title>
+<script src="skills/docs-knowledge/knowledge-graph/assets/echarts.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:100%; height:100%; overflow:hidden; font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif; background:var(--bg); transition:background .4s; }
+#graph { position:fixed; top:0; left:0; width:100vw; height:100vh; }
+#toolbar {
+  position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:10;
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center;
+  padding:9px 14px; border-radius:14px; max-width:calc(100vw - 28px);
+  background:var(--toolbar-bg); border:1px solid var(--border);
+  box-shadow:0 10px 40px rgba(0,0,0,.35); backdrop-filter:blur(10px);
+}
+#graph-title { font-size:14px; font-weight:700; color:var(--text); white-space:nowrap; }
+.sep { width:1px; height:22px; background:var(--border); }
+.group { display:flex; gap:6px; flex-wrap:wrap; }
+.btn {
+  border:1px solid var(--border); background:var(--btn); color:var(--text2);
+  padding:5px 12px; border-radius:9px; cursor:pointer; font-size:12.5px;
+  transition:all .15s; white-space:nowrap;
+}
+.btn:hover { background:var(--btn-hover); color:var(--text); }
+.btn.active { background:var(--btn-active); color:#fff; border-color:transparent; box-shadow:0 0 10px var(--btn-active); }
+#search {
+  background:var(--btn); border:1px solid var(--border); color:var(--text);
+  padding:5px 12px; border-radius:9px; font-size:12.5px; outline:none; width:150px;
+}
+#search::placeholder { color:var(--text2); }
+#search:focus { border-color:var(--btn-active); }
+#node-count { font-size:11.5px; color:var(--text2); white-space:nowrap; }
+#hint {
+  position:fixed; bottom:44px; right:14px; z-index:10;
+  font-size:11px; color:var(--text2); background:var(--toolbar-bg);
+  border:1px solid var(--border); padding:5px 10px; border-radius:8px; opacity:.85;
+}
+#source-link {
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:12.5px; color:var(--text2);
+  text-decoration:underline; text-underline-offset:3px;
+  white-space:nowrap; transition:color .2s;
+}
+#source-link:hover { color:var(--btn-active); }
+#source-link .dot { width:6px; height:6px; border-radius:50%; background:var(--btn-active); box-shadow:0 0 8px var(--btn-active); }
+</style>
+</head>
+<body>
+<div id="toolbar">
+  <span id="graph-title">Skill Tools 技能集合知识图谱</span>
+  <span class="sep"></span>
+  <div class="group" id="layout-group">
+    <button class="btn layout-btn active" data-layout="force">力导向</button>
+    <button class="btn layout-btn" data-layout="radial">辐射状</button>
+  </div>
+  <span class="sep"></span>
+  <div class="group" id="theme-group">
+    <button class="btn theme-btn active" data-theme="dark-tech">暗色科技</button>
+    <button class="btn theme-btn" data-theme="nature-fresh">自然清新</button>
+    <button class="btn theme-btn" data-theme="warm-sunset">暖阳落日</button>
+    <button class="btn theme-btn" data-theme="ocean-deep">深海幽蓝</button>
+  </div>
+  <span class="sep"></span>
+  <input id="search" type="text" placeholder="搜索节点…">
+  <span id="node-count"></span>
+  <span class="sep"></span>
+  <a id="source-link" href="https://mp.weixin.qq.com/s/R-LyuivDPdVEsvrtSnOQcA" target="_blank" rel="noopener noreferrer">
+    <span class="dot"></span>作者：江枫
+  </a>
+</div>
+<div id="graph"></div>
+<div id="hint">🖱 拖拽节点 · 滚轮缩放 · 悬停看关系</div>
+<script>
+const themes = {"dark-tech":{"name":"暗色科技","background":"#0a0e27","cardBg":"#111638","toolbarBg":"#111638","textPrimary":"#e0e0ff","textSecondary":"#8888aa","borderColor":"#1e2250","buttonBg":"#1a1f4e","buttonHoverBg":"#2a2f6e","buttonActiveBg":"#3a3f8e","tooltipBg":"rgba(17,22,56,0.95)","colors":["#00d4ff","#7b2ff7","#ff6b6b","#ffd93d","#00ff88","#ff8c42","#b388ff","#64ffda"],"lineColor":"rgba(100,180,255,0.35)","lineHighlight":"rgba(0,212,255,0.85)"},"nature-fresh":{"name":"自然清新","background":"#f0f7ee","cardBg":"#ffffff","toolbarBg":"#ffffff","textPrimary":"#1b4332","textSecondary":"#52796f","borderColor":"#d8f3dc","buttonBg":"#d8f3dc","buttonHoverBg":"#b7e4c7","buttonActiveBg":"#95d5b2","tooltipBg":"rgba(255,255,255,0.95)","colors":["#2d6a4f","#e07a5f","#3d405b","#81b29a","#f2cc8f","#264653","#e76f51","#6d6875"],"lineColor":"rgba(45,106,79,0.3)","lineHighlight":"rgba(45,106,79,0.75)"},"warm-sunset":{"name":"暖阳落日","background":"#1a1420","cardBg":"#2a1f30","toolbarBg":"#2a1f30","textPrimary":"#fde8d0","textSecondary":"#c9a87c","borderColor":"#3d2a4a","buttonBg":"#3d2a4a","buttonHoverBg":"#5a3d6a","buttonActiveBg":"#f59e0b","tooltipBg":"rgba(42,31,48,0.95)","colors":["#fbbf24","#f97316","#ef4444","#a855f7","#ec4899","#fcd34d","#fb923c","#8b5cf6"],"lineColor":"rgba(251,191,36,0.25)","lineHighlight":"rgba(251,191,36,0.7)"},"ocean-deep":{"name":"深海幽蓝","background":"#0b1a33","cardBg":"#0f2244","toolbarBg":"#0f2244","textPrimary":"#caf0f8","textSecondary":"#90e0ef","borderColor":"#023e8a","buttonBg":"#023e8a","buttonHoverBg":"#0077b6","buttonActiveBg":"#0096c7","tooltipBg":"rgba(15,34,68,0.95)","colors":["#48cae4","#ff6b6b","#ffd93d","#00ff88","#b388ff","#f77f00","#e0aaff","#00d4ff"],"lineColor":"rgba(72,202,228,0.3)","lineHighlight":"rgba(72,202,228,0.75)"}};
+
+const layouts = {"force":{"name":"力导向","icon":"fa-project-diagram","echarts":{"layout":"force","force":{"repulsion":300,"gravity":0.1,"edgeLength":[80,200],"friction":0.6},"roam":true,"draggable":true}},"radial":{"name":"辐射状","icon":"fa-bullseye","echarts":{"layout":"circular","circular":{"rotateLabel":true},"roam":true,"draggable":true}}};
+
+const graphData = {"nodes":[{"id":"1","name":"Skill Tools","category":"核心","weight":90},{"id":"2","name":"目录","category":"子类","weight":70},{"id":"3","name":"技能总览","category":"子类","weight":70},{"id":"4","name":"通用工具","category":"细节","weight":50},{"id":"5","name":"auto-skill-forge","category":"关键词","weight":30},{"id":"6","name":"prompt-framework","category":"关键词","weight":30},{"id":"7","name":"思维与学习方法","category":"细节","weight":50},{"id":"8","name":"feynman-tech","category":"关键词","weight":30},{"id":"9","name":"bloom-test","category":"关键词","weight":30},{"id":"10","name":"system-thinking","category":"关键词","weight":30},{"id":"11","name":"knowledge-deconstructor","category":"关键词","weight":30},{"id":"12","name":"smart-goal-coach","category":"关键词","weight":30},{"id":"13","name":"finding-your-unknowns","category":"关键词","weight":30},{"id":"14","name":"文档与知识管理","category":"细节","weight":50},{"id":"15","name":"doc-reader","category":"关键词","weight":30},{"id":"16","name":"knowledge-graph","category":"关键词","weight":30},{"id":"17","name":"md2html","category":"关键词","weight":30},{"id":"18","name":"petit-prince-story","category":"关键词","weight":30},{"id":"19","name":"内容创作","category":"细节","weight":50},{"id":"20","name":"title-designer","category":"关键词","weight":30},{"id":"21","name":"可视化","category":"细节","weight":50},{"id":"22","name":"mermaid-generator","category":"关键词","weight":30},{"id":"23","name":"svg-visualizer","category":"关键词","weight":30},{"id":"24","name":"视频处理","category":"细节","weight":50},{"id":"25","name":"video-editor","category":"关键词","weight":30},{"id":"26","name":"video-clip-assistant","category":"关键词","weight":30},{"id":"27","name":"video-generator-seedance","category":"关键词","weight":30},{"id":"28","name":"video2txt","category":"关键词","weight":30},{"id":"29","name":"音频","category":"细节","weight":50},{"id":"30","name":"tts-wangwang","category":"关键词","weight":30},{"id":"31","name":"开发工具","category":"细节","weight":50},{"id":"32","name":"git-commit","category":"关键词","weight":30},{"id":"33","name":"goal-loop","category":"关键词","weight":30},{"id":"34","name":"ui2code-copilot","category":"关键词","weight":30},{"id":"35","name":"mobile-uiux-kit","category":"关键词","weight":30},{"id":"36","name":"人生规划","category":"细节","weight":50},{"id":"37","name":"gaokao-planner","category":"关键词","weight":30},{"id":"38","name":"human3-evaluation","category":"关键词","weight":30},{"id":"39","name":"技能结构","category":"子类","weight":70},{"id":"40","name":"使用方式","category":"子类","weight":70}],"links":[{"source":"1","target":"2","relation":"包含"},{"source":"1","target":"3","relation":"包含"},{"source":"3","target":"4","relation":"包含"},{"source":"4","target":"5","relation":"关联"},{"source":"4","target":"6","relation":"关联"},{"source":"3","target":"7","relation":"包含"},{"source":"7","target":"8","relation":"关联"},{"source":"7","target":"9","relation":"关联"},{"source":"7","target":"10","relation":"关联"},{"source":"7","target":"11","relation":"关联"},{"source":"7","target":"12","relation":"关联"},{"source":"7","target":"13","relation":"关联"},{"source":"3","target":"14","relation":"包含"},{"source":"14","target":"15","relation":"关联"},{"source":"14","target":"16","relation":"关联"},{"source":"14","target":"17","relation":"关联"},{"source":"14","target":"18","relation":"关联"},{"source":"3","target":"19","relation":"包含"},{"source":"19","target":"20","relation":"关联"},{"source":"3","target":"21","relation":"包含"},{"source":"21","target":"22","relation":"关联"},{"source":"21","target":"23","relation":"关联"},{"source":"3","target":"24","relation":"包含"},{"source":"24","target":"25","relation":"关联"},{"source":"24","target":"26","relation":"关联"},{"source":"24","target":"27","relation":"关联"},{"source":"24","target":"28","relation":"关联"},{"source":"3","target":"29","relation":"包含"},{"source":"29","target":"30","relation":"关联"},{"source":"3","target":"31","relation":"包含"},{"source":"31","target":"32","relation":"关联"},{"source":"31","target":"33","relation":"关联"},{"source":"31","target":"34","relation":"关联"},{"source":"31","target":"35","relation":"关联"},{"source":"3","target":"36","relation":"包含"},{"source":"36","target":"37","relation":"关联"},{"source":"36","target":"38","relation":"关联"},{"source":"1","target":"39","relation":"包含"},{"source":"1","target":"40","relation":"包含"}],"categories":["核心","子类","细节","关键词"]};
+
+const initialTheme = 'dark-tech';
+const initialLayout = 'force';
+
+(function () {
+  const state = { theme: initialTheme, layout: initialLayout };
+  // 健壮性修复：预览面板在窗口/分栏尺寸变化时会把同一份 HTML 重新挂载进同一个 DOM
+  // 容器。若该节点上已存在 echarts 实例，echarts.init 会抛错“already initialized on the dom”，
+  // 导致脚本中断、图谱永久空白。因此初始化前先回收已有实例。
+  const graphEl = document.getElementById('graph');
+  if (echarts.getInstanceByDom(graphEl)) { echarts.dispose(graphEl); }
+  const chart = echarts.init(graphEl);
+
+  const categoryIndex = {};
+  graphData.categories.forEach(function (c, i) { categoryIndex[c] = i; });
+  const nodeById = {};
+  graphData.nodes.forEach(function (n) { nodeById[n.id] = n; });
+
+  function applyCSSVars(t) {
+    const s = document.documentElement.style;
+    s.setProperty('--bg', t.background);
+    s.setProperty('--toolbar-bg', t.toolbarBg);
+    s.setProperty('--text', t.textPrimary);
+    s.setProperty('--text2', t.textSecondary);
+    s.setProperty('--border', t.borderColor);
+    s.setProperty('--btn', t.buttonBg);
+    s.setProperty('--btn-hover', t.buttonHoverBg);
+    s.setProperty('--btn-active', t.buttonActiveBg);
+  }
+
+  function buildOption() {
+    const t = themes[state.theme] || themes['dark-tech'];
+    const l = layouts[state.layout] || layouts['force'];
+    const colors = t.colors;
+
+    const nodes = graphData.nodes.map(function (n) {
+      const ci = categoryIndex[n.category] != null ? categoryIndex[n.category] : 0;
+      const w = n.weight || 20;
+      return {
+        id: n.id, name: n.name, value: w, category: n.category,
+        symbolSize: 10 + w * 0.4,
+        itemStyle: { color: colors[ci % colors.length] },
+        label: { show: true, fontSize: Math.max(10, 11 + w / 100 * 3), color: t.textPrimary, fontWeight: w >= 80 ? 'bold' : 'normal' },
+        tooltip: {
+          formatter: '<b style="font-size:13px">' + n.name + '</b><br/>分类：' + n.category + '<br/>权重：' + w
+        }
+      };
+    });
+
+    const links = graphData.links.map(function (link) {
+      const s = nodeById[link.source], tg = nodeById[link.target];
+      const avgW = ((s ? s.weight : 20) + (tg ? tg.weight : 20)) / 2;
+      return {
+        source: link.source, target: link.target, relation: link.relation || '',
+        sourceName: s ? s.name : link.source, targetName: tg ? tg.name : link.target,
+        lineStyle: { color: t.lineColor, width: 0.8 + avgW / 100 * 2, curveness: 0.08, opacity: 0.7 },
+        emphasis: { lineStyle: { color: t.lineHighlight, width: 3, opacity: 1 } },
+        tooltip: {
+          formatter: '<b>' + (s ? s.name : link.source) + '</b> → <b>' + (tg ? tg.name : link.target) + '</b><br/><span style="color:' + colors[0] + '">关系：' + (link.relation || '—') + '</span>'
+        }
+      };
+    });
+
+    return {
+      backgroundColor: t.background,
+      animationDurationUpdate: 800,
+      animationEasingUpdate: 'quinticInOut',
+      legend: {
+        data: graphData.categories.map(function (c, i) {
+          return { name: c, itemStyle: { color: colors[i % colors.length] } };
+        }),
+        bottom: 8, left: 'center', icon: 'circle',
+        textStyle: { color: t.textSecondary, fontSize: 12 },
+        inactiveColor: t.borderColor,
+        itemGap: 18, itemWidth: 10, itemHeight: 10
+      },
+      tooltip: {
+        backgroundColor: t.tooltipBg,
+        borderColor: t.borderColor,
+        textStyle: { color: t.textPrimary, fontSize: 12 },
+        extraCssText: 'box-shadow:0 8px 30px rgba(0,0,0,.4);border-radius:10px;padding:8px 12px;',
+        confine: true
+      },
+      series: [{
+        type: 'graph',
+        layout: l.echarts.layout,
+        data: nodes,
+        links: links,
+        categories: graphData.categories.map(function (c, i) {
+          return { name: c, itemStyle: { color: colors[i % colors.length] } };
+        }),
+        roam: true,
+        draggable: true,
+        focusNodeAdjacency: true,
+        force: l.echarts.force ? {
+          repulsion: 430, gravity: 0.08, edgeLength: [60, 200], friction: 0.6
+        } : undefined,
+        circular: l.echarts.circular || undefined,
+        edgeSymbol: ['none', 'arrow'],
+        edgeSymbolSize: [0, 6],
+        label: { show: true, position: 'right', distance: 4 },
+        emphasis: {
+          focus: 'adjacency',
+          label: { show: true, fontSize: 15, fontWeight: 'bold' },
+          itemStyle: { shadowBlur: 22, shadowColor: 'rgba(0,0,0,0.45)' },
+          lineStyle: { width: 3 }
+        }
+      }]
+    };
+  }
+
+  function render() { chart.setOption(buildOption(), true); }
+
+  function applyThemeUI() {
+    const t = themes[state.theme] || themes['dark-tech'];
+    applyCSSVars(t);
+    document.querySelectorAll('.theme-btn').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.theme === state.theme);
+    });
+    document.querySelectorAll('.layout-btn').forEach(function (b) {
+      b.classList.toggle('active', b.dataset.layout === state.layout);
+    });
+  }
+
+  // --- 事件绑定 ---
+  document.querySelectorAll('.theme-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      state.theme = b.dataset.theme;
+      applyThemeUI();
+      render();
+    });
+  });
+  document.querySelectorAll('.layout-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      state.layout = b.dataset.layout;
+      applyThemeUI();
+      render();
+    });
+  });
+
+  let searchTimer = null;
+  document.getElementById('search').addEventListener('input', function (e) {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function () {
+      const q = e.target.value.trim();
+      const t = themes[state.theme] || themes['dark-tech'];
+      const hl = t.colors[0];
+      const opt = chart.getOption();
+      const newData = (opt.series[0].data || []).map(function (n) {
+        const hit = !q || (n.name || '').indexOf(q) !== -1;
+        return {
+          ...n,
+          itemStyle: {
+            ...(n.itemStyle || {}),
+            opacity: hit ? 1 : 0.08,
+            borderColor: hit ? hl : 'transparent',
+            borderWidth: hit ? 2 : 0,
+            shadowBlur: hit ? 14 : 0,
+            shadowColor: hit ? hl : 'transparent'
+          },
+          label: { ...(n.label || {}), opacity: hit ? 1 : 0.12 }
+        };
+      });
+      chart.setOption({ series: [{ data: newData }] });
+    }, 200);
+  });
+
+  document.getElementById('node-count').textContent =
+    graphData.nodes.length + ' 节点 · ' + graphData.links.length + ' 关系';
+
+  // 根因修复：用 ResizeObserver 观察容器本身，覆盖预览面板/分栏/整窗等所有尺寸变化。
+  // 关键防护：跳过 0 尺寸（避免画布被缩成 0 而空白），并在尺寸未变化时不做无谓的
+  // resize，以免干扰首帧渲染导致“一闪即逝”。首帧回调因尺寸未变会被跳过，仅真实变化才 resize。
+  let resizeTimer = null;
+  let lastW = graphEl.clientWidth, lastH = graphEl.clientHeight;
+  function scheduleResize() {
+    const w = graphEl.clientWidth, h = graphEl.clientHeight;
+    if (w === 0 || h === 0) return;
+    if (w === lastW && h === lastH) return;
+    lastW = w; lastH = h;
+    if (resizeTimer) cancelAnimationFrame(resizeTimer);
+    resizeTimer = requestAnimationFrame(function () { chart.resize(); });
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(scheduleResize).observe(graphEl);
+  } else {
+    window.addEventListener('resize', scheduleResize);
+  }
+
+  applyThemeUI();
+  render();
+  // 保险：渲染后下一帧再 resize 一次，防止初始化时容器尺寸尚未稳定导致空白
+  requestAnimationFrame(function () { chart.resize(); });
+})();
+</script>
+</body>
+</html>
