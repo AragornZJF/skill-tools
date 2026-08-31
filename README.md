@@ -4,13 +4,14 @@
 
 ## 目录
 
-skills 目录下共收录 27 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 3 个通用技能置于顶层，其余按功能归入 8 个分类文件夹：
+skills 目录下共收录 28 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 4 个通用技能置于顶层，其余按功能归入 8 个分类文件夹：
 
 ```
 skills/
 ├── auto-skill-forge/           # 元技能工厂（通用，顶层）
 ├── evo-wiki-skill/             # 技能自进化元技能（通用，顶层）
 ├── prompt-framework/           # 提示词框架（通用，顶层）
+├── skill-factory-meta/         # 技能工厂（通用，顶层）
 ├── thinking-learning/          # 思维与学习方法
 │   ├── bloom-test/             # 布鲁姆认知测验
 │   ├── feynman-tech/           # 费曼学习法
@@ -55,6 +56,7 @@ skills/
 | `auto-skill-forge` | 元技能工厂，用于创建带自进化能力的新技能，或为现有技能注入自我反思与改进机制 | 造个skill、创建skill、auto-skill、自进化skill |
 | `evo-wiki-skill` | 技能自进化元技能，实现 WikiSkill 三层知识架构（Raw 原始轨迹 / Wiki 模式知识 / Skills 可执行技能），通过任务复盘与门控迭代让技能越用越强 | 技能进化、进化一轮、复盘、沉淀经验、提炼模式、改进技能 |
 | `prompt-framework` | 内置 14 个提示词工程框架（RTF、CO-STAR、ICIO、RISE 等），自动选定最合适框架生成可用提示词 | 帮我写提示词、优化prompt、prompt framework |
+| `skill-factory-meta` | 技能工厂，根据需求自动创建、设计、生成或更新技能，把流程/知识库/工作方法封装为完整技能包（设计文档+实现计划+成品+验证报告） | 创建技能、设计一个技能、技能工厂、把XX做成skill、写个技能 |
 
 ### 思维与学习方法
 
