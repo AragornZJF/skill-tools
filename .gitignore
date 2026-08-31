@@ -44,3 +44,6 @@ desktop.ini
 output/
 tmp/
 *.log
+
+# Pi agent local state
+.pi-glla/
