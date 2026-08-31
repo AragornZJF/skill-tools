@@ -4,11 +4,12 @@
 
 ## 目录
 
-skills 目录下共收录 25 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 2 个通用技能置于顶层，其余按功能归入 8 个分类文件夹：
+skills 目录下共收录 27 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 3 个通用技能置于顶层，其余按功能归入 8 个分类文件夹：
 
 ```
 skills/
 ├── auto-skill-forge/           # 元技能工厂（通用，顶层）
+├── evo-wiki-skill/             # 技能自进化元技能（通用，顶层）
 ├── prompt-framework/           # 提示词框架（通用，顶层）
 ├── thinking-learning/          # 思维与学习方法
 │   ├── bloom-test/             # 布鲁姆认知测验
@@ -19,6 +20,7 @@ skills/
 │   └── system-thinking/        # 系统性思维分析
 ├── docs-knowledge/             # 文档与知识管理
 │   ├── doc-reader/             # 文档精读助手
+│   ├── html2pdf/               # HTML 转 PDF
 │   ├── knowledge-graph/        # 知识图谱生成
 │   ├── md2html/                # Markdown 转 HTML
 │   └── petit-prince-story/     # 小王子风格分镜
@@ -46,11 +48,12 @@ skills/
 
 ## 技能总览
 
-### 通用工具
+### 通用技能工具
 
 | 技能 | 简介 | 触发词示例 |
 | --- | --- | --- |
 | `auto-skill-forge` | 元技能工厂，用于创建带自进化能力的新技能，或为现有技能注入自我反思与改进机制 | 造个skill、创建skill、auto-skill、自进化skill |
+| `evo-wiki-skill` | 技能自进化元技能，实现 WikiSkill 三层知识架构（Raw 原始轨迹 / Wiki 模式知识 / Skills 可执行技能），通过任务复盘与门控迭代让技能越用越强 | 技能进化、进化一轮、复盘、沉淀经验、提炼模式、改进技能 |
 | `prompt-framework` | 内置 14 个提示词工程框架（RTF、CO-STAR、ICIO、RISE 等），自动选定最合适框架生成可用提示词 | 帮我写提示词、优化prompt、prompt framework |
 
 ### 思维与学习方法
@@ -69,6 +72,7 @@ skills/
 | 技能 | 简介 | 触发词示例 |
 | --- | --- | --- |
 | `doc-reader` | 「超级马里奥掘金者」文档阅读助手，淘金模式提炼核心观点/行动步骤/隐藏洞见，GPS 模式生成交互式 HTML 知识图谱 | 精读、淘金、帮我读这篇文章、做个知识图谱 |
+| `html2pdf` | 将 HTML 文件转换为 PDF，优先使用系统浏览器 headless 模式，无需安装额外依赖，支持 Windows / macOS / Linux | html转pdf、生成pdf、保存为pdf |
 | `knowledge-graph` | 根据主题词或 Markdown 文档生成交互式 HTML 知识图谱，支持力导向/辐射状布局与 4 套主题 | 知识图谱、概念关系、文档转图谱 |
 | `md2html` | reference 型 Markdown 转 HTML 技能，设计前先读设计准则，支持 4 变体投票设计流程 | markdown转html、md2html、设计网页 |
 | `petit-prince-story` | 将 Markdown 文档转换为《小王子》手绘风格的故事分镜 SVG 场景，多章可合成纵向长卷 | 把文档画成小王子风格的图、markdown转小王子分镜 |
