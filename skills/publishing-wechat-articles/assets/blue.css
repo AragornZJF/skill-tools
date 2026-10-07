@@ -1,0 +1,200 @@
+/* 微信公众号样式 */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  padding: 20px;
+}
+
+.article {
+  max-width: 677px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 32px 24px;
+}
+
+/* 主标题 */
+h1 {
+  font-size: 22px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* 一级标题 - 带蓝色竖条 */
+h2 {
+  border-left: 4px solid #3B8EF7;
+  padding-left: 12px;
+  color: #3B8EF7;
+  font-weight: bold;
+  font-size: 17px;
+  margin: 28px 0 20px;
+}
+
+/* 二级标题 */
+h3 {
+  color: #3B8EF7;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 24px 0 16px;
+}
+
+/* 三级标题 */
+h4 {
+  color: #3B8EF7;
+  font-weight: bold;
+  font-size: 15px;
+  margin: 20px 0 12px;
+}
+
+/* 段落 */
+p {
+  color: #333;
+  font-size: 15px;
+  line-height: 1.75;
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+/* 引用块 */
+blockquote {
+  border-left: 3px solid #ddd;
+  background: #f8f8f8;
+  color: #666;
+  font-size: 14px;
+  padding: 12px 16px;
+  margin: 20px 0;
+  border-radius: 0 4px 4px 0;
+}
+
+/* 无序列表 */
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 16px 0;
+}
+
+ul li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+ul li::before {
+  content: "•";
+  color: #3B8EF7;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* 有序列表 */
+ol {
+  list-style: none;
+  padding-left: 0;
+  margin: 16px 0;
+  counter-reset: item;
+}
+
+ol li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  line-height: 1.75;
+  counter-increment: item;
+}
+
+ol li::before {
+  content: counter(item) ".";
+  color: #3B8EF7;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* 分隔线 */
+hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 30px 0;
+}
+
+/* 链接 */
+a {
+  color: #3B8EF7;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* 图片 */
+img {
+  max-width: 100%;
+  margin: 16px 0;
+  border-radius: 4px;
+}
+
+/* 斜体说明 */
+em {
+  font-size: 12px;
+  color: #999;
+  font-style: normal;
+}
+
+/* 加粗 */
+strong {
+  font-weight: bold;
+}
+
+/* 代码 */
+code {
+  background: #f5f5f5;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+/* 引用参考区域 */
+.references {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid #eee;
+}
+
+.references h2 {
+  border-left: 4px solid #3B8EF7;
+  padding-left: 12px;
+  color: #3B8EF7;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+.references p {
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.references a {
+  color: #999;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.references a:hover {
+  color: #3B8EF7;
+}
+

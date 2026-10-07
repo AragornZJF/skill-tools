@@ -4,13 +4,15 @@
 
 ## 目录
 
-skills 目录下共收录 28 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 4 个通用技能置于顶层，其余按功能归入 8 个分类文件夹：
+skills 目录下共收录 31 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 6 个通用技能置于顶层，其余按功能归入 8 个分类文件夹：
 
 ```
 skills/
 ├── auto-skill-forge/           # 元技能工厂（通用，顶层）
 ├── evo-wiki-skill/             # 技能自进化元技能（通用，顶层）
+├── llm-laya-canvas/            # LLM+Laya 画布合成（通用，顶层）
 ├── prompt-framework/           # 提示词框架（通用，顶层）
+├── publishing-wechat-articles/ # 公众号文章排版发布（通用，顶层）
 ├── skill-factory-meta/         # 技能工厂（通用，顶层）
 ├── thinking-learning/          # 思维与学习方法
 │   ├── bloom-test/             # 布鲁姆认知测验
@@ -21,6 +23,7 @@ skills/
 │   └── system-thinking/        # 系统性思维分析
 ├── docs-knowledge/             # 文档与知识管理
 │   ├── doc-reader/             # 文档精读助手
+│   ├── gtd-triage/             # GTD 任务分诊
 │   ├── html2pdf/               # HTML 转 PDF
 │   ├── knowledge-graph/        # 知识图谱生成
 │   ├── md2html/                # Markdown 转 HTML
@@ -55,8 +58,10 @@ skills/
 | --- | --- | --- |
 | `auto-skill-forge` | 元技能工厂，用于创建带自进化能力的新技能，或为现有技能注入自我反思与改进机制 | 造个skill、创建skill、auto-skill、自进化skill |
 | `evo-wiki-skill` | 技能自进化元技能，实现 WikiSkill 三层知识架构（Raw 原始轨迹 / Wiki 模式知识 / Skills 可执行技能），通过任务复盘与门控迭代让技能越用越强 | 技能进化、进化一轮、复盘、沉淀经验、提炼模式、改进技能 |
+| `llm-laya-canvas` | 双模型协作画布合成：LLM（DeepSeek/GLM）负责生成 SVG 图形内容，Laya 决策模型（~35ms）负责对候选落点打分选最优位置，写入 fabric.js 画布（canva-editor/快图设计），画布不可达时输出 HTML 预览兑底 | 用 LLM 画个图排到画布上、生成 SVG 让 Laya 决定位置、给这张海报排版 |
 | `prompt-framework` | 内置 14 个提示词工程框架（RTF、CO-STAR、ICIO、RISE 等），自动选定最合适框架生成可用提示词 | 帮我写提示词、优化prompt、prompt framework |
 | `skill-factory-meta` | 技能工厂，根据需求自动创建、设计、生成或更新技能，把流程/知识库/工作方法封装为完整技能包（设计文档+实现计划+成品+验证报告） | 创建技能、设计一个技能、技能工厂、把XX做成skill、写个技能 |
+| `publishing-wechat-articles` | 微信公众号文章排版发布：把已写好的 Markdown 文章经 wenyan CLI 排版（结构包装零改正文）后发布到公众号草稿箱，支持 dry-run 预览与主题定制 | 发布公众号、公众号排版、微信发布、排版后发布 |
 
 ### 思维与学习方法
 
@@ -74,6 +79,7 @@ skills/
 | 技能 | 简介 | 触发词示例 |
 | --- | --- | --- |
 | `doc-reader` | 「超级马里奥掘金者」文档阅读助手，淘金模式提炼核心观点/行动步骤/隐藏洞见，GPS 模式生成交互式 HTML 知识图谱 | 精读、淘金、帮我读这篇文章、做个知识图谱 |
+| `gtd-triage` | GTD 任务分诊：按 David Allen 经典决策流把一堆待办逐条分诊为丢弃/参考/将来也许/立项拆解/立刻做/日历/热区清单/等待八类，输出分诊表 | 帮我整理任务、分诊待办、这些事怎么安排、周回顾 |
 | `html2pdf` | 将 HTML 文件转换为 PDF，优先使用系统浏览器 headless 模式，无需安装额外依赖，支持 Windows / macOS / Linux | html转pdf、生成pdf、保存为pdf |
 | `knowledge-graph` | 根据主题词或 Markdown 文档生成交互式 HTML 知识图谱，支持力导向/辐射状布局与 4 套主题 | 知识图谱、概念关系、文档转图谱 |
 | `md2html` | reference 型 Markdown 转 HTML 技能，设计前先读设计准则，支持 4 变体投票设计流程 | markdown转html、md2html、设计网页 |
