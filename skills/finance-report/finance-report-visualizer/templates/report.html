@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>/*__TITLE__*/</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --panel: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --revenue: #5470c6;
+    --expense: #ee6666;
+    --profit: #3ba272;
+    --cash: #fac858;
+    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 24px 20px 48px; }
+  header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+  h1 { font-size: 22px; margin: 0; font-weight: 700; }
+  .sub { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .toggle { display: inline-flex; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 4px; box-shadow: var(--shadow); }
+  .toggle button {
+    border: 0; background: transparent; color: var(--muted); cursor: pointer;
+    padding: 8px 18px; border-radius: 7px; font-size: 14px; font-weight: 600; transition: all .15s;
+  }
+  .toggle button.active { background: var(--revenue); color: #fff; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+  .kpi { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; box-shadow: var(--shadow); }
+  .kpi .label { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .kpi .value { font-size: 22px; font-weight: 700; letter-spacing: .3px; }
+  .kpi .unit { font-size: 12px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+  .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px 6px; box-shadow: var(--shadow); margin-bottom: 18px; }
+  .card h2 { font-size: 15px; margin: 0 0 6px; font-weight: 600; }
+  .chart { width: 100%; height: 360px; }
+  @media (max-width: 720px) {
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1 id="title">财务报表可视化</h1>
+      <div class="sub">数据来源：YYYY-MM-stats.md · 单位：元 · 支持周 / 月 / 年 维度切换</div>
+    </div>
+    <div class="toggle" id="toggle">
+      <button data-dim="week">按周</button>
+      <button data-dim="month" class="active">按月</button>
+      <button data-dim="year">按年</button>
+    </div>
+  </header>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="card">
+    <h2>收入 / 支出 / 净利润 / 现金净流量</h2>
+    <div id="mainChart" class="chart"></div>
+  </div>
+
+  <div class="card">
+    <h2>现金流结构（经营 / 投资 / 筹资）</h2>
+    <div id="cashChart" class="chart"></div>
+  </div>
+</div>
+
+<script>
+const DATA = /*__DATA__*/;
+const TITLE = /*__TITLE__*/;
+
+document.getElementById('title').textContent = TITLE;
+document.title = TITLE;
+
+const fmt = (n) => '¥' + Number(n).toLocaleString('zh-CN', { maximumFractionDigits: 0 });
+const COLOR = { revenue: '#5470c6', expense: '#ee6666', profit: '#3ba272', cash: '#fac858' };
+
+const mainChart = echarts.init(document.getElementById('mainChart'));
+const cashChart = echarts.init(document.getElementById('cashChart'));
+
+function renderKpis(dim) {
+  const t = DATA[dim].totals;
+  const cards = [
+    { label: '总收入', value: t.revenue, color: COLOR.revenue },
+    { label: '总支出', value: t.expense, color: COLOR.expense },
+    { label: '净利润', value: t.net_profit, color: COLOR.profit },
+    { label: '现金净流量', value: t.cash_net, color: COLOR.cash },
+  ];
+  document.getElementById('kpis').innerHTML = cards.map(c => `
+    <div class="kpi">
+      <div class="label">${c.label}</div>
+      <div class="value" style="color:${c.color}">${fmt(c.value)}</div>
+    </div>`).join('');
+}
+
+function render(dim) {
+  const d = DATA[dim];
+  const cats = d.categories;
+
+  mainChart.setOption({
+    tooltip: { trigger: 'axis', valueFormatter: (v) => fmt(v) },
+    legend: { data: ['收入', '支出', '净利润', '现金净流量'] },
+    grid: { left: 70, right: 30, top: 50, bottom: 40 },
+    xAxis: { type: 'category', data: cats, axisLabel: { interval: 'auto', rotate: cats.length > 12 ? 35 : 0 } },
+    yAxis: { type: 'value', axisLabel: { formatter: (v) => v.toLocaleString('zh-CN') } },
+    series: [
+      { name: '收入', type: 'bar', data: d.revenue, itemStyle: { color: COLOR.revenue, borderRadius: [3, 3, 0, 0] } },
+      { name: '支出', type: 'bar', data: d.expense, itemStyle: { color: COLOR.expense, borderRadius: [3, 3, 0, 0] } },
+      { name: '净利润', type: 'bar', data: d.net_profit, itemStyle: { color: COLOR.profit, borderRadius: [3, 3, 0, 0] } },
+      { name: '现金净流量', type: 'line', smooth: true, data: d.cash_net, symbolSize: 7, itemStyle: { color: COLOR.cash }, lineStyle: { width: 3 } },
+    ],
+  }, true);
+
+  cashChart.setOption({
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, valueFormatter: (v) => fmt(v) },
+    legend: { data: ['经营现金流', '投资现金流', '筹资现金流'] },
+    grid: { left: 70, right: 30, top: 50, bottom: 40 },
+    xAxis: { type: 'category', data: cats, axisLabel: { interval: 'auto', rotate: cats.length > 12 ? 35 : 0 } },
+    yAxis: { type: 'value', axisLabel: { formatter: (v) => v.toLocaleString('zh-CN') } },
+    series: [
+      { name: '经营现金流', type: 'bar', stack: 'cf', data: d.cf_operating, itemStyle: { color: COLOR.profit } },
+      { name: '投资现金流', type: 'bar', stack: 'cf', data: d.cf_investing, itemStyle: { color: COLOR.revenue } },
+      { name: '筹资现金流', type: 'bar', stack: 'cf', data: d.cf_financing, itemStyle: { color: COLOR.expense } },
+    ],
+  }, true);
+
+  renderKpis(dim);
+}
+
+document.getElementById('toggle').addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  document.querySelectorAll('#toggle button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render(btn.dataset.dim);
+});
+
+window.addEventListener('resize', () => { mainChart.resize(); cashChart.resize(); });
+
+render('month');
+</script>
+</body>
+</html>

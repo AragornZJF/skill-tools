@@ -4,7 +4,7 @@
 
 ## 目录
 
-skills 目录下共收录 31 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 6 个通用技能置于顶层，其余按功能归入 8 个分类文件夹：
+skills 目录下共收录 34 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 6 个通用技能置于顶层，其余按功能归入 9 个分类文件夹：
 
 ```
 skills/
@@ -45,6 +45,10 @@ skills/
 │   ├── goal-loop/              # 目标构建循环
 │   ├── mobile-uiux-kit/        # 高保真移动端原型
 │   └── ui2code-copilot/        # 设计稿转代码 Copilot
+├── finance-report/             # 财务报表
+│   ├── bill-archiving/         # 账单存档助手
+│   ├── finance-report-visualizer/ # 财务报表可视化
+│   └── xlsx/                   # 电子表格处理
 └── life-planning/              # 人生规划
     ├── gaokao-planner/         # 高考志愿规划
     └── human3-evaluation/      # 人生发展评估
@@ -121,6 +125,14 @@ skills/
 | `goal-loop` | 三阶段工作流：需求探索->实现计划->无头构建-测试-提交循环（Ralph Loop） | 探索需求、写实现计划、goal loop、自主构建 |
 | `ui2code-copilot` | 设计稿转代码 Copilot。分两阶段扫描前端项目生成上下文规范，再基于规范将 UI 设计稿转化为符合项目约定的生产级代码 | init context、扫描代码、设计稿还原、design to code、实现 UI |
 | `mobile-uiux-kit` | 高保真产品原型交付专家（PM+UI/UX设计师+前端），基于 ROSES 框架生成 iPhone 15 Pro 尺寸高保真移动端 HTML 原型 | 原型设计、高保真原型、APP原型、uiux、ROSES原型 |
+
+### 财务报表
+
+| 技能 | 简介 | 触发词示例 |
+| --- | --- | --- |
+| `bill-archiving` | 小公司财务记账助手：解析账单/转账截图提取关键字段，按天存档到 md 文件并自动去重，支持月度收支统计 | 账单存档、记账、对账、月度统计、账单解析 |
+| `finance-report-visualizer` | 读取目录下的 `YYYY-MM-stats.md` 月度财务统计文件，解析收入/支出/净利润与现金流，生成自包含 ECharts HTML 看板，支持周/月/年维度一键切换 | 财务报表、财务可视化、echart 报表、财务看板 |
+| `xlsx` | 电子表格全流程处理：创建带公式与格式的 .xlsx/.xlsm/.csv 文件、读取分析数据、修改时保留公式、数据可视化与公式重算，交付零公式错误 | 处理 Excel、创建表格、分析表格数据、电子表格 |
 
 ### 人生规划
 
