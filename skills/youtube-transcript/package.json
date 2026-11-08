@@ -1,0 +1,9 @@
+{
+  "name": "youtube-transcript",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "undici": "^7.30.1",
+    "youtube-transcript-plus": "^1.0.4"
+  }
+}

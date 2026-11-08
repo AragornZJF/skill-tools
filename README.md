@@ -4,7 +4,7 @@
 
 ## 目录
 
-skills 目录下共收录 35 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 7 个通用技能置于顶层，其余按功能归入 9 个分类文件夹：
+skills 目录下共收录 37 个可用技能（`finding-your-unknowns` 仅有说明文档，无标准 `SKILL.md`），其中 9 个通用技能置于顶层，其余按功能归入 9 个分类文件夹：
 
 ```
 skills/
@@ -12,9 +12,11 @@ skills/
 ├── excalidraw-draw/            # Excalidraw 白板画图（通用，顶层，自带离线 app）
 ├── evo-wiki-skill/             # 技能自进化元技能（通用，顶层）
 ├── llm-laya-canvas/            # LLM+Laya 画布合成（通用，顶层）
+├── ncm-decrypt/                # NCM 加密格式解密转换（通用，顶层）
 ├── prompt-framework/           # 提示词框架（通用，顶层）
 ├── publishing-wechat-articles/ # 公众号文章排版发布（通用，顶层）
 ├── skill-factory-meta/         # 技能工厂（通用，顶层）
+├── youtube-transcript/         # YouTube 字幕获取（通用，顶层）
 ├── thinking-learning/          # 思维与学习方法
 │   ├── bloom-test/             # 布鲁姆认知测验
 │   ├── feynman-tech/           # 费曼学习法
@@ -65,8 +67,10 @@ skills/
 | `excalidraw-draw` | 在本地 Excalidraw 白板上画图（流程图/架构图/示意图/思维导图）：节点+连线规格经 `gen_scene.mjs` 生成合法 scene JSON，注入自托管生产构建（localhost:5177，离线可用），单次 reload 出图并截图验证，产物为可编辑矢量图形 | 在 excalidraw 中画图、画流程图、画架构图、白板演示 |
 | `evo-wiki-skill` | 技能自进化元技能，实现 WikiSkill 三层知识架构（Raw 原始轨迹 / Wiki 模式知识 / Skills 可执行技能），通过任务复盘与门控迭代让技能越用越强 | 技能进化、进化一轮、复盘、沉淀经验、提炼模式、改进技能 |
 | `llm-laya-canvas` | 双模型协作画布合成：LLM（DeepSeek/GLM）负责生成 SVG 图形内容，Laya 决策模型（~35ms）负责对候选落点打分选最优位置，写入 fabric.js 画布（canva-editor/快图设计），画布不可达时输出 HTML 预览兑底 | 用 LLM 画个图排到画布上、生成 SVG 让 Laya 决定位置、给这张海报排版 |
+| `ncm-decrypt` | 把网易云音乐下载的 NCM 专属加密格式还原为可播放的 MP3/FLAC，支持单文件与整文件夹批量转换，每个产物自动做帧链结构校验并输出分类报告（OK/WARN/FAIL/SKIP），纯 Python 零依赖 | ncm转mp3、ncm解密、批量转换ncm、网易云专属格式、下载的歌其他播放器放不了 |
 | `prompt-framework` | 内置 14 个提示词工程框架（RTF、CO-STAR、ICIO、RISE 等），自动选定最合适框架生成可用提示词 | 帮我写提示词、优化prompt、prompt framework |
 | `skill-factory-meta` | 技能工厂，根据需求自动创建、设计、生成或更新技能，把流程/知识库/工作方法封装为完整技能包（设计文档+实现计划+成品+验证报告） | 创建技能、设计一个技能、技能工厂、把XX做成skill、写个技能 |
+| `youtube-transcript` | 抓取 YouTube 视频的字幕/文稿（支持自动生成与手动上传两种来源），输出带时间戳的逐条文本，可用于摘要与分析；接受视频 ID 或完整 URL | youtube字幕、油管文稿、获取视频transcript、拉取YouTube字幕 |
 | `publishing-wechat-articles` | 微信公众号文章排版发布：把已写好的 Markdown 文章经 wenyan CLI 排版（结构包装零改正文）后发布到公众号草稿箱，支持 dry-run 预览与主题定制 | 发布公众号、公众号排版、微信发布、排版后发布 |
 
 ### 思维与学习方法
