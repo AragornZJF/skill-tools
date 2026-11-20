@@ -1,5 +1,5 @@
 ---
-name: excalidraw-draw
+name: excalidraw-skill
 description: 在 Excalidraw 白板上画图（流程图/架构图/示意图/思维导图）。工作流：用 scripts/gen_scene.mjs 把"节点+连线"规格生成合法的 Excalidraw scene JSON，浏览器打开本地实例（http://localhost:5177，serve 生产构建，离线可用），通过 localStorage 注入场景并刷新渲染，最后截图验证。当用户要求画流程图、画架构图、在 excalidraw 中画图、白板演示，或需要可编辑的矢量图形时使用。
 ---
 

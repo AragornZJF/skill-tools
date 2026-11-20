@@ -60,7 +60,7 @@ const FONT_EXT = new Set([".woff", ".woff2", ".ttf"]);
 // 否则导航到 /__blank 会被 SW 回退成 index.html（app 启动），注入时 app 的
 // beforeunload 保存会用内存旧场景覆盖 localStorage 新场景。空 SW 无 fetch 监听
 // 即不拦截任何请求。放在服务端保证"重新同步构建产物"后依然生效。
-const NOOP_SW = `// excalidraw-draw: 空 Service Worker（由 serve.mjs 恒返回，勿依赖构建产物）
+const NOOP_SW = `// excalidraw-skill: 空 Service Worker（由 serve.mjs 恒返回，勿依赖构建产物）
 `;
 
 // "干净注入页"：渲染成一张空白画布（无 app JS，不启动应用、不注册 SW），
@@ -150,6 +150,6 @@ createServer(async (req, res) => {
     res.end("not found");
   }
 }).listen(port, "127.0.0.1", () => {
-  console.log(`[excalidraw-draw] serving ${root}`);
-  console.log(`[excalidraw-draw] http://localhost:${port}`);
+  console.log(`[excalidraw-skill] serving ${root}`);
+  console.log(`[excalidraw-skill] http://localhost:${port}`);
 });

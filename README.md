@@ -9,7 +9,7 @@ skills 目录下共收录 37 个可用技能（`finding-your-unknowns` 仅有说
 ```
 skills/
 ├── auto-skill-forge/           # 元技能工厂（通用，顶层）
-├── excalidraw-draw/            # Excalidraw 白板画图（通用，顶层，自带离线 app）
+├── excalidraw-skill/           # Excalidraw 白板画图（通用，顶层，自带离线 app）
 ├── evo-wiki-skill/             # 技能自进化元技能（通用，顶层）
 ├── llm-laya-canvas/            # LLM+Laya 画布合成（通用，顶层）
 ├── ncm-decrypt/                # NCM 加密格式解密转换（通用，顶层）
@@ -64,7 +64,7 @@ skills/
 | 技能 | 简介 | 触发词示例 |
 | --- | --- | --- |
 | `auto-skill-forge` | 元技能工厂，用于创建带自进化能力的新技能，或为现有技能注入自我反思与改进机制 | 造个skill、创建skill、auto-skill、自进化skill |
-| `excalidraw-draw` | 在本地 Excalidraw 白板上画图（流程图/架构图/示意图/思维导图）：节点+连线规格经 `gen_scene.mjs` 生成合法 scene JSON，注入自托管生产构建（localhost:5177，离线可用），单次 reload 出图并截图验证，产物为可编辑矢量图形 | 在 excalidraw 中画图、画流程图、画架构图、白板演示 |
+| `excalidraw-skill` | 在本地 Excalidraw 白板上画图（流程图/架构图/示意图/思维导图）：节点+连线规格经 `gen_scene.mjs` 生成合法 scene JSON，注入自托管生产构建（localhost:5177，离线可用），单次 reload 出图并截图验证，产物为可编辑矢量图形 | 在 excalidraw 中画图、画流程图、画架构图、白板演示 |
 | `evo-wiki-skill` | 技能自进化元技能，实现 WikiSkill 三层知识架构（Raw 原始轨迹 / Wiki 模式知识 / Skills 可执行技能），通过任务复盘与门控迭代让技能越用越强 | 技能进化、进化一轮、复盘、沉淀经验、提炼模式、改进技能 |
 | `llm-laya-canvas` | 双模型协作画布合成：LLM（DeepSeek/GLM）负责生成 SVG 图形内容，Laya 决策模型（~35ms）负责对候选落点打分选最优位置，写入 fabric.js 画布（canva-editor/快图设计），画布不可达时输出 HTML 预览兑底 | 用 LLM 画个图排到画布上、生成 SVG 让 Laya 决定位置、给这张海报排版 |
 | `ncm-decrypt` | 把网易云音乐下载的 NCM 专属加密格式还原为可播放的 MP3/FLAC，支持单文件与整文件夹批量转换，每个产物自动做帧链结构校验并输出分类报告（OK/WARN/FAIL/SKIP），纯 Python 零依赖 | ncm转mp3、ncm解密、批量转换ncm、网易云专属格式、下载的歌其他播放器放不了 |
@@ -164,7 +164,7 @@ skills/<category>/<skill-name>/
 
 - 「帮我用费曼学习法学一下 RAG」-> 触发 `feynman-tech`
 - 「把这个流程画成 mermaid 图」-> 触发 `mermaid-generator`
-- 「在 excalidraw 上画个登录流程图」-> 触发 `excalidraw-draw`
+- 「在 excalidraw 上画个登录流程图」-> 触发 `excalidraw-skill`
 - 「帮我提交代码」-> 触发 `git-commit`
 
 > 详见各技能目录下的 `SKILL.md` 获取完整的触发条件与工作流说明。

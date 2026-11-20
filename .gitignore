@@ -47,3 +47,4 @@ tmp/
 
 # Pi agent local state
 .pi-glla/
+.pi/

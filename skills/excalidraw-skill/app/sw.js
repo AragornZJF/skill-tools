@@ -1,4 +1,4 @@
-// excalidraw-draw 本地技能：空 Service Worker（替代 workbox SW）
+// excalidraw-skill 本地技能：空 Service Worker（替代 workbox SW）
 //
 // 原因：workbox SW 会拦截同源导航并回退到 index.html，使"干净页" /__blank
 // 实际启动了 Excalidraw app；该 app 在 beforeunload 时把内存里的旧场景写回
