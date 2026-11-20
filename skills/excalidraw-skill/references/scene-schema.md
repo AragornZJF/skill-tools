@@ -40,12 +40,34 @@
 | `ellipse` | 无额外 |
 | `diamond` | 无额外 |
 | `text` | `text`, `fontSize`, `fontFamily`(5=Excalifont, 1=Virgil, 2=Helvetica, 3=Cascadia), `textAlign`, `verticalAlign`, `containerId`(独立文本=null), `originalText`, `lineHeight`(1.25), `baseline`(≈fontSize), `autoResize` |
-| `arrow` | `points: [[0,0],[dx,dy]]`（相对 x/y）, `startArrowhead: null`, `endArrowhead: "arrow"`, `startBinding/endBinding: null`(不吸附), `lastCommittedPoint: null`, `roundness: {type: 2}` |
+| `arrow` | `points: [[0,0],[dx,dy]]`（相对 x/y）, `startArrowhead: null`, `endArrowhead: "arrow"`, `startBinding/endBinding` 默认 `{elementId,focus,gap,fixedPoint}`（`--no-bind` 时为 null）, `lastCommittedPoint: null`, `roundness: {type: 2}` |
 | `line` | 同 arrow 但 `endArrowhead: null` |
 | `freedraw` | `points`, `pressures: []`, `simulatePressure: false` |
 
 权威类型定义：本地源码 `packages/element/src/types.ts`；
 默认值：`packages/common/src/constants.ts` 的 `DEFAULT_ELEMENT_PROPS`、`FONT_FAMILY`。
+
+## 可编辑绑定（gen_scene 默认开启）
+
+`gen_scene.mjs` 默认会把节点标签和箭头绑定到节点，手动拖动节点时标签/连线会跟随：
+
+```jsonc
+// shape
+"boundElements": [{ "type": "text", "id": "<label-id>" }]
+
+// label text
+"containerId": "<shape-id>"
+
+// arrow
+"startBinding": { "elementId": "<from-shape-id>", "focus": 0, "gap": 4, "fixedPoint": null }
+"endBinding":   { "elementId": "<to-shape-id>",   "focus": 0, "gap": 4, "fixedPoint": null }
+```
+
+需要“纯静态元素”时用：
+
+```bash
+node scripts/gen_scene.mjs scene.json --no-bind > scene.json
+```
 
 ## 常用 appState 键
 
@@ -58,3 +80,67 @@
 
 - 原点在画布中心，y 向下为正；元素坐标即场景坐标（非屏幕像素）
 - 缩放/居中由注入脚本写入 appState（zoom / scrollX / scrollY），无需手动 `Shift+1`
+
+## 导出 `.excalidraw` 文件
+
+`gen_scene.mjs --out xxx.excalidraw` 会在 scene 外包一层可直接打开/分享的文件结构：
+
+```jsonc
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [],
+  "appState": { "viewBackgroundColor": "#ffffff", "gridSize": null },
+  "files": {}
+}
+```
+
+localStorage 只属于当前浏览器；需要持久化或发给别人时优先导出该文件。
+
+## 批次场景（`--batches`）
+
+规格可以额外写 `batches`，把完整流程拆成多个阶段逐批追加：
+
+```jsonc
+{
+  "nodes": [ /* 全部节点 */ ],
+  "edges": [ /* 全部连线 */ ],
+  "batches": [
+    {
+      "name": "需求阶段",
+      "nodes": ["start", "collect", "analyze", "d_review", "revise"],
+      "edges": [0, 1, 2, 3, 4]   // 0-based 边索引；也支持边对象上的 id 字符串
+    },
+    {
+      "name": "设计编码",
+      "nodes": ["project", "plan", "design", "code"],
+      "edges": [5, 6, 7]
+    }
+  ]
+}
+```
+
+生成：
+
+```bash
+node scripts/gen_scene.mjs scene.json --batches --out scene.batches.json
+```
+
+输出结构：
+
+```jsonc
+{
+  "full":  { "elements": [], "appState": {} },  // 完整场景，用于生成 .excalidraw 和计算 zoom
+  "batches": [
+    { "name": "需求阶段", "nodeIds": [], "elements": [], "appState": {} }
+  ]
+}
+```
+
+约束与保证：
+
+- 每批元素按 `shape → arrow → label` 排序，绑定目标先于依赖元素出现
+- 所有批次来自同一次生成，元素 ID 稳定一致，可安全按 id 去重合并
+- 注入脚本始终用 `full` 的边界计算 `zoom/scrollX/scrollY`，视角不会随批次跳动
+- 箭头可以引用上一批的节点（例如跨阶段连接），但不要引用尚未加入的后续节点

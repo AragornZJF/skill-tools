@@ -3,16 +3,18 @@
  * gen_scene.mjs — 把简化规格（nodes + edges）转成合法的 Excalidraw scene JSON。
  *
  * 用法:
- *   node gen_scene.mjs scene.json     # 读取规格文件，输出单行压缩 JSON {elements, appState}
- *   node gen_scene.mjs --demo         # 输出一个示例流程图
+ *   node gen_scene.mjs scene.json                 # 输出单行压缩 JSON 到 stdout
+ *   node gen_scene.mjs --demo                     # 输出内置示例
+ *   node gen_scene.mjs scene.json --out a.excalidraw
+ *   node gen_scene.mjs scene.json --out a.json --pretty
+ *   node gen_scene.mjs scene.json --no-bind       # 不绑定 text/arrow 到节点
  *
  * 规格格式:
  * {
- *   "background": "#ffffff",                 // 可选，画布背景色
+ *   "background": "#ffffff",
  *   "nodes": [
- *     { "id": "a", "type": "rectangle", "label": "开始" },                        // 自动纵向布局
- *     { "id": "b", "type": "diamond",   "label": "已登录?", "x": 100, "y": 260,
- *       "width": 160, "height": 80, "backgroundColor": "#a5d8ff" }               // 手动布局
+ *     { "id": "a", "type": "rectangle", "label": "开始" },
+ *     { "id": "b", "type": "diamond", "label": "已登录?", "backgroundColor": "#a5d8ff" }
  *   ],
  *   "edges": [
  *     { "from": "a", "to": "b", "label": "下一步" }
@@ -22,7 +24,8 @@
  * 支持 type: rectangle | ellipse | diamond | text
  * 未指定 x/y 的节点会按连线关系做简单纵向分层布局。
  */
-import { readFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname } from "node:path";
 
 let idCounter = 0;
 const rand = () => Math.floor(Math.random() * 2 ** 31);
@@ -87,7 +90,7 @@ function makeText(text, opts = {}) {
     fontFamily: opts.fontFamily ?? 5, // 5 = Excalifont
     textAlign: opts.textAlign ?? "center",
     verticalAlign: "middle",
-    containerId: null,
+    containerId: opts.containerId ?? null,
     originalText: String(text),
     autoResize: true,
     lineHeight: 1.25,
@@ -118,13 +121,13 @@ function borderPoint(node, tx, ty) {
 }
 
 /** 未指定坐标的节点：按连线 BFS 分层，纵向排列 */
-function autoLayout(nodes) {
+function autoLayout(nodes, edges) {
   if (!nodes.some((n) => n.x == null || n.y == null)) return;
   const byId = new Map(nodes.map((n) => [n.id, n]));
   const indeg = new Map(nodes.map((n) => [n.id, 0]));
   const children = new Map(nodes.map((n) => [n.id, []]));
-  for (const e of nodes.__edges ?? []) {
-    if (byId.has(e.from) && byId.has(e.to)) {
+  for (const e of edges) {
+    if (byId.has(e.from) && byId.has(e.to) && e.from !== e.to) {
       indeg.set(e.to, (indeg.get(e.to) ?? 0) + 1);
       children.get(e.from).push(e.to);
     }
@@ -144,7 +147,7 @@ function autoLayout(nodes) {
       }
     }
   }
-  // 没被遍历到的孤立节点追加到末尾
+  // 没被遍历到的孤立节点/环上节点追加到末尾
   let fallback = Math.max(-1, ...layer.values()) + 1;
   for (const n of nodes) if (!layer.has(n.id)) layer.set(n.id, fallback++);
   const perLayer = new Map();
@@ -152,10 +155,12 @@ function autoLayout(nodes) {
     const l = layer.get(n.id);
     perLayer.set(l, (perLayer.get(l) ?? 0) + 1);
   }
+  const layerIndex = new Map();
   for (const n of nodes) {
     if (n.x != null && n.y != null) continue;
     const l = layer.get(n.id);
-    const idx = [...nodes].filter((m) => layer.get(m.id) === l && m.x == null).indexOf(n);
+    const idx = layerIndex.get(l) ?? 0;
+    layerIndex.set(l, idx + 1);
     n.width = n.width ?? 180;
     n.height = n.height ?? (n.type === "diamond" ? 96 : 64);
     n.x = 400 + (idx - (perLayer.get(l) - 1) / 2) * (n.width + 60);
@@ -163,7 +168,42 @@ function autoLayout(nodes) {
   }
 }
 
-function makeNode(n) {
+function validateSpec(spec, edges) {
+  const errors = [];
+  const warnings = [];
+  const seen = new Set();
+  const byId = new Map();
+
+  for (const [i, n] of (spec.nodes ?? []).entries()) {
+    if (!n || typeof n !== "object") {
+      errors.push(`nodes[${i}] 不是对象`);
+      continue;
+    }
+    if (!n.id) errors.push(`nodes[${i}] 缺少 id`);
+    else if (seen.has(n.id)) errors.push(`重复节点 id: ${n.id}`);
+    else seen.add(n.id);
+    if (n.id) byId.set(n.id, n);
+    if (n.type && !["rectangle", "ellipse", "diamond", "text"].includes(n.type)) {
+      warnings.push(`节点 ${n.id} 的 type "${n.type}" 无效，已回退为 rectangle`);
+    }
+    if (n.width != null && n.width <= 0) errors.push(`节点 ${n.id} 的 width 必须 > 0`);
+    if (n.height != null && n.height <= 0) errors.push(`节点 ${n.id} 的 height 必须 > 0`);
+  }
+
+  for (const [i, e] of edges.entries()) {
+    if (!e || typeof e !== "object") {
+      errors.push(`edges[${i}] 不是对象`);
+      continue;
+    }
+    if (!byId.has(e.from)) errors.push(`edges[${i}] 引用了不存在的 from 节点: ${e.from}`);
+    if (!byId.has(e.to)) errors.push(`edges[${i}] 引用了不存在的 to 节点: ${e.to}`);
+    if (e.from === e.to) warnings.push(`edges[${i}] 是自环，当前不会绘制可见箭头`);
+  }
+
+  return { errors, warnings };
+}
+
+function makeNode(n, bind) {
   const type = ["rectangle", "ellipse", "diamond", "text"].includes(n.type)
     ? n.type
     : "rectangle";
@@ -171,31 +211,36 @@ function makeNode(n) {
   const height = n.height ?? (type === "diamond" ? 96 : type === "text" ? undefined : 64);
 
   if (type === "text") {
-    return [makeText(n.label ?? n.text ?? "", { centerX: n.x, centerY: n.y, fontSize: n.fontSize })];
+    const text = makeText(n.label ?? n.text ?? "", {
+      centerX: n.x,
+      centerY: n.y,
+      fontSize: n.fontSize,
+    });
+    return { shape: text, label: null, isShape: false };
   }
 
   const shape = baseElement(type, n.x, n.y, {
     width,
     height,
     backgroundColor: n.backgroundColor ?? "transparent",
-    strokeColor: n.strokeColor,
-    roundness: n.rounded ? { type: 3 } : null,
+    strokeColor: n.strokeColor ?? "#1e1e1e",
+    roundness: n.rounded ? { type: 3 } : (n.roundness ?? null),
   });
-  const els = [shape];
+  let label = null;
   if (n.label) {
-    els.push(
-      makeText(n.label, {
-        centerX: n.x + width / 2,
-        centerY: n.y + height / 2,
-        fontSize: n.fontSize ?? 20,
-        strokeColor: n.labelColor,
-      }),
-    );
+    label = makeText(n.label, {
+      centerX: n.x + width / 2,
+      centerY: n.y + height / 2,
+      fontSize: n.fontSize ?? 20,
+      strokeColor: n.labelColor ?? "#1e1e1e",
+      containerId: bind ? shape.id : null,
+    });
+    if (bind) shape.boundElements = [{ type: "text", id: label.id }];
   }
-  return els;
+  return { shape, label, isShape: true };
 }
 
-function makeEdge(e, byId) {
+function makeEdge(e, byId, bind) {
   const a = byId.get(e.from);
   const b = byId.get(e.to);
   if (!a || !b) throw new Error(`edge 引用了不存在的节点: ${JSON.stringify(e)}`);
@@ -203,83 +248,230 @@ function makeEdge(e, byId) {
   const bcy = b.y + b.height / 2;
   const [x1, y1] = borderPoint(a, bcx, bcy);
   const [x2, y2] = borderPoint(b, x1, y1);
-  const els = [
-    baseElement("arrow", x1, y1, {
-      width: x2 - x1,
-      height: y2 - y1,
-      points: [
-        [0, 0],
-        [Math.round(x2 - x1), Math.round(y2 - y1)],
-      ],
-      roundness: { type: 2 },
-      startArrowhead: null,
-      endArrowhead: e.endArrowhead ?? "arrow",
-      startBinding: null,
-      endBinding: null,
-      lastCommittedPoint: null,
-      strokeColor: e.strokeColor,
-    }),
-  ];
+  const startBinding =
+    bind && a.isShape
+      ? { elementId: a.shape.id, focus: 0, gap: 4, fixedPoint: null }
+      : null;
+  const endBinding =
+    bind && b.isShape
+      ? { elementId: b.shape.id, focus: 0, gap: 4, fixedPoint: null }
+      : null;
+  const arrow = baseElement("arrow", x1, y1, {
+    width: x2 - x1,
+    height: y2 - y1,
+    points: [
+      [0, 0],
+      [Math.round(x2 - x1), Math.round(y2 - y1)],
+    ],
+    roundness: { type: 2 },
+    startArrowhead: e.startArrowhead ?? null,
+    endArrowhead: e.endArrowhead ?? "arrow",
+    startBinding,
+    endBinding,
+    lastCommittedPoint: null,
+    strokeColor: e.strokeColor ?? "#1e1e1e",
+  });
+  let label = null;
   if (e.label) {
-    els.push(
-      makeText(e.label, {
-        centerX: (x1 + x2) / 2 + 40,
-        centerY: (y1 + y2) / 2 - 18,
-        fontSize: 16,
-      }),
-    );
+    const [ox, oy] = e.labelOffset ?? [40, -18];
+    label = makeText(e.label, {
+      centerX: (x1 + x2) / 2 + ox,
+      centerY: (y1 + y2) / 2 + oy,
+      fontSize: e.fontSize ?? 16,
+      strokeColor: e.labelColor ?? "#1e1e1e",
+    });
   }
-  return els;
+  return { arrow, label };
 }
 
+function buildScene(spec, { bind = true } = {}) {
+  const nodes = (spec.nodes ?? []).map((n) => ({ ...n }));
+  const edges = spec.edges ?? [];
+  autoLayout(nodes, edges);
+
+  const shapes = [];
+  const arrows = [];
+  const labels = [];
+  const byId = new Map();
+  const nodeRefs = new Map();
+  const edgeRefs = [];
+
+  for (const n of nodes) {
+    const { shape, label, isShape } = makeNode(n, bind);
+    const ref = { ...n, shape, label, isShape };
+    byId.set(n.id, ref);
+    nodeRefs.set(n.id, ref);
+    shapes.push(shape);
+    if (label) labels.push(label);
+  }
+  for (const e of edges) {
+    const { arrow, label } = makeEdge(e, byId, bind);
+    edgeRefs.push({ arrow, label });
+    arrows.push(arrow);
+    if (label) labels.push(label);
+  }
+
+  // 层级：shape → arrow → label，避免箭头压住节点文字
+  const elements = [...shapes, ...arrows, ...labels];
+  const scene = {
+    elements,
+    appState: {
+      viewBackgroundColor: spec.background ?? "#ffffff",
+      ...(spec.appState ?? {}),
+    },
+  };
+  return { scene, nodeRefs, edgeRefs, nodes, edges };
+}
+
+function resolveEdgeRefs(edgeRefs, edges, refs) {
+  const out = [];
+  for (const r of refs ?? []) {
+    const idx = typeof r === "number" ? r : edges.findIndex((e) => e.id === r);
+    const ref = edgeRefs[idx];
+    if (!ref) throw new Error(`批次引用了不存在的边: ${r}`);
+    out.push(ref);
+  }
+  return out;
+}
+
+/** 按 spec.batches 把完整场景切成多个可逐批追加的元素组 */
+function buildBatches(spec, built) {
+  const { scene, nodeRefs, edgeRefs, edges } = built;
+  const batches = (spec.batches ?? []).map((b, i) => {
+    const nodeRefsInBatch = (b.nodes ?? []).map((id) => {
+      const ref = nodeRefs.get(id);
+      if (!ref) throw new Error(`批次 ${i + 1} 引用了不存在的节点: ${id}`);
+      return ref;
+    });
+    const edgeRefsInBatch = resolveEdgeRefs(edgeRefs, edges, b.edges ?? b.edgeIds);
+
+    // 依赖顺序：shape → arrow → label，保证绑定目标已在本批或之前批次出现
+    const shapes = nodeRefsInBatch.map((r) => r.shape).filter(Boolean);
+    const arrows = edgeRefsInBatch.map((r) => r.arrow).filter(Boolean);
+    const labels = [
+      ...nodeRefsInBatch.map((r) => r.label).filter(Boolean),
+      ...edgeRefsInBatch.map((r) => r.label).filter(Boolean),
+    ];
+    const elements = [...shapes, ...arrows, ...labels];
+    return {
+      name: b.name ?? `batch-${i + 1}`,
+      nodeIds: b.nodes ?? [],
+      elements,
+      appState: scene.appState,
+    };
+  });
+
+  const covered = new Set(batches.flatMap((b) => b.elements.map((e) => e.id)));
+  const missing = scene.elements.filter((e) => !covered.has(e.id));
+  if (missing.length) {
+    console.error(
+      `WARN: batches 未覆盖 ${missing.length} 个元素（前 3 个类型: ${missing.slice(0, 3).map((e) => e.type).join(",")}）`,
+    );
+  }
+  return { full: scene, batches };
+}
+
+function toExcalidrawFile(scene) {
+  return {
+    type: "excalidraw",
+    version: 2,
+    source: "https://excalidraw.com",
+    elements: scene.elements,
+    appState: { ...scene.appState, gridSize: null },
+    files: {},
+  };
+}
+
+const demoSpec = {
+  background: "#ffffff",
+  nodes: [
+    { id: "start", type: "rectangle", label: "打开 excalidraw.com" },
+    { id: "inject", type: "rectangle", label: "注入 localStorage", backgroundColor: "#a5d8ff" },
+    { id: "reload", type: "rectangle", label: "location.reload()" },
+    { id: "check", type: "diamond", label: "截图正常?" },
+    { id: "done", type: "rectangle", label: "完成", backgroundColor: "#b2f2bb" },
+  ],
+  edges: [
+    { from: "start", to: "inject" },
+    { from: "inject", to: "reload" },
+    { from: "reload", to: "check" },
+    { from: "check", to: "done", label: "是" },
+    { from: "check", to: "inject", label: "否", strokeColor: "#e03131" },
+  ],
+};
+
 // ---------- main ----------
-const arg = process.argv[2];
+const args = process.argv.slice(2);
+let arg = null;
+let out = null;
+let pretty = false;
+let bind = true;
+let batchesMode = false;
+
+for (let i = 0; i < args.length; i++) {
+  const a = args[i];
+  if (a === "--demo") arg = "--demo";
+  else if (a === "--out") out = args[++i];
+  else if (a === "--pretty") pretty = true;
+  else if (a === "--no-bind") bind = false;
+  else if (a === "--batches") batchesMode = true;
+  else if (a === "--scene") arg = args[++i];
+  else if (!a.startsWith("-") && arg == null) arg = a;
+  else {
+    console.error(`未知参数: ${a}`);
+    process.exit(1);
+  }
+}
+
 if (!arg) {
-  console.error("用法: node gen_scene.mjs <scene.json | --demo>");
+  console.error("用法: node gen_scene.mjs <scene.json | --demo> [--out file] [--pretty] [--no-bind] [--batches]");
   process.exit(1);
 }
+if (out && !pretty && out.endsWith(".excalidraw")) pretty = false;
 
 let spec;
 if (arg === "--demo") {
-  spec = {
-    background: "#ffffff",
-    nodes: [
-      { id: "start", type: "rectangle", label: "打开 excalidraw.com" },
-      { id: "inject", type: "rectangle", label: "注入 localStorage", backgroundColor: "#a5d8ff" },
-      { id: "reload", type: "rectangle", label: "location.reload()" },
-      { id: "check", type: "diamond", label: "截图正常?" },
-      { id: "done", type: "rectangle", label: "完成", backgroundColor: "#b2f2bb" },
-    ],
-    edges: [
-      { from: "start", to: "inject" },
-      { from: "inject", to: "reload" },
-      { from: "reload", to: "check" },
-      { from: "check", to: "done", label: "是" },
-      { from: "check", to: "inject", label: "否", strokeColor: "#e03131" },
-    ],
-  };
+  spec = demoSpec;
 } else {
-  spec = JSON.parse(readFileSync(arg, "utf8"));
+  try {
+    spec = JSON.parse(readFileSync(arg, "utf8"));
+  } catch (e) {
+    console.error(`读取规格失败 ${arg}: ${e.message}`);
+    process.exit(1);
+  }
 }
 
-const nodes = (spec.nodes ?? []).map((n) => ({ ...n }));
-nodes.__edges = spec.edges ?? [];
-autoLayout(nodes);
-
-const elements = [];
-const byId = new Map();
-for (const n of nodes) {
-  const els = makeNode(n);
-  byId.set(n.id, { ...n, x: els[0].x, y: els[0].y, width: els[0].width ?? 0, height: els[0].height ?? 0 });
-  elements.push(...els);
+const edges = spec.edges ?? [];
+const { errors, warnings } = validateSpec(spec, edges);
+for (const w of warnings) console.error(`WARN: ${w}`);
+if (errors.length) {
+  for (const e of errors) console.error(`ERROR: ${e}`);
+  process.exit(1);
 }
-for (const e of spec.edges ?? []) elements.push(...makeEdge(e, byId));
 
-const out = {
-  elements,
-  appState: {
-    viewBackgroundColor: spec.background ?? "#ffffff",
-    ...(spec.appState ?? {}),
-  },
-};
-process.stdout.write(JSON.stringify(out)); // 单行压缩：便于整段内联进浏览器注入脚本
+const built = buildScene(spec, { bind });
+const scene = built.scene;
+let payload;
+if (batchesMode) {
+  if (!spec.batches?.length) {
+    console.error("ERROR: --batches 需要规格中包含非空的 batches 数组");
+    process.exit(1);
+  }
+  payload = buildBatches(spec, built);
+} else if (out?.endsWith(".excalidraw")) {
+  payload = toExcalidrawFile(scene);
+} else {
+  payload = scene;
+}
+const json = pretty ? JSON.stringify(payload, null, 2) : JSON.stringify(payload);
+
+if (out) {
+  mkdirSync(dirname(out), { recursive: true });
+  writeFileSync(out, json);
+  const summary = batchesMode
+    ? `${payload.batches.length} batches, ${scene.elements.length} elements`
+    : `${scene.elements.length} elements`;
+  console.log(`wrote ${out} (${summary}${bind ? ", bound" : ""})`);
+} else {
+  process.stdout.write(json);
+}

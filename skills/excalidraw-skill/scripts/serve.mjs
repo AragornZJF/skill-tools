@@ -17,6 +17,7 @@
  *   - index.html 在线改写：CDN 资源根 → 本地 `/`（字体等全部本地加载，消除 CDN 拖慢/离线失败），
  *     并去掉外部统计脚本；同时恒为 no-cache + ETag 协商，产物更新后刷新即生效
  *   - `/__blank` → 空白画布注入页（无 app JS，注入时短暂中转，观感等同"画布清空"，见 SKILL.md）
+ *   - `/__health` → 健康/版本探针，区分新旧 serve.mjs 进程
  *   - 其他未知路径: 带扩展名 → 404；无扩展名 → SPA 回退 index.html
  */
 import { createServer } from "node:http";
@@ -28,6 +29,7 @@ import { fileURLToPath } from "node:url";
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const root = resolve(process.argv[2] ?? join(scriptDir, "..", "app"));
 const port = Number(process.argv[3] ?? 5177);
+const SKILL_VERSION = "2026-11-21";
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -83,6 +85,24 @@ createServer(async (req, res) => {
         "cache-control": "no-cache",
       });
       res.end(NOOP_SW);
+      return;
+    }
+    // 健康/版本探针：用 curl http://localhost:5177/__health 区分新旧 serve.mjs。
+    if (p === "/__health") {
+      res.writeHead(200, {
+        "content-type": "application/json; charset=utf-8",
+        "cache-control": "no-cache",
+      });
+      res.end(JSON.stringify({
+        ok: true,
+        skillVersion: SKILL_VERSION,
+        servedRoot: root,
+        port,
+        noopSW: true,
+        blankPage: true,
+        cdnRewrite: true,
+        time: new Date().toISOString(),
+      }));
       return;
     }
     // /__blank 作为"干净注入页"：返回空白画布页（无 app JS，且无 404 观感）。

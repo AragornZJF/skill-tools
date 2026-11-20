@@ -1,11 +1,11 @@
 ---
 name: excalidraw-skill
-description: 在 Excalidraw 白板上画图（流程图/架构图/示意图/思维导图）。工作流：用 scripts/gen_scene.mjs 把"节点+连线"规格生成合法的 Excalidraw scene JSON，浏览器打开本地实例（http://localhost:5177，serve 生产构建，离线可用），通过 localStorage 注入场景并刷新渲染，最后截图验证。当用户要求画流程图、画架构图、在 excalidraw 中画图、白板演示，或需要可编辑的矢量图形时使用。
+description: 在 Excalidraw 白板上画图（流程图/架构图/示意图/思维导图）。工作流：用 scripts/gen_scene.mjs 把"节点+连线"规格生成合法的 Excalidraw scene JSON，浏览器打开本地实例（http://localhost:5177，serve 生产构建，离线可用），通过 localStorage 注入场景并刷新渲染，最后截图验证。仅有 shell 时可用 scripts/inject_and_shot.mjs 零依赖完成注入+截图；gen_scene.mjs --out 可导出 .excalidraw。当用户要求画流程图、画架构图、在 excalidraw 中画图、白板演示，或需要可编辑的矢量图形时使用。
 ---
 
 # 在 Excalidraw 中画图
 
-目标：让浏览器 agent 在**本地 Excalidraw 实例**上画出用户描述的图形。
+目标：让 agent 在**本地 Excalidraw 实例**上画出用户描述的图形。有浏览器 agent 时走手动注入；只有 shell 时优先用 `scripts/inject_and_shot.mjs` 一键完成。
 
 **核心原则：永远不要模拟鼠标点击工具栏逐笔绘制**（极其脆弱）。正确路径是
 **生成 scene JSON → 注入页面 → 刷新 → 截图验证**，三步内完成。
@@ -33,8 +33,9 @@ description: 在 Excalidraw 白板上画图（流程图/架构图/示意图/思�
 ## 前置条件
 
 - 本地已 serve 生产构建：`http://localhost:5177`（见下方"本地化运行"）
-- 浏览器 agent 需要具备：① 打开 URL；② 在页面上下文执行 JS；③ 截图。
-  （可配合 autoglm-browser-agent 等浏览器自动化 skill 使用。）
+- 两种执行方式二选一：
+  1. **一键脚本（推荐）**：`scripts/inject_and_shot.mjs`，只需 Node + Chrome/Edge，无需浏览器 agent
+  2. **浏览器 agent 手动注入**：需要具备 ① 打开 URL ② 页面上下文执行 JS ③ 截图（可配合 autoglm-browser-agent 等 skill）
 
 ## 本地化运行（推荐，离线可用）
 
@@ -45,11 +46,12 @@ excalidraw 仓库 `excalidraw-app/build/`，已剔除 source map），
 **每次画图前先做幂等检测**（服务可能已在运行）：
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}" http://localhost:5177
+curl -s http://localhost:5177/__health
 ```
 
-- 返回 `200` → 服务已就绪，跳过启动
-- 连接失败 → 后台启动（零参数，默认 serve 内置 `app/`；Windows）。
+- 返回含 `skillVersion` 的 JSON → 新版服务已就绪，跳过启动
+- 只返回 404 / 连接失败 → 说明没启动或仍是旧版 `serve.mjs`，需要按下面方式启动/替换
+- 连接失败或版本过旧 → 后台启动（零参数，默认 serve 内置 `app/`；Windows）。
   `<skill目录>` 指本 SKILL.md 所在目录（agent 运行时从自身 skill 配置取得）：
 
 ```bash
@@ -105,7 +107,8 @@ navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregist
 - `type`: `rectangle | ellipse | diamond | text`，缺省 `rectangle`
 - 不写 `x/y` 时脚本自动做纵向分层布局；复杂图（多列、分支汇聚）建议手动给坐标
 - 节点默认 180×64，diamond 96 高；可用 `width/height/backgroundColor/strokeColor/label/fontSize` 微调
-- `edges` 的箭头端点自动吸附到节点边界中点方向，可带 `label`
+- `edges` 的箭头端点自动吸附到节点边界中点方向，可带 `label`、`labelOffset: [dx,dy]`、`strokeColor`
+- 生成的 label text 与 shape 双向绑定（`containerId` / `boundElements`），箭头也绑定首尾节点；拖动节点时标签和连线跟随。用 `--no-bind` 可关闭
 - 常用色：蓝 `#a5d8ff`、绿 `#b2f2bb`、红 `#ffc9c9`、黄 `#ffec99`、描边红 `#e03131`
 
 ### 第 2 步：生成 scene JSON
@@ -113,11 +116,44 @@ navigator.serviceWorker.getRegistrations().then(rs => rs.forEach(r => r.unregist
 ```bash
 node <skill目录>/scripts/gen_scene.mjs scene.json > scene.out.json
 # 自检（可选）: node <skill目录>/scripts/gen_scene.mjs --demo > demo.json
+# 直接导出可编辑文件（推荐持久化）:
+node <skill目录>/scripts/gen_scene.mjs scene.json --out scene.excalidraw --pretty
+# 生成渐进注入用的批次场景（含 full + batches）:
+node <skill目录>/scripts/gen_scene.mjs scene.json --batches --out scene.batches.json
 ```
 
 输出的 `{ "elements": [...], "appState": {...} }` 已补全所有必填字段
 （id/seed/versionNonce/boundElements 等），为**单行压缩 JSON**，可直接整段内联进注入脚本。
 文字宽度已按 CJK 全角 ≈ 1.0×字号 估算，中文标签不会被渲染裁切。
+
+### 一键执行（只有 shell 时推荐）
+
+```bash
+node <skill目录>/scripts/inject_and_shot.mjs \
+  --scene scene.json \
+  --out shot.png \
+  --export scene.excalidraw
+```
+
+**大图推荐：渐进注入（按批次追加）**
+
+```bash
+# 规格里写 batches，生成批次场景（同时保留 full 完整场景）
+node <skill目录>/scripts/gen_scene.mjs scene.json --batches --out scene.batches.json
+# 一键逐批 append + reload，最后统一截图
+node <skill目录>/scripts/inject_and_shot.mjs --batches scene.batches.json \
+  --out shot.png --export scene.excalidraw
+```
+
+脚本自动完成：确保本地服务（必要时后台启动）→ 启动 Chrome/Edge headless → CDP 打开 `/__blank` → 注入 localStorage → 导航到 `/` → 等待 canvas → 截图。零外部依赖（Node 22 原生 `WebSocket`/`fetch`），不需要浏览器 agent。
+
+常用参数：
+
+- `--scene <规格.json>` / `--demo` / `--batches <批次.json>`：输入来源；也可 `--scene-json <已生成场景.json>`
+- `--out <截图.png>`：截图路径（默认 `<skill目录>/tmp/last-scene.png`）
+- `--export <文件.excalidraw>`：同时导出可编辑文件
+- `--url` / `--viewport` / `--browser` / `--cdp-port`：自定义实例、视口、浏览器、调试端口
+- `--batch-delay <ms>`：批间等待（默认 600ms）；`--no-bind`：关闭节点绑定；`--keep-open`：保留 headless 浏览器便于调试
 
 ### 第 3 步：极速注入（单次 reload，无中转页）
 
@@ -177,6 +213,17 @@ node <skill目录>/scripts/gen_scene.mjs scene.json > scene.out.json
 每批都读当前 `excalidraw` 并合并新元素（用第 3 步的 setItem 静音），再 reload；
 **每批一次 reload（约 0.5s）**，所以是"逐步出现"而非连续动画。
 
+**一键批量版（推荐）**：
+
+```bash
+node <skill目录>/scripts/gen_scene.mjs scene.json --batches --out scene.batches.json
+node <skill目录>/scripts/inject_and_shot.mjs --batches scene.batches.json --out shot.png
+```
+
+`batches` 用 `nodes: [节点id...]` + `edges: [边索引...]` 分组；生成器自动保证每批内部
+按 `shape → arrow → label` 排序，且所有批次共享同一套元素 ID。zoom/scroll 始终按
+`full` 完整场景计算，视角不会随批次跳动。格式见 `references/scene-schema.md`。
+
 ```js
 // full = 场景全部 elements；FROM/TO 为本批范围
 const slice = full.slice(FROM, TO);
@@ -218,6 +265,7 @@ const next = prev.concat(slice.filter(e => !ids.has(e.id))); // 按 id 去重
 | 现象 | 原因/修复 |
 | --- | --- |
 | 注入后画布为空 | elements 不是数组，或整体不是合法 JSON；先 `JSON.parse` 校验 |
+| 服务返回 200 但注入总被旧图覆盖 | 可能是旧版 `serve.mjs` 仍在运行；查 `curl -s http://localhost:5177/__health`，无 `skillVersion` 就重启服务 |
 | 单个元素不显示 | 检查 `isDeleted:false`、`width/height>0`、坐标是否远离可视区（Shift+1 修复缩放） |
 | 文字重叠/溢出 | 手动给该节点更大 `width/height` 或调 `fontSize` |
 | 注入后被旧图覆盖 | 没做 setItem 静音就 reload（app 离开时回写覆盖）：按第 3 步先静音 `excalidraw`/`excalidraw-state` 再写入 |
@@ -228,6 +276,9 @@ const next = prev.concat(slice.filter(e => !ids.has(e.id))); // 按 id 去重
 
 ## 参考
 
+- 目录总览与快速命令：`README.md`
+- 场景生成/导出脚本：`scripts/gen_scene.mjs`（含 `--out` / `--batches` / `--no-bind`）
+- 一键注入+截图脚本：`scripts/inject_and_shot.mjs`（零依赖 CDP 执行器）
 - 元素字段完整说明：`references/scene-schema.md`
 - 性能优化记录（改了什么/为什么/实测）：`references/optimizations.md`
 - 权威类型定义（本地源码）：`packages/element/src/types.ts`
