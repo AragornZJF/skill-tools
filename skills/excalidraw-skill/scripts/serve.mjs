@@ -18,6 +18,8 @@
  *     并去掉外部统计脚本；同时恒为 no-cache + ETag 协商，产物更新后刷新即生效
  *   - `/__blank` → 空白画布注入页（无 app JS，注入时短暂中转，观感等同"画布清空"，见 SKILL.md）
  *   - `/__health` → 健康/版本探针，区分新旧 serve.mjs 进程
+ *   - 无刷新 Bridge：在线 patch 入口 JS 把 Excalidraw imperative API 挂到 window，
+ *     并提供 `/__bridge.js`（window.ExcalidrawBridge），让 agent 无需 reload 即可改画布。
  *   - 其他未知路径: 带扩展名 → 404；无扩展名 → SPA 回退 index.html
  */
 import { createServer } from "node:http";
@@ -28,8 +30,24 @@ import { fileURLToPath } from "node:url";
 // 默认 serve 本 skill 自带的构建产物 app/（与脚本同级的上级目录）
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const root = resolve(process.argv[2] ?? join(scriptDir, "..", "app"));
+// 运行时场景数据放在 data/，不污染构建产物 app/。
+// /__batches.json 与 /__scene.json 由下面的虚拟路由从此处提供（URL 保持不变）。
+const dataDir = resolve(scriptDir, "..", "data");
 const port = Number(process.argv[3] ?? 5177);
-const SKILL_VERSION = "2026-11-21";
+const SKILL_VERSION = "2026-11-21-bridge1";
+
+// 无刷新 Bridge：在线 patch 入口 JS，在 Excalidraw 组件 componentDidMount 里拿到
+// imperative API（this.api）并挂到 window。注入点在当前生产构建中全局唯一；
+// 若重新同步产物导致匹配失败，/__health.bridgeHooked 会变为 false（见下方探测）。
+const BRIDGE_HOOK_NEEDLE =
+  'const i={excalidrawAPI:this.api,container:this.excalidrawContainerRef.current};' +
+  'this.editorLifecycleEvents.emit("editor:mount",i)';
+const BRIDGE_HOOK_REPLACEMENT =
+  'window.__EXCALIDRAW_API__=this.api;window.dispatchEvent(new Event("excalidraw:ready"));' +
+  BRIDGE_HOOK_NEEDLE;
+
+// Bridge 客户端单独成文件，便于维护/测试；从磁盘读取后由 /__bridge.js 提供。
+const BRIDGE_JS = await readFile(join(scriptDir, "bridge-client.js"), "utf8");
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -97,10 +115,14 @@ createServer(async (req, res) => {
         ok: true,
         skillVersion: SKILL_VERSION,
         servedRoot: root,
+        dataDir,
         port,
         noopSW: true,
         blankPage: true,
         cdnRewrite: true,
+        bridge: true,
+        bridgeApiKey: "__EXCALIDRAW_API__",
+        bridgeGlobal: "ExcalidrawBridge",
         time: new Date().toISOString(),
       }));
       return;
@@ -113,6 +135,34 @@ createServer(async (req, res) => {
         "cache-control": "no-cache",
       });
       res.end(BLANK_HTML);
+      return;
+    }
+    // 无刷新 Bridge 客户端：window.ExcalidrawBridge（惰性封装，幂等可重复加载）。
+    if (p === "/__bridge.js") {
+      res.writeHead(200, {
+        "content-type": "text/javascript; charset=utf-8",
+        "cache-control": "no-cache",
+      });
+      res.end(BRIDGE_JS);
+      return;
+    }
+    // 虚拟场景路由：从 data/ 提供，app/ 里无需放置任何运行时文件。
+    // 缺失时返回 200 + 空批次，watcher 静默等待，不报错。
+    if (p === "/__batches.json" || p === "/__scene.json") {
+      const name = p.slice(1);
+      let payload = p === "/__batches.json"
+        ? { full: { elements: [], appState: {} }, batches: [] }
+        : { elements: [], appState: {} };
+      try {
+        payload = JSON.parse(await readFile(join(dataDir, name), "utf8"));
+      } catch {}
+      const body = JSON.stringify(payload);
+      res.writeHead(200, {
+        "content-type": "application/json; charset=utf-8",
+        "cache-control": "no-cache",
+        etag: `W/"${body.length}"`,
+      });
+      res.end(body);
       return;
     }
     let file = join(root, p);
@@ -145,14 +195,26 @@ createServer(async (req, res) => {
       text = text.split("https://excalidraw.nyc3.cdn.digitaloceanspaces.com/oss/").join("/");
       if (ext === ".html") {
         text = text.replace(/<script>\/\/ need to load this script dynamically[\s\S]*?<\/script>/, "");
-        // 给 /assets/* 引用加版本参数：构建/改写更新后强制刷新浏览器缓存
-        // （避免旧的 immutable 缓存继续引用 CDN）
-        const v = Math.round(s.mtimeMs);
+        // 给 /assets/* 引用加版本参数：构建/改写更新后强制刷新浏览器缓存。
+        // 带上 SKILL_VERSION：serve 注入逻辑升级时 URL 必变，绕过 hashed 资源的 immutable 缓存。
+        const v = Math.round(s.mtimeMs) + "-" + SKILL_VERSION;
         text = text.replace(/"\/assets\/([^"??]+)"/g, (m, f) => `"/assets/${f}?v=${v}"`);
+        // 在 app 脚本执行前清空 localStorage 场景：避免 Excalidraw 先恢复上次整图，
+        // 造成"先看到整图 → bridge clear → 再渐进"的闪现。仅 watch 模式（默认）清空；
+        // ?nowatch=1 手动画布、#json= URL 场景均跳过。
+        var RESET_SCENE = '<script>try{if(!location.hash.startsWith("#json=")&&!/[?&]nowatch=1/.test(location.search)){localStorage.removeItem("excalidraw");localStorage.removeItem("excalidraw-state");}}catch(e){}<\/script>';
+        text = text.replace('<script type="module"', RESET_SCENE + '<script type="module"');
+        // 注入无刷新 Bridge 客户端（惰性封装，module 脚本执行前后加载都安全）。
+        text = text.replace("</body>", '<script src="/__bridge.js?v=' + v + '"></script></body>');
+      }
+      // 在线 patch 入口 JS：把 imperative API 暴露到 window，供 Bridge 无刷新调用。
+      // 仅匹配唯一注入点；若产物更新后匹配失败，则静默跳过（旧流程仍可用）。
+      if ((ext === ".js" || ext === ".mjs") && text.includes(BRIDGE_HOOK_NEEDLE)) {
+        text = text.replace(BRIDGE_HOOK_NEEDLE, BRIDGE_HOOK_REPLACEMENT);
       }
       data = Buffer.from(text, "utf8");
     }
-    const etag = `W/"${data.length}-${Math.round(s.mtimeMs * 1000)}"`;
+    const etag = `W/"${SKILL_VERSION}-${data.length}-${Math.round(s.mtimeMs * 1000)}"`;
     if (req.headers["if-none-match"] === etag) {
       res.writeHead(304, { etag });
       res.end();

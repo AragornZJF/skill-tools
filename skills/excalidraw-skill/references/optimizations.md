@@ -84,13 +84,13 @@ reload 后:            storedCount 42 / hasATM true / marker false（回写被�
 
 | # | 增强 | 原因 | 效果 |
 | --- | --- | --- | --- |
-| 1 | **`scripts/inject_and_shot.mjs` 零依赖 CDP 执行器** | 很多 agent 环境只有 shell，没有浏览器 agent；手写 CDP 验证可行但不应每次重写 | 自动确保服务 → headless Chrome/Edge → `/__blank` → 注入 → 导航 → 截图；Node 22 原生 `WebSocket`/`fetch`，零 npm 依赖 |
+| 1 | **`scripts/flow_shot.mjs` 零依赖 CDP 执行器**（原 `inject_and_shot.mjs`） | 很多 agent 环境只有 shell，没有浏览器 agent；手写 CDP 验证可行但不应每次重写 | 自动确保服务 → headless Chrome/Edge → 生成场景 → 渐进显示 → 截图验证；Node 22 原生 `WebSocket`/`fetch`，零 npm 依赖 |
 | 2 | **`gen_scene.mjs --out xxx.excalidraw`** | localStorage 只属于当前浏览器，跨浏览器/清缓存会丢 | 一条命令导出可打开、可编辑、可分享的 `.excalidraw` 文件 |
 | 3 | **默认绑定 text / arrow 到节点** | 原先 label 和 arrow 都是独立元素，手动拖动节点时不会跟随 | shape 设置 `boundElements`，text 设置 `containerId`，arrow 设置 `startBinding/endBinding`；`--no-bind` 可关闭 |
 | 4 | **绘制层级 shape → arrow → label** | 原先每个节点 `shape+label` 连续输出，箭头可能压住节点文字 | 所有箭头先于所有标签绘制，文字更清晰 |
 | 5 | **输入校验 + 清晰告警** | 非法 type 静默回退、重复 id / 悬空边难排查 | 输出到 stderr：重复 id、缺失节点、非法尺寸、自环警告；错误直接退出 1 |
 | 6 | **`/__health` 健康探针** | 只看 HTTP 200 无法区分新旧 `serve.mjs`；旧进程会带回 workbox SW | `curl http://localhost:5177/__health` 返回 `skillVersion`、根目录、空 SW/空白页/改写状态 |
-| 7 | **一键脚本自动起服务** | 只有 shell 时还要先手动起 `serve.mjs` | `inject_and_shot.mjs` 检测失败会后台启动内置 `app/`，再继续注入截图 |
+| 7 | **一键脚本自动起服务** | 只有 shell 时还要先手动起 `serve.mjs` | `flow_shot.mjs` 检测失败会后台启动内置 `app/`，再继续生成截图 |
 | 8 | **`gen_scene.mjs --batches`** | 大图一次性注入虽然快，但用户常希望“逐步长出来”；手写批次切片容易打乱依赖 | 规格增加 `batches`（节点 id + 边索引分组），一次生成 `full + batches`，元素 ID 全局稳定；每批按 `shape → arrow → label` 排序 |
-| 9 | **`inject_and_shot.mjs --batches`** | 渐进注入原来只能在浏览器 agent 里手写 append JS | 自动逐批读 localStorage、按 id 去重合并、静音 setItem、reload；批间等待 `--batch-delay`，最后统一截图 |
+| 9 | **`flow_shot.mjs` 渐进播放**（原 `inject_and_shot.mjs --batches`） | 渐进绘制原来靠 reload 逐批注入，会闪屏；现在通过 Bridge `addElements` 无刷新逐批长出来 | 写 `data/__batches.json` → 页面 watch 检测变化 → clear → 逐批 addElements；采样元素数确认渐进序列，最后统一截图 |
 | 10 | **批次模式视角锁定** | 若每批按自身边界缩放，画面会随批次增加不断跳动 | zoom/scroll 始终用 `full` 完整场景计算，从第一批到截图视角一致 |
