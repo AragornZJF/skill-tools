@@ -1,14 +1,22 @@
 # excalidraw-skill
 
-自包含、零 npm 依赖的 Excalidraw 画图技能：把「节点 + 连线」规格转成可编辑的 Excalidraw 场景，在本地白板中**渐进绘制**并截图验证。
+自包含、零 npm 依赖的 Excalidraw 画图技能：把「节点 + 连线」规格转成可编辑的 Excalidraw 场景，在**默认可视化浏览器**中渐进绘制，并截图验证。
 
-核心原则：**不要模拟鼠标点击工具栏逐笔绘制**。标准闭环：
+两条核心原则：
+
+1. **不要模拟鼠标点击工具栏逐笔绘制**。
+2. **优先使用默认可视化浏览器**：浏览器常驻，用户亲眼看到白板从空白逐批长出；headless 只用于截图验证。
+
+标准闭环：
 
 ```text
-写规格 JSON → flow_shot.mjs 生成场景 → 白板自动渐进加载 → 截图验证
+① open.mjs 启动服务 + 打开默认浏览器
+② gen_scene.mjs 生成合法场景并推送
+③ 白板从空白逐批长出（ExcalidrawBridge 驱动，全程无刷新）
+④ shot.mjs 截图验证
 ```
 
-全程无刷新（CDP 采样验证 `nav=1`）；Bridge 由 `serve.mjs` 在线注入，无需重新构建 app。
+Bridge 由 `serve.mjs` 在线注入，无需重新构建 app。
 
 ---
 
@@ -19,11 +27,12 @@ excalidraw-skill/
 ├── README.md                  # 本文件：目录总览 + 快速入口
 ├── SKILL.md                   # 使用说明书：怎么画、有哪些规矩、出问题怎么办
 ├── scripts/
-│   ├── gen_scene.mjs          # 规格 → Excalidraw scene / .excalidraw / 批次场景
-│   ├── flow_shot.mjs          # ★ 标准闭环：生成 → 渐进显示 → 截图验证
+│   ├── open.mjs               # ① 启动服务 + 打开默认浏览器
+│   ├── gen_scene.mjs          # ② 规格 → 合法场景；--push 推送到服务 dataDir
 │   ├── serve.mjs              # 本地静态服务器 + 在线注入 Bridge + 虚拟场景路由
 │   ├── bridge-client.js       # 注入到页面的 Bridge 客户端（window.ExcalidrawBridge）
-│   ├── open.mjs               # 启动服务 + 打开浏览器
+│   ├── shot.mjs               # ④ 截图验证（加载当前场景 → 截图 → 验收 count/nav）
+│   ├── flow_shot.mjs          # 无 GUI 环境一键替代：生成 → 渐进 → 截图验证
 │   └── replay_batches.mjs     # 触发已打开页面重播
 ├── references/                # 参考资料（改脚本时才用得上）
 │   ├── scene-schema.md        # 元素字段、绑定字段、batches 格式速查
@@ -37,27 +46,31 @@ excalidraw-skill/
 
 ---
 
-## 快速开始
+## 快速开始（4 步闭环）
 
-### 画一张图（一条命令）
+```bash
+# ① 启动服务 + 打开默认浏览器（页面常驻，自动 watch）
+node scripts/open.mjs
+
+# ② 写规格 scene.json（nodes + edges，复杂图加 batches）→ 生成并推送
+node scripts/gen_scene.mjs scene.json --batches --push
+
+# ③ 浏览器里白板从空白逐批长出（≤1.5s 内自动开始，全程无刷新；刷新/重开浏览器自动恢复当前图）
+#    手动改画布：控制台/agent 调 window.ExcalidrawBridge 的
+#    setScene / addElements / loadScene（方法表见 SKILL.md「Bridge API」）
+
+# ④ 截图验证（headless，验收 count == 期望元素数 && nav == 1）
+node scripts/shot.mjs --out shot.png
+```
+
+②③④ 改规格后重跑即可，全程 <10s；想再看一遍渐进播放：`node scripts/replay_batches.mjs`。
+
+### 无 GUI 环境（CI/远程）
+
+`flow_shot.mjs` 一条命令完成 ②③④（自拉 headless 白板页，渐进播放 + 采样验证 + 截图）：
 
 ```bash
 node scripts/flow_shot.mjs --scene scene.json --out shot.png --export scene.excalidraw
-```
-
-它在内部完成三步：
-
-1. 规格 JSON（含 `batches`）→ `gen_scene.mjs` 生成批次场景 → 写到服务 `data/__batches.json`
-2. 打开本地白板，从空白画布**逐批绘出**（无需 URL 参数）
-3. 采样元素数确认渐进过程，播放结束后截图
-
-输出示例：
-
-```text
-[1/3] JSON 已生成: 6 批 / 55 元素 → data/__batches.json
-[2/3] 渐进验证: 0 → 8 → 17 → 24 → 33 → 45 → 55  ✓ 逐批出现
-[3/3] 截图: shot.png
-      验收: {"count":55,"nav":1}（nav=1 表示全程无刷新）
 ```
 
 其他输入形式：
@@ -67,20 +80,14 @@ node scripts/flow_shot.mjs --batches data/__batches.json --out shot.png   # 已�
 node scripts/flow_shot.mjs --scene-json data/__scene.json --out shot.png  # 无 batches 时整图（单批）
 ```
 
-### 浏览器常驻模式（先开页面，再生成图）
+输出示例：
 
-```bash
-node scripts/open.mjs   # 启动服务（如未运行）+ 打开浏览器
+```text
+[1/3] JSON 已生成: 6 批 / 55 元素 → data/__batches.json
+[2/3] 渐进验证: 0 → 8 → 17 → 24 → 33 → 45 → 55  ✓ 逐批出现
+[3/3] 截图: shot.png
+      验收: {"count":55,"nav":1}（nav=1 表示全程无刷新）
 ```
-
-打开 `http://localhost:5177/` 后页面保持轮询：
-
-- **打开时不播旧图**（避免重复）；之后只要 `data/__batches.json` 内容变化，就播一次新图
-- 想再看一遍：`node scripts/replay_batches.mjs`
-- 想打开即播放已有图：URL 加 `?replay=1`
-- 节奏调节：`?delay=1500`（默认 700ms/批）
-- 关闭自动播放（手动画布）：`?nowatch=1`
-- 窗口最大化自动重新适配（可选 `?norefit=1` 关闭）
 
 ### 在浏览器里用 Bridge API
 
@@ -94,7 +101,7 @@ ExcalidrawBridge.setScene(elements, appState);           // 整图替换
 ExcalidrawBridge.zoomToFit();                            // 缩放居中
 ```
 
-完整方法表见 `SKILL.md`「Bridge API」。
+完整方法表见 `SKILL.md`。
 
 ---
 
@@ -121,7 +128,7 @@ ExcalidrawBridge.zoomToFit();                            // 缩放居中
 
 ## 关键约定
 
-- `gen_scene.mjs` 默认输出单行压缩 JSON：`{ elements, appState }`
+- `gen_scene.mjs` 默认输出单行压缩 JSON：`{ elements, appState }`；`--push` 写入服务 dataDir
 - `--out xxx.excalidraw` 导出可直接打开/分享的可编辑文件
 - 箭头端点自动吸附节点边界；复杂图建议手写 `x/y`
 - 中文宽度按全角估算，避免标签被裁切

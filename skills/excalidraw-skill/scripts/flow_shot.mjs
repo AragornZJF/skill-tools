@@ -145,12 +145,14 @@ try {
   mkdirSync(dataDir, { recursive: true });
   let fullCount;
   let batchCount = 0;
+  let fullScene; // 完整场景，写入 __scene.json 供 Bridge loadScene / shot.mjs 使用
   if (opt.batches) {
     const payload = JSON.parse(readFileSync(opt.batches, "utf8"));
     if (!payload.full || !Array.isArray(payload.batches)) throw new Error("--batches 文件缺 full/batches");
     writeFileSync(batchesFile, JSON.stringify(payload));
     fullCount = payload.full.elements.length;
     batchCount = payload.batches.length;
+    fullScene = payload.full;
   } else if (opt.scene) {
     const payload = JSON.parse(execFileSync(process.execPath, [genScene, opt.scene, "--batches"], {
       encoding: "utf8", cwd: skillDir,
@@ -158,6 +160,7 @@ try {
     writeFileSync(batchesFile, JSON.stringify(payload));
     fullCount = payload.full.elements.length;
     batchCount = payload.batches.length;
+    fullScene = payload.full;
   } else {
     const scene = JSON.parse(readFileSync(opt.sceneJson, "utf8"));
     writeFileSync(batchesFile, JSON.stringify({
@@ -166,8 +169,9 @@ try {
     }));
     fullCount = scene.elements.length;
     batchCount = 1;
+    fullScene = scene;
   }
-  writeFileSync(sceneFile, JSON.stringify({ elements: [], appState: {} }));
+  writeFileSync(sceneFile, JSON.stringify(fullScene));
   console.log(`[1/3] JSON 已生成: ${batchCount} 批 / ${fullCount} 元素 → data/__batches.json`);
 
   if (opt.exportTo) {
@@ -253,6 +257,8 @@ try {
   console.log(`[2/3] 渐进验证: ${uniq.join(" → ")}  ${progressive ? "✓ 逐批出现" : "✗ 未观察到渐进"}`);
 
   // ---- 第 3 步：截图验证 ----
+  const canvasAlive = await evaluate(`document.querySelectorAll('canvas').length > 0`);
+  if (!canvasAlive) throw new Error("画布已崩溃（canvas 消失）：请确认 serve.mjs 为最新（__health.boundsGuard）并重试");
   await sleep(600); // 等 canvas 重绘
   const shot = await client.send("Page.captureScreenshot", {
     format: "png", captureBeyondViewport: false, fromSurface: true,

@@ -94,3 +94,45 @@ reload 后:            storedCount 42 / hasATM true / marker false（回写被�
 | 8 | **`gen_scene.mjs --batches`** | 大图一次性注入虽然快，但用户常希望“逐步长出来”；手写批次切片容易打乱依赖 | 规格增加 `batches`（节点 id + 边索引分组），一次生成 `full + batches`，元素 ID 全局稳定；每批按 `shape → arrow → label` 排序 |
 | 9 | **`flow_shot.mjs` 渐进播放**（原 `inject_and_shot.mjs --batches`） | 渐进绘制原来靠 reload 逐批注入，会闪屏；现在通过 Bridge `addElements` 无刷新逐批长出来 | 写 `data/__batches.json` → 页面 watch 检测变化 → clear → 逐批 addElements；采样元素数确认渐进序列，最后统一截图 |
 | 10 | **批次模式视角锁定** | 若每批按自身边界缩放，画面会随批次增加不断跳动 | zoom/scroll 始终用 `full` 完整场景计算，从第一批到截图视角一致 |
+
+---
+
+## 八、2026-11-22 排障：整页崩溃（React 树卸载）的根因与三层防御
+
+现象：程序化注入场景后，画布间歇性消失（canvas 数 0、body 只剩 217 字节的 Suspense fallback）、
+截图全白；控制台 `TypeError: Cannot read properties of null (reading 'x')`（calculateBounds）
++ `Error: Missing Provider from createIsolation`，React 整树卸载且不再恢复。
+
+排查（CDP 时间线 + 最小复现矩阵）定位到 **两个独立根因**：
+
+### 根因 1：gen_scene 显式坐标节点不补宽高 → NaN → JSON null
+- 显式给 `x/y` 的节点跳过 autoLayout，而宽高默认值只在 autoLayout 分支里补；
+  `buildScene` 的 `ref = {...n}` 又用的是原始节点（无 width）
+- `borderPoint` 读 `undefined` → 坐标变 NaN → **`JSON.stringify` 把 NaN 序列化成 `null`**
+- 场景文件里出现 `x: null / points: [[0,0],[null,null]]` 的箭头
+- 应用 restore 后渲染时 `M(null)`（`typeof null == "object"` 陷阱）读 `null.x` 抛错
+- 修复：`makeNode` 无条件回写默认宽高到节点（`n.width = shape.width`）
+
+### 根因 2：app 的 initializeScene 与程序化更新竞态（应用自身 bug）
+- boot 时异步恢复 localStorage/URL 场景的 `initializeScene` 在挂载后 1.5~2.5s 才落地，
+  会把此前注入的内容清空/部分改写（字段置 null、元素丢失）
+- 若绑定箭头引用了被清掉的形状 → 绑定重算出 null 坐标 → 同样触发 calculateBounds 崩溃
+- 历史上"能跑通"是时序运气：wipe 恰好落在播放前的延迟窗口内
+
+### 三层防御（全部在 skill 层，不改 app 构建）
+| 层 | 机制 | 作用 |
+| --- | --- | --- |
+| 数据层 | gen_scene 宽高回写 | 消灭 NaN/null 数据源头 |
+| bridge 层 | 全量场景守卫（`lastFull` + 6s 周期检查：元素数缩水**或字段损坏** → 整图重放）+ `waitDomSettled`（boot 未稳不批量更新）+ 播放完成自愈 | wipe 竞态自愈，数据始终完整 |
+| 渲染层 | serve.mjs 在线 patch 入口 JS：`M(e,t)` 判改 `typeof e=="object"&&e`（null 降级为 NaN 边界） | 即使字段再损坏，也只是坏元素不渲染，不崩整树（`__health.boundsGuard`） |
+
+### 配套加固
+- `bridge-client.js` watch 修复 `JSON.parse(text)` 残留引用（重构笔误导致首轮轮询静默失败、永远不播放）
+- watch 用 `x-mtime-ms` 响应头区分"打开前旧图基线"与"打开后才推送的新图"，
+  消除"先 push、浏览器后加载完成导致新图被误记为基线"的竞态
+- `serve.mjs` 对 bridge-client.js 每请求读盘（改 bridge 不用重启服务）；SKILL_VERSION 递增破缓存
+- `shot.mjs`：UI 稳定等待（canvas + toolbar）→ 元素数到位 → 内容完整性检查 → canvas 存活检查 → 截图
+- `flow_shot.mjs`：截图前 canvas 存活检查；`__scene.json` 改写为完整场景（供 loadScene/shot 使用）
+
+验证：崩溃矩阵（setScene17 / add9 / add17 × 3 轮）修复前 100% 崩溃 → 修复后 0 崩溃；
+flow_shot 渐进序列 `2 → 8 → 17 ✓`，nav=1；shot.mjs `17 元素全部渲染 ✓`；截图目检 5 节点 5 箭头 2 边标签完整。

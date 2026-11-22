@@ -8,6 +8,8 @@
  *   node gen_scene.mjs scene.json --out a.excalidraw
  *   node gen_scene.mjs scene.json --out a.json --pretty
  *   node gen_scene.mjs scene.json --no-bind       # 不绑定 text/arrow 到节点
+ *   node gen_scene.mjs scene.json --batches --push [--url http://localhost:5177]
+ *       # 生成批次场景并推送到服务 dataDir（自动拉起服务）；已打开的白板页会自动渐进播放
  *
  * 规格格式:
  * {
@@ -25,7 +27,9 @@
  * 未指定 x/y 的节点会按连线关系做简单纵向分层布局。
  */
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
 
 let idCounter = 0;
 const rand = () => Math.floor(Math.random() * 2 ** 31);
@@ -216,6 +220,9 @@ function makeNode(n, bind) {
       centerY: n.y,
       fontSize: n.fontSize,
     });
+    // 回写测量后的宽高：后续 borderPoint/label 定位要用（NaN 会经 JSON.stringify 变 null！）
+    n.width = text.width;
+    n.height = text.height;
     return { shape: text, label: null, isShape: false };
   }
 
@@ -224,8 +231,13 @@ function makeNode(n, bind) {
     height,
     backgroundColor: n.backgroundColor ?? "transparent",
     strokeColor: n.strokeColor ?? "#1e1e1e",
+    strokeWidth: n.strokeWidth,
     roundness: n.rounded ? { type: 3 } : (n.roundness ?? null),
   });
+  // 回写默认后的宽高：显式给 x/y 的节点不走 autoLayout，不会在布局分支里补默认值，
+  // 若不回写，makeEdge 的 borderPoint 会读到 undefined → NaN → JSON 里变 null → 应用崩溃
+  n.width = shape.width;
+  n.height = shape.height;
   let label = null;
   if (n.label) {
     label = makeText(n.label, {
@@ -407,6 +419,8 @@ let out = null;
 let pretty = false;
 let bind = true;
 let batchesMode = false;
+let push = false;
+let baseUrl = "http://localhost:5177";
 
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
@@ -415,6 +429,8 @@ for (let i = 0; i < args.length; i++) {
   else if (a === "--pretty") pretty = true;
   else if (a === "--no-bind") bind = false;
   else if (a === "--batches") batchesMode = true;
+  else if (a === "--push") push = true;
+  else if (a === "--url") baseUrl = args[++i];
   else if (a === "--scene") arg = args[++i];
   else if (!a.startsWith("-") && arg == null) arg = a;
   else {
@@ -424,7 +440,7 @@ for (let i = 0; i < args.length; i++) {
 }
 
 if (!arg) {
-  console.error("用法: node gen_scene.mjs <scene.json | --demo> [--out file] [--pretty] [--no-bind] [--batches]");
+  console.error("用法: node gen_scene.mjs <scene.json | --demo> [--out file] [--pretty] [--no-bind] [--batches] [--push] [--url http://localhost:5177]");
   process.exit(1);
 }
 if (out && !pretty && out.endsWith(".excalidraw")) pretty = false;
@@ -472,6 +488,59 @@ if (out) {
     ? `${payload.batches.length} batches, ${scene.elements.length} elements`
     : `${scene.elements.length} elements`;
   console.log(`wrote ${out} (${summary}${bind ? ", bound" : ""})`);
-} else {
+} else if (!push) {
   process.stdout.write(json);
+}
+
+// ---------- --push：推送到本地白板服务（浏览器常驻工作流的第 ② 步） ----------
+// 服务已在跑 → 从 /__health 拿真实 dataDir 再写；没在跑 → 自动拉起 serve.mjs。
+// 同时写 __batches.json（watch 渐进播放）和 __scene.json（Bridge loadScene / 截图验证用）。
+const sleepMs = (ms) => new Promise((r) => setTimeout(r, ms));
+const scriptDir = dirname(fileURLToPath(import.meta.url));
+
+async function probeHealth(base) {
+  try {
+    const u = new URL("/__health", base);
+    if (u.hostname === "localhost") u.hostname = "127.0.0.1"; // Windows 下 localhost 可能解析到 ::1
+    const r = await fetch(u.href, { signal: AbortSignal.timeout(1200) });
+    if (r.ok) return await r.json();
+  } catch {}
+  return null;
+}
+
+if (push) {
+  let health = await probeHealth(baseUrl);
+  let started = false;
+  if (!health) {
+    const u = new URL(baseUrl);
+    const port = u.port || (u.protocol === "https:" ? "443" : "80");
+    const child = spawn(
+      process.execPath,
+      [resolve(scriptDir, "serve.mjs"), resolve(scriptDir, "..", "app"), String(port)],
+      { detached: true, stdio: "ignore" },
+    );
+    child.unref();
+    for (let i = 0; i < 50 && !health; i++) {
+      await sleepMs(200);
+      health = await probeHealth(baseUrl);
+    }
+    started = !!health;
+  }
+  if (!health) {
+    console.error(`ERROR: 本地服务启动失败: ${baseUrl}`);
+    process.exit(1);
+  }
+  const dataDir = health.dataDir ?? resolve(scriptDir, "..", "data");
+  const batchesPayload = batchesMode
+    ? payload
+    : { full: scene, batches: [{ name: "全图", elements: scene.elements }] };
+  mkdirSync(dataDir, { recursive: true });
+  writeFileSync(join(dataDir, "__batches.json"), JSON.stringify(batchesPayload));
+  writeFileSync(join(dataDir, "__scene.json"), JSON.stringify(scene));
+  console.log(
+    `pushed: ${batchesPayload.batches.length} 批 / ${scene.elements.length} 元素 → ${dataDir}` +
+      (started ? "（服务已自动拉起）" : ""),
+  );
+  console.log("浏览器常驻页面将在 ≤1.5s 内自动渐进播放（白板从空白逐批长出，无刷新）");
+  console.log("截图验证: node scripts/shot.mjs --out shot.png");
 }

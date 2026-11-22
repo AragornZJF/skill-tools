@@ -34,7 +34,7 @@ const root = resolve(process.argv[2] ?? join(scriptDir, "..", "app"));
 // /__batches.json 与 /__scene.json 由下面的虚拟路由从此处提供（URL 保持不变）。
 const dataDir = resolve(scriptDir, "..", "data");
 const port = Number(process.argv[3] ?? 5177);
-const SKILL_VERSION = "2026-11-21-bridge1";
+const SKILL_VERSION = "2026-11-22-loop4";
 
 // 无刷新 Bridge：在线 patch 入口 JS，在 Excalidraw 组件 componentDidMount 里拿到
 // imperative API（this.api）并挂到 window。注入点在当前生产构建中全局唯一；
@@ -46,8 +46,15 @@ const BRIDGE_HOOK_REPLACEMENT =
   'window.__EXCALIDRAW_API__=this.api;window.dispatchEvent(new Event("excalidraw:ready"));' +
   BRIDGE_HOOK_NEEDLE;
 
-// Bridge 客户端单独成文件，便于维护/测试；从磁盘读取后由 /__bridge.js 提供。
-const BRIDGE_JS = await readFile(join(scriptDir, "bridge-client.js"), "utf8");
+// Bounds null 防御补丁：本构建存在场景调和 bug——boot 未稳时连续 updateScene 会把部分元素坐标
+// 写成 null，渲染时 M(null) 读 null.x 抛 TypeError，React 整树卸载卡死在 Suspense fallback。
+// 把 M 的 typeof 判改为 e 真值判断（typeof null == "object" 陷阱），null 坐标降级为 NaN 边界：
+// 坏元素不渲染，其余正常，配合 bridge 的 heal 自愈。needle 不匹配（产物更新）时静默跳过。
+const M_GUARD_NEEDLE = 'function M(e,t){return typeof e=="object"?[e.x,e.y]:[e,t]}';
+const M_GUARD_REPLACEMENT = 'function M(e,t){return typeof e=="object"&&e?[e.x,e.y]:[e,t]}';
+
+// Bridge 客户端单独成文件，便于维护/测试；每次请求时读盘（改完即时生效），启动时读一份作兑底。
+let BRIDGE_JS = await readFile(join(scriptDir, "bridge-client.js"), "utf8");
 
 const MIME = {
   ".html": "text/html; charset=utf-8",
@@ -120,6 +127,7 @@ createServer(async (req, res) => {
         noopSW: true,
         blankPage: true,
         cdnRewrite: true,
+        boundsGuard: true,
         bridge: true,
         bridgeApiKey: "__EXCALIDRAW_API__",
         bridgeGlobal: "ExcalidrawBridge",
@@ -139,6 +147,7 @@ createServer(async (req, res) => {
     }
     // 无刷新 Bridge 客户端：window.ExcalidrawBridge（惰性封装，幂等可重复加载）。
     if (p === "/__bridge.js") {
+      try { BRIDGE_JS = await readFile(join(scriptDir, "bridge-client.js"), "utf8"); } catch {}
       res.writeHead(200, {
         "content-type": "text/javascript; charset=utf-8",
         "cache-control": "no-cache",
@@ -148,19 +157,24 @@ createServer(async (req, res) => {
     }
     // 虚拟场景路由：从 data/ 提供，app/ 里无需放置任何运行时文件。
     // 缺失时返回 200 + 空批次，watcher 静默等待，不报错。
+    // x-mtime-ms：数据文件修改时间，供 bridge watch 区分"打开前已存在的旧图"与"打开后才推送的新图"。
     if (p === "/__batches.json" || p === "/__scene.json") {
       const name = p.slice(1);
       let payload = p === "/__batches.json"
         ? { full: { elements: [], appState: {} }, batches: [] }
         : { elements: [], appState: {} };
+      let mtimeMs = 0;
       try {
+        const st = await stat(join(dataDir, name));
         payload = JSON.parse(await readFile(join(dataDir, name), "utf8"));
+        mtimeMs = Math.round(st.mtimeMs);
       } catch {}
       const body = JSON.stringify(payload);
       res.writeHead(200, {
         "content-type": "application/json; charset=utf-8",
         "cache-control": "no-cache",
         etag: `W/"${body.length}"`,
+        "x-mtime-ms": String(mtimeMs),
       });
       res.end(body);
       return;
@@ -211,6 +225,9 @@ createServer(async (req, res) => {
       // 仅匹配唯一注入点；若产物更新后匹配失败，则静默跳过（旧流程仍可用）。
       if ((ext === ".js" || ext === ".mjs") && text.includes(BRIDGE_HOOK_NEEDLE)) {
         text = text.replace(BRIDGE_HOOK_NEEDLE, BRIDGE_HOOK_REPLACEMENT);
+      }
+      if ((ext === ".js" || ext === ".mjs") && text.includes(M_GUARD_NEEDLE)) {
+        text = text.replace(M_GUARD_NEEDLE, M_GUARD_REPLACEMENT);
       }
       data = Buffer.from(text, "utf8");
     }
